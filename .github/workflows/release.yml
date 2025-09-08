@@ -35,6 +35,13 @@ jobs:
       - name: Run tests
         run: npm run test:run
 
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Update package.json version
+        run: npm version ${{ steps.get_version.outputs.VERSION }} --no-git-tag-version
+
       - name: Build
         run: npm run build
 
