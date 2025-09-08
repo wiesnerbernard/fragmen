@@ -3,6 +3,7 @@
   "description": "A utility library to copy code fragments into your project",
   "version": "0.0.2",
   "type": "module",
+  "license": "MIT",
   "bin": {
     "fragmen": "./dist/cli.js"
   },
@@ -13,6 +14,14 @@
     "dist",
     "registry"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wiesnerbernard/fragmen.git"
+  },
+  "author": {
+    "name": "Bernard Wiesner",
+    "email": "brtyu941@gmail.com"
+  },
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
