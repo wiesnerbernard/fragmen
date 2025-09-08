@@ -1,5 +1,11 @@
 {
-    "cSpell.words": [
-        "Fragmen"
-    ]
+  "cSpell.words": ["Fragmen"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "eslint.validate": ["typescript"],
+  "typescript.preferences.importModuleSpecifier": "relative"
 }

@@ -4,6 +4,24 @@
 
 Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript utility functions directly into your project. Instead of adding another dependency to your `package.json`, you get the source code. You own it, you can change it, and you won't have to worry about bundle size or breaking changes from a third-party library.
 
+## Table of Contents
+
+- [Core Philosophy](#core-philosophy)
+- [Getting Started](#getting-started)
+  - [1. Initialize Project](#1-initialize-project)
+  - [2. Add a Fragment](#2-add-a-fragment)
+- [Available Fragments](#available-fragments)
+  - [Array Utilities](#array-utilities)
+  - [Boolean Utilities](#boolean-utilities)
+  - [Function Utilities](#function-utilities)
+  - [JSON Utilities](#json-utilities)
+  - [Object Utilities](#object-utilities)
+  - [Promise Utilities](#promise-utilities)
+  - [String Utilities](#string-utilities)
+- [CLI Commands](#cli-commands)
+- [Contributing](#contributing)
+- [License](#license)
+
 ---
 
 ## Core Philosophy
@@ -49,10 +67,9 @@ This will add the file to your project at the specified path:
 
 ```
 your-project/
-└── lib/
+└── src/
     └── utils/
-        └── string/
-            └── capitalize.ts   <-- Your new fragment!
+        └── capitalize.ts   <-- Your new fragment!
 ```
 
 Now you can import it and use it anywhere in your project:
@@ -67,15 +84,147 @@ console.log(capitalize('hello world')); // "Hello world"
 
 ## Available Fragments
 
-This is the initial set of available fragments. The registry will grow over time.
+This is the registry of available utility functions organized by category. Each utility is thoroughly tested and documented.
 
-- `string/capitalize`: Capitalizes the first letter of a string.
-- `array/groupBy`: Groups an array of objects by a key.
-- `array/unique`: Returns an array with only unique values.
-- `object/pick`: Creates an object with a subset of keys.
-- `function/debounce`: Delays function execution.
-- `json/safeParse`: Parses JSON without throwing an error.
-- `promise/delay`: A promise-based `setTimeout`.
+### Array Utilities
+
+#### `array/group-by`
+
+Groups the elements of an array based on the result of a callback function.
+
+```typescript
+import { groupBy } from './lib/utils/array-group-by';
+
+const users = [
+  { name: 'Alice', department: 'Engineering' },
+  { name: 'Bob', department: 'Marketing' },
+  { name: 'Charlie', department: 'Engineering' },
+];
+
+const byDepartment = groupBy(users, user => user.department);
+// Result: { Engineering: [Alice, Charlie], Marketing: [Bob] }
+```
+
+#### `array/unique`
+
+Returns a new array with only unique elements from the input array.
+
+```typescript
+import { unique } from './lib/utils/array-unique';
+
+const numbers = [1, 2, 2, 3, 1, 4];
+const uniqueNumbers = unique(numbers);
+// Result: [1, 2, 3, 4]
+```
+
+### Boolean Utilities
+
+#### `boolean/is-falsy`
+
+Checks if a value is falsy (false, 0, "", null, undefined, NaN).
+
+```typescript
+import { isFalsy } from './lib/utils/boolean-is-falsy';
+
+isFalsy(''); // true
+isFalsy(0); // true
+isFalsy('hello'); // false
+```
+
+#### `boolean/is-truthy`
+
+Checks if a value is truthy (anything that is not falsy).
+
+```typescript
+import { isTruthy } from './lib/utils/boolean-is-truthy';
+
+isTruthy('hello'); // true
+isTruthy([]); // true
+isTruthy(0); // false
+```
+
+### Function Utilities
+
+#### `function/debounce`
+
+Creates a debounced function that delays invoking until after wait milliseconds have elapsed.
+
+```typescript
+import { debounce } from './lib/utils/function-debounce';
+
+const handleSearch = (query: string) => console.log('Searching:', query);
+const debouncedSearch = debounce(handleSearch, 300);
+
+debouncedSearch('a'); // Canceled
+debouncedSearch('ap'); // Canceled
+debouncedSearch('app'); // Executes after 300ms
+```
+
+### JSON Utilities
+
+#### `json/safe-parse`
+
+Safely parses a JSON string, returning undefined if parsing fails.
+
+```typescript
+import { safeParse } from './lib/utils/json-safe-parse';
+
+const validJson = '{"name": "John"}';
+const result = safeParse<{ name: string }>(validJson);
+// Result: { name: "John" }
+
+const invalidJson = '{name: "John"}';
+const failed = safeParse(invalidJson);
+// Result: undefined
+```
+
+### Object Utilities
+
+#### `object/pick`
+
+Creates a new object composed of the picked object properties.
+
+```typescript
+import { pick } from './lib/utils/object-pick';
+
+const user = { id: 1, name: 'John', email: 'john@example.com', age: 30 };
+const publicInfo = pick(user, ['id', 'name']);
+// Result: { id: 1, name: 'John' }
+```
+
+### Promise Utilities
+
+#### `promise/delay`
+
+Returns a promise that resolves after a given number of milliseconds.
+
+```typescript
+import { delay } from './lib/utils/promise-delay';
+
+// Simple delay
+await delay(1000); // Wait 1 second
+console.log('This runs after 1 second');
+
+// Rate limiting
+for (const item of items) {
+  await processItem(item);
+  await delay(100); // 100ms between each item
+}
+```
+
+### String Utilities
+
+#### `string/capitalize`
+
+Capitalizes the first letter of a string while leaving the rest unchanged.
+
+```typescript
+import { capitalize } from './lib/utils/string-capitalize';
+
+capitalize('hello world'); // 'Hello world'
+capitalize('javaScript'); // 'JavaScript'
+capitalize(''); // ''
+```
 
 ---
 

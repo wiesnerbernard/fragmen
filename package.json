@@ -7,28 +7,57 @@
     "fragmen": "./dist/cli.js"
   },
   "engines": {
-  "node": ">=18.0.0"
+    "node": ">=18.0.0"
   },
   "files": [
-  "dist",
-  "registry"
+    "dist",
+    "registry"
   ],
   "scripts": {
     "build": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "quality": "npm run lint && npm run format:check && npm run type-check",
+    "quality:fix": "npm run lint:fix && npm run format",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "dev": "npm run build && node dist/cli.js",
     "release:patch": "npm version patch && git push && git push --tags",
     "release:minor": "npm version minor && git push && git push --tags",
-    "release:major": "npm version major && git push && git push --tags"
+    "release:major": "npm version major && git push && git push --tags",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/eslint__js": "^8.42.3",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^24.3.1",
     "@types/prompts": "^2.4.9",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
     "typescript": "^5.9.2",
+    "typescript-eslint": "^8.43.0",
     "vitest": "^3.2.4"
   },
   "dependencies": {
     "commander": "^14.0.0",
     "fs-extra": "^11.3.1",
     "prompts": "^2.4.2"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
   }
 }

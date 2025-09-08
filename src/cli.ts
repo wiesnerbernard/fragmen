@@ -25,7 +25,7 @@ async function loadConfig() {
     $schema: SCHEMA_URL,
     baseDir: 'lib/utils',
     language: 'ts',
-    moduleSystem: 'esm'
+    moduleSystem: 'esm',
   };
 }
 
@@ -37,14 +37,14 @@ program
   .command('init')
   .description('Initialize fragmen configuration')
   .action(async () => {
-    console.log('🚀 Welcome to Fragmen! Let\'s set up your configuration.\n');
+    console.log("🚀 Welcome to Fragmen! Let's set up your configuration.\n");
 
     const questions: prompts.PromptObject[] = [
       {
         type: 'text',
         name: 'baseDir',
         message: 'Where should utility functions be copied?',
-        initial: 'lib/utils'
+        initial: 'lib/utils',
       },
       {
         type: 'select',
@@ -52,9 +52,9 @@ program
         message: 'Which language are you using?',
         choices: [
           { title: 'TypeScript', value: 'ts' },
-          { title: 'JavaScript', value: 'js' }
+          { title: 'JavaScript', value: 'js' },
         ],
-        initial: 0
+        initial: 0,
       },
       {
         type: 'select',
@@ -62,14 +62,14 @@ program
         message: 'Which module system?',
         choices: [
           { title: 'ESM (import/export)', value: 'esm' },
-          { title: 'CommonJS (require/module.exports)', value: 'cjs' }
+          { title: 'CommonJS (require/module.exports)', value: 'cjs' },
         ],
-        initial: 0
-      }
+        initial: 0,
+      },
     ];
 
     const response = await prompts(questions);
-    
+
     // Check if user cancelled
     if (Object.keys(response).length !== questions.length) {
       console.log('\n❌ Configuration cancelled.');
@@ -79,12 +79,14 @@ program
     const configPath = path.join(process.cwd(), CONFIG_FILE);
     const configWithSchema = {
       $schema: SCHEMA_URL,
-      ...response
+      ...response,
     };
     await fs.writeJson(configPath, configWithSchema, { spaces: 2 });
-    
+
     console.log(`\n✅ Configuration saved to ${CONFIG_FILE}`);
-    console.log('🎉 You can now use `fragmen add <utility>` to add utilities to your project!');
+    console.log(
+      '🎉 You can now use `fragmen add <utility>` to add utilities to your project!'
+    );
   });
 
 program
@@ -100,9 +102,15 @@ program
     // Use ESM-compatible __dirname
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const sourcePath = path.join(__dirname, '..', 'registry', ...slug.split('/'), 'index.ts');
+    const sourcePath = path.join(
+      __dirname,
+      '..',
+      'registry',
+      ...slug.split('/'),
+      'index.ts'
+    );
 
-    if (!await fs.pathExists(sourcePath)) {
+    if (!(await fs.pathExists(sourcePath))) {
       console.error(`❌ Fragmen "${slug}" not found.`);
       process.exit(1);
     }

@@ -11,6 +11,9 @@ describe('groupBy', () => {
   it('groups objects by property', () => {
     const arr = [{ type: 'a' }, { type: 'b' }, { type: 'a' }];
     const result = groupBy(arr, obj => obj.type);
-    expect(result).toEqual({ a: [{ type: 'a' }, { type: 'a' }], b: [{ type: 'b' }] });
+    expect(result).toEqual({
+      a: [{ type: 'a' }, { type: 'a' }],
+      b: [{ type: 'b' }],
+    });
   });
 });
