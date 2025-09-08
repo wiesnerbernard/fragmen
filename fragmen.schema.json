@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Fragmen Configuration",
+  "description": "Configuration for the fragmen utility library",
+  "type": "object",
+  "properties": {
+    "baseDir": {
+      "type": "string",
+      "description": "Directory where utility functions will be copied",
+      "default": "src/utils"
+    },
+    "language": {
+      "type": "string",
+      "enum": ["js", "ts"],
+      "description": "Programming language",
+      "default": "ts"
+    },
+    "moduleSystem": {
+      "type": "string",
+      "enum": ["esm", "cjs"],
+      "description": "Module system to use",
+      "default": "esm"
+    }
+  },
+  "required": ["baseDir", "language", "moduleSystem"],
+  "additionalProperties": false
+}
