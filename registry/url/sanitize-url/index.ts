@@ -94,10 +94,10 @@ export function sanitizeUrl(
         const proto = cleanUrl.slice(0, colonIndex + 1); // e.g. 'mailto:'
         const rest = cleanUrl.slice(colonIndex + 1);
         // For mailto, tel, sms, encode the address/number part, but preserve query/hash
-        const [addressPart, queryHash] = rest.split(/([?#].*)/, 2);
+        const [addressPart, separator, queryHash] = rest.split(/([?#])(.*)/, 3);
         const encoded = encodeURIComponent(addressPart || '');
-        // queryHash may be undefined or empty
-        sanitized = proto + encoded + (queryHash || '');
+        // separator may be '?' or '#', queryHash may be undefined or empty
+        sanitized = proto + encoded + (separator || '') + (queryHash || '');
       } else {
         sanitized = cleanUrl;
       }

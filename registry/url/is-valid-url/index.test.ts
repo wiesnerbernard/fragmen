@@ -170,4 +170,29 @@ describe('isValidUrl', () => {
     expect(isValidUrl('http://::1', { allowLocalhost: false })).toBe(false);
     expect(isValidUrl('http://::', { allowIp: false })).toBe(false); // Should hit IPv6 :: pattern
   });
+
+  it('should validate compressed and IPv4-mapped IPv6 addresses', () => {
+    expect(isValidUrl('http://[2001:db8::1]')).toBe(true);
+    expect(isValidUrl('http://[fe80::1ff:fe23:4567:890a]')).toBe(true);
+    expect(isValidUrl('http://[::ffff:192.168.1.1]')).toBe(true);
+    expect(isValidUrl('http://[::]')).toBe(true);
+    expect(isValidUrl('http://[::1]')).toBe(true);
+    expect(isValidUrl('http://[2001:db8:0:0:0:0:2:1]')).toBe(true);
+    expect(isValidUrl('http://[2001:db8:0:0:0::2:1]')).toBe(true);
+    expect(isValidUrl('http://[2001:db8::2:1]')).toBe(true);
+    expect(isValidUrl('http://[::ffff:0c22:384e]')).toBe(true);
+    expect(isValidUrl('http://[::ffff:192.0.2.128]')).toBe(true);
+  });
+
+  it('should reject invalid IPv6 addresses', () => {
+    expect(isValidUrl('http://[2001:db8:::1]')).toBe(false);
+    expect(isValidUrl('http://[2001:db8:85a3::8a2e:370:7334:12345]')).toBe(
+      false
+    );
+    expect(isValidUrl('http://[2001:db8:85a3:0:0:8a2e:370:7334:12345]')).toBe(
+      false
+    );
+    expect(isValidUrl('http://[gggg:db8::1]')).toBe(false);
+    expect(isValidUrl('http://[2001:db8::g]')).toBe(false);
+  });
 });
