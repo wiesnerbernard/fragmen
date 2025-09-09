@@ -35,7 +35,7 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:coverage:watch": "vitest --coverage",
-    "test:coverage:open": "vitest run --coverage && npx open-cli coverage/index.html",
+    "test:coverage:open": "vitest run --coverage && ( [ \"$OSTYPE\" = \"darwin\" ] && npx open-cli coverage/index.html || npx open-cli coverage/index.html || start coverage/index.html || xdg-open coverage/index.html )",
     "test:coverage:check": "node scripts/coverage.js check",
     "dev": "npm run build && node dist/cli.js",
     "release:patch": "npm version patch && git push && git push --tags",
