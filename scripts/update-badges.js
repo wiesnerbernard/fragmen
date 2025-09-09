@@ -98,10 +98,7 @@ function updateReadme(coverageData) {
     const firstHeadingMatch = readmeContent.match(/^(# .+$)/m);
     if (firstHeadingMatch) {
       // Use .index if available, otherwise fallback to indexOf
-      const headingIndex =
-        typeof firstHeadingMatch.index === 'number'
-          ? firstHeadingMatch.index
-          : readmeContent.indexOf(firstHeadingMatch[0]);
+      const headingIndex = firstHeadingMatch.index;
       const firstHeadingEnd = readmeContent.indexOf('\n', headingIndex) + 1;
       const before = readmeContent.substring(0, firstHeadingEnd);
       const after = readmeContent.substring(firstHeadingEnd);
