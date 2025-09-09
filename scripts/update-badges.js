@@ -97,7 +97,6 @@ function updateReadme(coverageData) {
     // Add badges section after the first heading
     const firstHeadingMatch = readmeContent.match(/^(# .+$)/m);
     if (firstHeadingMatch) {
-      // .index is present here because the match succeeded (see if block)
       const headingIndex = firstHeadingMatch.index;
       const firstHeadingEnd = readmeContent.indexOf('\n', headingIndex) + 1;
       const before = readmeContent.substring(0, firstHeadingEnd);
