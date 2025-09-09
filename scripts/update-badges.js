@@ -5,7 +5,7 @@
  * Automatically updates README.md with current coverage badges
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 
 const README_PATH = 'README.md';
@@ -58,21 +58,20 @@ function getCoverageColor(percentage) {
   return 'red';
 }
 
-function generateBadgeMarkdown(label, percentage) {
+function createBadge(label, percentage) {
   const color = getCoverageColor(percentage);
-  const badgeUrl = `https://img.shields.io/badge/coverage--${label}-${percentage}%25-${color}`;
-  return `![Coverage ${label}](${badgeUrl})`;
+  return `![${label}](https://img.shields.io/badge/${label.toLowerCase()}-${percentage}%25-${color})`;
 }
 
 function generateBadgesSection(coverageData) {
   const overallCoverage = calculateOverallCoverage(coverageData);
 
   return `${BADGE_START_MARKER}
-![Coverage](https://img.shields.io/badge/coverage-${overallCoverage}%25-${getCoverageColor(overallCoverage)})
-![Lines](https://img.shields.io/badge/lines-${coverageData.lines}%25-${getCoverageColor(coverageData.lines)})
-![Branches](https://img.shields.io/badge/branches-${coverageData.branches}%25-${getCoverageColor(coverageData.branches)})
-![Functions](https://img.shields.io/badge/functions-${coverageData.functions}%25-${getCoverageColor(coverageData.functions)})
-![Statements](https://img.shields.io/badge/statements-${coverageData.statements}%25-${getCoverageColor(coverageData.statements)})
+${createBadge('Coverage', overallCoverage)}
+${createBadge('Lines', coverageData.lines)}
+${createBadge('Branches', coverageData.branches)}
+${createBadge('Functions', coverageData.functions)}
+${createBadge('Statements', coverageData.statements)}
 ${BADGE_END_MARKER}`;
 }
 
