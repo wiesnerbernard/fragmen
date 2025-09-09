@@ -3,10 +3,10 @@
 <!-- COVERAGE-BADGES:START -->
 
 ![Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
-![Lines](https://img.shields.io/badge/lines-98.81%25-brightgreen)
-![Branches](https://img.shields.io/badge/branches-97.57%25-brightgreen)
+![Lines](https://img.shields.io/badge/lines-99.14%25-brightgreen)
+![Branches](https://img.shields.io/badge/branches-98.26%25-brightgreen)
 ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen)
-![Statements](https://img.shields.io/badge/statements-98.81%25-brightgreen)
+![Statements](https://img.shields.io/badge/statements-99.14%25-brightgreen)
 
 <!-- COVERAGE-BADGES:END -->
 

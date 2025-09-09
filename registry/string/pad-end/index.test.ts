@@ -1,0 +1,25 @@
+import { describe, expect, it } from 'vitest';
+import { padEnd } from '.';
+
+describe('padEnd', () => {
+  it('should pad the string to the target length', () => {
+    expect(padEnd('a', 5, '0')).toBe('a0000');
+  });
+
+  it('should not pad if the string is already at or beyond the target length', () => {
+    expect(padEnd('abcde', 5)).toBe('abcde');
+    expect(padEnd('abcdef', 5)).toBe('abcdef');
+  });
+
+  it('should use a space as the default padding character', () => {
+    expect(padEnd('a', 3)).toBe('a  ');
+  });
+
+  it('should handle longer padding strings correctly', () => {
+    expect(padEnd('a', 5, 'xyz')).toBe('axyzx');
+  });
+
+  it('should handle an empty string', () => {
+    expect(padEnd('', 3, '*')).toBe('***');
+  });
+});
