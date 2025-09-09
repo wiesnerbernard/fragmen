@@ -40,15 +40,7 @@ jobs:
         run: npm run test:run
 
       - name: Generate coverage report
-        run: npm run test:coverage
-
-      - name: Upload coverage to Codecov
-        if: matrix.node-version == 20
-        uses: codecov/codecov-action@v4
-        with:
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
+        run: npm run test:coverage:ci
 
       - name: Test build
         run: npm run build
