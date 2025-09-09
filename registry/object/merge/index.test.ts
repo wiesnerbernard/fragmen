@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { merge } from './index';
 
 describe('merge', () => {
@@ -45,7 +45,7 @@ describe('merge', () => {
 
   it('should handle null and undefined inputs', () => {
     const obj1 = { a: 1 };
-    const result = merge(obj1, null, undefined, { b: 2 });
+    const result = merge(obj1, null as any, undefined, { b: 2 });
     expect(result).toEqual({ a: 1, b: 2 });
   });
 
