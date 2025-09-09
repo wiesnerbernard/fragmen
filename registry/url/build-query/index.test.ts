@@ -206,4 +206,52 @@ describe('buildQuery', () => {
     expect(buildQuery(null as any, { sort: true, prefix: true })).toBe('?');
     expect(buildQuery(null as any, { skipEncoding: true })).toBe('');
   });
+
+  it('should handle deeply nested objects reaching maxDepth to cover depth limit edge case', () => {
+    // This covers line 85: when currentDepth reaches maxDepth - 1
+    const deepObj = {
+      level1: {
+        level2: {
+          level3: {
+            level4: {
+              level5: {
+                level6: 'deep value', // Stop at level 6 to test depth limit
+              },
+            },
+          },
+        },
+      },
+    };
+    expect(buildQuery(deepObj, { maxDepth: 5 })).toBe(
+      'level1%5Blevel2%5D%5Blevel3%5D%5Blevel4%5D%5Blevel5%5D%5Blevel6%5D=deep%20value'
+    );
+  });
+
+  it('should handle arrays with mixed null/undefined and valid values to cover validValues.length check', () => {
+    // This covers line 151: when validValues.length > 0 in handleArrayValue
+    const params = { tags: [null, 'hello', undefined, 'world', null] };
+    expect(buildQuery(params)).toBe('tags=hello&tags=world');
+  });
+
+  it('should handle deeply nested objects with null values to cover flattenObject edge case', () => {
+    // This covers the case where flatValue is null/undefined in the flattened object processing
+    const params = { level1: { level2: { level3: null } } };
+    expect(buildQuery(params)).toBe('');
+  });
+
+  it('should handle arrays with brackets format and skipEncoding to cover encodedKey branches', () => {
+    // This covers the brackets case with skipEncoding
+    const params = { tags: ['hello', 'world'] };
+    expect(
+      buildQuery(params, { arrayFormat: 'brackets', skipEncoding: true })
+    ).toBe('tags[]=hello&tags[]=world');
+  });
+
+  it('should handle arrays with comma format and skipEncoding to cover comma case branches', () => {
+    // This covers the comma case with skipEncoding
+    const params = { tags: ['hello', 'world'] };
+    expect(
+      buildQuery(params, { arrayFormat: 'comma', skipEncoding: true })
+    ).toBe('tags=hello,world');
+  });
 });

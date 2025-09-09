@@ -142,13 +142,16 @@ describe('isValidUrl', () => {
     expect(isValidUrl('tel:+1234567890')).toBe(true);
   });
 
-  it('should handle IPv6 addresses', () => {
-    // Test IPv6 addresses to cover the isIpAddress function edge cases
-    expect(isValidUrl('http://[::1]:8080')).toBe(true);
-    expect(isValidUrl('http://[2001:db8::1]')).toBe(true);
-    // IPv6 addresses should be detected as IPs, but the current regex doesn't handle bracketed IPv6
-    expect(isValidUrl('http://[::1]', { allowIp: false })).toBe(true); // Brackets make it not match IP regex
-    expect(isValidUrl('http://[::1]', { allowLocalhost: false })).toBe(true); // Brackets make it not match localhost check
+  it('should validate IPv6 addresses correctly', () => {
+    // These test cases cover the IPv6 pattern matching in lines 90-91
+    expect(isValidUrl('http://[::1]/')).toBe(true);
+    expect(isValidUrl('http://[2001:db8::1]/')).toBe(true);
+    expect(isValidUrl('http://[::ffff:192.0.2.1]/')).toBe(true);
+    expect(isValidUrl('http://[invalid]/')).toBe(false);
+    expect(isValidUrl('http://[::1:2:3:4:5:6:7:8:9]/')).toBe(false); // Too many segments
+    // Additional IPv6 test cases to cover more pattern variations
+    expect(isValidUrl('http://[::]/')).toBe(true); // Compressed zeros
+    expect(isValidUrl('http://[2001:db8:85a3::8a2e:370:7334]/')).toBe(true); // Mixed compression
   });
 
   it('should handle edge cases in IP validation', () => {
