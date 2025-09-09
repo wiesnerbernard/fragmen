@@ -25,9 +25,11 @@ Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript util
   - [Boolean Utilities](#boolean-utilities)
   - [Function Utilities](#function-utilities)
   - [JSON Utilities](#json-utilities)
+  - [Number Utilities](#number-utilities)
   - [Object Utilities](#object-utilities)
   - [Promise Utilities](#promise-utilities)
   - [String Utilities](#string-utilities)
+  - [URL Utilities](#url-utilities)
 - [CLI Commands](#cli-commands)
 - [Testing & Coverage](#testing--coverage)
 - [Contributing](#contributing)
@@ -448,56 +450,6 @@ pascalCase('Hello World'); // 'HelloWorld'
 pascalCase('first_name'); // 'FirstName'
 pascalCase('kebab-case-string'); // 'KebabCaseString'
 pascalCase('camelCase'); // 'CamelCase'
-```
-
-### Number Utilities
-
-#### `number/clamp`
-
-Constrains a number to be within a specified range.
-
-```typescript
-import { clamp } from './lib/utils/number-clamp';
-
-clamp(15, 10, 20); // 15
-clamp(5, 10, 20); // 10
-clamp(25, 10, 20); // 20
-```
-
-#### `number/random`
-
-Generates a random number within a specified range.
-
-```typescript
-import { random } from './lib/utils/number-random';
-
-random(1, 10); // Random float between 1 and 10
-random(1, 10, { integer: true }); // Random integer between 1 and 10
-random(0, 1); // Random float between 0 and 1
-```
-
-#### `number/round`
-
-Rounds a number to a specified number of decimal places.
-
-```typescript
-import { round } from './lib/utils/number-round';
-
-round(4.006, 2); // 4.01
-round(4.006, 0); // 4
-round(4.006); // 4
-```
-
-#### `number/format-number`
-
-Formats a number with locale-specific formatting.
-
-```typescript
-import { formatNumber } from './lib/utils/number-format-number';
-
-formatNumber(1234.56); // '1,234.56'
-formatNumber(1234.56, { locale: 'de-DE' }); // '1.234,56'
-formatNumber(1234.56, { minimumFractionDigits: 3 }); // '1,234.560'
 ```
 
 ### URL Utilities
