@@ -30,7 +30,7 @@
  * ```
  */
 
-import { clone } from '../clone/index.js';
+import { clone } from '../clone/index';
 
 export function merge(
   ...objects: Array<Record<string, unknown> | null | undefined>
