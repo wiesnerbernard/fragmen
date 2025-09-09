@@ -275,6 +275,60 @@ for (const item of items) {
 }
 ```
 
+### Number Utilities
+
+#### `number/clamp`
+
+Clamps a number between a minimum and maximum value.
+
+```typescript
+import { clamp } from './lib/utils/number-clamp';
+
+clamp(10, 0, 5); // 5
+clamp(-5, 0, 10); // 0
+clamp(7, 0, 10); // 7
+clamp(3.7, 1.5, 8.2); // 3.7
+```
+
+#### `number/random`
+
+Generates a random number between min and max.
+
+```typescript
+import { random } from './lib/utils/number-random';
+
+random(0, 1); // e.g., 0.7234 (float)
+random(5, 10); // e.g., 7.832 (float)
+random(1, 7, true); // e.g., 4 (integer)
+random(0, 101, true); // e.g., 42 (integer)
+```
+
+#### `number/round`
+
+Rounds a number to a specified number of decimal places.
+
+```typescript
+import { round } from './lib/utils/number-round';
+
+round(3.14159); // 3
+round(3.14159, 2); // 3.14
+round(3.14159, 4); // 3.1416
+round(123.456, -1); // 120 (round to nearest 10)
+```
+
+#### `number/format-number`
+
+Formats a number with thousands separators and decimal places.
+
+```typescript
+import { formatNumber } from './lib/utils/number-format-number';
+
+formatNumber(1234.567); // '1,234.567'
+formatNumber(1234.567, { decimals: 2 }); // '1,234.57'
+formatNumber(1234567, { thousandsSeparator: ' ' }); // '1 234 567'
+formatNumber(1234.5, { decimalSeparator: ',' }); // '1,234,5'
+```
+
 ### String Utilities
 
 #### `string/capitalize`
@@ -287,6 +341,108 @@ import { capitalize } from './lib/utils/string-capitalize';
 capitalize('hello world'); // 'Hello world'
 capitalize('javaScript'); // 'JavaScript'
 capitalize(''); // ''
+```
+
+#### `string/kebab-case`
+
+Converts a string to kebab-case.
+
+```typescript
+import { kebabCase } from './lib/utils/string-kebab-case';
+
+kebabCase('Hello World'); // 'hello-world'
+kebabCase('firstName'); // 'first-name'
+kebabCase('XMLHttpRequest'); // 'xml-http-request'
+kebabCase('snake_case_string'); // 'snake-case-string'
+```
+
+#### `string/snake-case`
+
+Converts a string to snake_case.
+
+```typescript
+import { snakeCase } from './lib/utils/string-snake-case';
+
+snakeCase('Hello World'); // 'hello_world'
+snakeCase('firstName'); // 'first_name'
+snakeCase('XMLHttpRequest'); // 'xml_http_request'
+snakeCase('kebab-case-string'); // 'kebab_case_string'
+```
+
+#### `string/camel-case`
+
+Converts a string to camelCase.
+
+```typescript
+import { camelCase } from './lib/utils/string-camel-case';
+
+camelCase('Hello World'); // 'helloWorld'
+camelCase('first_name'); // 'firstName'
+camelCase('kebab-case-string'); // 'kebabCaseString'
+camelCase('PascalCase'); // 'pascalCase'
+```
+
+#### `string/pascal-case`
+
+Converts a string to PascalCase.
+
+```typescript
+import { pascalCase } from './lib/utils/string-pascal-case';
+
+pascalCase('Hello World'); // 'HelloWorld'
+pascalCase('first_name'); // 'FirstName'
+pascalCase('kebab-case-string'); // 'KebabCaseString'
+pascalCase('camelCase'); // 'CamelCase'
+```
+
+### Number Utilities
+
+#### `number/clamp`
+
+Constrains a number to be within a specified range.
+
+```typescript
+import { clamp } from './lib/utils/number-clamp';
+
+clamp(15, 10, 20); // 15
+clamp(5, 10, 20); // 10
+clamp(25, 10, 20); // 20
+```
+
+#### `number/random`
+
+Generates a random number within a specified range.
+
+```typescript
+import { random } from './lib/utils/number-random';
+
+random(1, 10); // Random float between 1 and 10
+random(1, 10, { integer: true }); // Random integer between 1 and 10
+random(0, 1); // Random float between 0 and 1
+```
+
+#### `number/round`
+
+Rounds a number to a specified number of decimal places.
+
+```typescript
+import { round } from './lib/utils/number-round';
+
+round(4.006, 2); // 4.01
+round(4.006, 0); // 4
+round(4.006); // 4
+```
+
+#### `number/format-number`
+
+Formats a number with locale-specific formatting.
+
+```typescript
+import { formatNumber } from './lib/utils/number-format-number';
+
+formatNumber(1234.56); // '1,234.56'
+formatNumber(1234.56, { locale: 'de-DE' }); // '1.234,56'
+formatNumber(1234.56, { minimumFractionDigits: 3 }); // '1,234.560'
 ```
 
 ### URL Utilities
