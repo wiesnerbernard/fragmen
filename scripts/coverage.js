@@ -81,34 +81,38 @@ async function checkThresholds() {
 // CLI handling
 const command = process.argv[2];
 
-switch (command) {
-  case 'generate':
-    generateCoverage();
-    break;
-  case 'watch':
-    watchCoverage();
-    break;
-  case 'check':
-    checkThresholds();
-    break;
-  default:
-    console.log('📊 Coverage Utilities');
-    console.log('');
-    console.log('Usage:');
-    console.log(
-      '  node scripts/coverage.js generate  - Generate coverage report'
-    );
-    console.log(
-      '  node scripts/coverage.js watch     - Run tests with coverage in watch mode'
-    );
-    console.log(
-      '  node scripts/coverage.js check     - Check if coverage meets thresholds'
-    );
-    console.log('');
-    console.log('NPM Scripts:');
-    console.log('  npm run test:coverage        - Generate coverage report');
-    console.log('  npm run test:coverage:watch  - Run coverage in watch mode');
-    console.log(
-      '  npm run test:coverage:open   - Generate and open HTML report'
-    );
-}
+(async () => {
+  switch (command) {
+    case 'generate':
+      await generateCoverage();
+      break;
+    case 'watch':
+      await watchCoverage();
+      break;
+    case 'check':
+      await checkThresholds();
+      break;
+    default:
+      console.log('📊 Coverage Utilities');
+      console.log('');
+      console.log('Usage:');
+      console.log(
+        '  node scripts/coverage.js generate  - Generate coverage report'
+      );
+      console.log(
+        '  node scripts/coverage.js watch     - Run tests with coverage in watch mode'
+      );
+      console.log(
+        '  node scripts/coverage.js check     - Check if coverage meets thresholds'
+      );
+      console.log('');
+      console.log('NPM Scripts:');
+      console.log('  npm run test:coverage        - Generate coverage report');
+      console.log(
+        '  npm run test:coverage:watch  - Run coverage in watch mode'
+      );
+      console.log(
+        '  npm run test:coverage:open   - Generate and open HTML report'
+      );
+  }
+})();
