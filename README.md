@@ -2,11 +2,11 @@
 
 <!-- COVERAGE-BADGES:START -->
 
-![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
-![Lines](https://img.shields.io/badge/lines-100%25-brightgreen)
-![Branches](https://img.shields.io/badge/branches-100%25-brightgreen)
+![Coverage](https://img.shields.io/badge/coverage-99%25-brightgreen)
+![Lines](https://img.shields.io/badge/lines-98.81%25-brightgreen)
+![Branches](https://img.shields.io/badge/branches-97.57%25-brightgreen)
 ![Functions](https://img.shields.io/badge/functions-100%25-brightgreen)
-![Statements](https://img.shields.io/badge/statements-100%25-brightgreen)
+![Statements](https://img.shields.io/badge/statements-98.81%25-brightgreen)
 
 <!-- COVERAGE-BADGES:END -->
 
@@ -393,6 +393,123 @@ pascalCase('Hello World'); // 'HelloWorld'
 pascalCase('first_name'); // 'FirstName'
 pascalCase('kebab-case-string'); // 'KebabCaseString'
 pascalCase('camelCase'); // 'CamelCase'
+```
+
+### Number Utilities
+
+#### `number/clamp`
+
+Constrains a number to be within a specified range.
+
+```typescript
+import { clamp } from './lib/utils/number-clamp';
+
+clamp(15, 10, 20); // 15
+clamp(5, 10, 20); // 10
+clamp(25, 10, 20); // 20
+```
+
+#### `number/random`
+
+Generates a random number within a specified range.
+
+```typescript
+import { random } from './lib/utils/number-random';
+
+random(1, 10); // Random float between 1 and 10
+random(1, 10, { integer: true }); // Random integer between 1 and 10
+random(0, 1); // Random float between 0 and 1
+```
+
+#### `number/round`
+
+Rounds a number to a specified number of decimal places.
+
+```typescript
+import { round } from './lib/utils/number-round';
+
+round(4.006, 2); // 4.01
+round(4.006, 0); // 4
+round(4.006); // 4
+```
+
+#### `number/format-number`
+
+Formats a number with locale-specific formatting.
+
+```typescript
+import { formatNumber } from './lib/utils/number-format-number';
+
+formatNumber(1234.56); // '1,234.56'
+formatNumber(1234.56, { locale: 'de-DE' }); // '1.234,56'
+formatNumber(1234.56, { minimumFractionDigits: 3 }); // '1,234.560'
+```
+
+### URL Utilities
+
+#### `url/parse-url`
+
+Parses a URL string into its component parts.
+
+```typescript
+import { parseUrl } from './lib/utils/url-parse-url';
+
+parseUrl('https://example.com:8080/path?query=value#hash');
+// {
+//   protocol: 'https:',
+//   host: 'example.com:8080',
+//   hostname: 'example.com',
+//   port: '8080',
+//   pathname: '/path',
+//   search: '?query=value',
+//   hash: '#hash',
+//   origin: 'https://example.com:8080'
+// }
+```
+
+#### `url/build-query`
+
+Builds a URL query string from an object of parameters.
+
+```typescript
+import { buildQuery } from './lib/utils/url-build-query';
+
+buildQuery({ name: 'John Doe', age: 30 });
+// 'name=John%20Doe&age=30'
+
+buildQuery({ tags: ['red', 'blue'], active: true });
+// 'tags=red&tags=blue&active=true'
+
+buildQuery({ search: 'hello world' }, { prefix: true });
+// '?search=hello%20world'
+```
+
+#### `url/is-valid-url`
+
+Checks if a string is a valid URL.
+
+```typescript
+import { isValidUrl } from './lib/utils/url-is-valid-url';
+
+isValidUrl('https://example.com'); // true
+isValidUrl('not-a-url'); // false
+isValidUrl('https://example.com', { protocols: ['https'] }); // true
+isValidUrl('example.com', { requireProtocol: false }); // true
+```
+
+#### `url/sanitize-url`
+
+Sanitizes a URL by removing or encoding potentially dangerous elements.
+
+```typescript
+import { sanitizeUrl } from './lib/utils/url-sanitize-url';
+
+sanitizeUrl('https://example.com/path?query=value');
+// 'https://example.com/path?query=value'
+
+sanitizeUrl('javascript:alert("xss")'); // null
+sanitizeUrl('//example.com/path', { defaultProtocol: 'https' });
+// 'https://example.com/path'
 ```
 
 ---
