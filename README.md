@@ -343,6 +343,58 @@ capitalize('javaScript'); // 'JavaScript'
 capitalize(''); // ''
 ```
 
+#### `string/kebab-case`
+
+Converts a string to kebab-case.
+
+```typescript
+import { kebabCase } from './lib/utils/string-kebab-case';
+
+kebabCase('Hello World'); // 'hello-world'
+kebabCase('firstName'); // 'first-name'
+kebabCase('XMLHttpRequest'); // 'xml-http-request'
+kebabCase('snake_case_string'); // 'snake-case-string'
+```
+
+#### `string/snake-case`
+
+Converts a string to snake_case.
+
+```typescript
+import { snakeCase } from './lib/utils/string-snake-case';
+
+snakeCase('Hello World'); // 'hello_world'
+snakeCase('firstName'); // 'first_name'
+snakeCase('XMLHttpRequest'); // 'xml_http_request'
+snakeCase('kebab-case-string'); // 'kebab_case_string'
+```
+
+#### `string/camel-case`
+
+Converts a string to camelCase.
+
+```typescript
+import { camelCase } from './lib/utils/string-camel-case';
+
+camelCase('Hello World'); // 'helloWorld'
+camelCase('first_name'); // 'firstName'
+camelCase('kebab-case-string'); // 'kebabCaseString'
+camelCase('PascalCase'); // 'pascalCase'
+```
+
+#### `string/pascal-case`
+
+Converts a string to PascalCase.
+
+```typescript
+import { pascalCase } from './lib/utils/string-pascal-case';
+
+pascalCase('Hello World'); // 'HelloWorld'
+pascalCase('first_name'); // 'FirstName'
+pascalCase('kebab-case-string'); // 'KebabCaseString'
+pascalCase('camelCase'); // 'CamelCase'
+```
+
 ---
 
 ## CLI Commands
