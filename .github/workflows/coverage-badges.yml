@@ -9,7 +9,7 @@ on:
 jobs:
   coverage-badges:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' # Only update badges on push to main
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' # Only update badges on push to main
 
     steps:
       - name: Checkout code
