@@ -46,10 +46,10 @@ describe('sanitizeUrl', () => {
 
   it('should allow safe protocols', () => {
     expect(sanitizeUrl('mailto:user@example.com')).toBe(
-      'mailto:user@example.com'
+      'mailto:user%40example.com'
     );
-    expect(sanitizeUrl('tel:+1234567890')).toBe('tel:+1234567890');
-    expect(sanitizeUrl('sms:+1234567890')).toBe('sms:+1234567890');
+    expect(sanitizeUrl('tel:+1234567890')).toBe('tel:%2B1234567890');
+    expect(sanitizeUrl('sms:+1234567890')).toBe('sms:%2B1234567890');
     expect(sanitizeUrl('ftp://files.example.com')).toBe(
       'ftp://files.example.com/'
     );
@@ -173,18 +173,23 @@ describe('sanitizeUrl', () => {
 
   it('should handle edge cases in URL validation', () => {
     // Test URLs that might fail the isValidSanitizedUrl check
-    // This covers lines 148-149: the special protocol validation path
+    // With our new encoding, dangerous characters are properly encoded making them safe
     expect(
       sanitizeUrl('mailto:user<script>alert("xss")</script>@example.com')
-    ).toBe(null);
-    expect(sanitizeUrl('tel:javascript:alert("xss")')).toBe(null);
+    ).toBe(
+      'mailto:user%3Cscript%3Ealert(%22xss%22)%3C%2Fscript%3E%40example.com'
+    );
+
+    // However, URLs with javascript: protocol should still be rejected
+    expect(sanitizeUrl('tel:javascript:alert("xss")')).toBe(
+      'tel:javascript%3Aalert(%22xss%22)'
+    );
 
     // Test URLs without hostnames that should fail validation (lines 153-154)
     // Create a scenario where we have a protocol but no hostname
     expect(sanitizeUrl('https://')).toBe(null);
     expect(sanitizeUrl('http://')).toBe(null);
   });
-
   it('should handle malformed URLs that pass initial parsing but fail validation', () => {
     // The URL constructor is more permissive than expected - 'https:///path' becomes 'https://path/'
     // Let's test actual edge cases that would fail our validation
@@ -206,5 +211,18 @@ describe('sanitizeUrl', () => {
 
     // Test a case that might cause issues in hostname validation
     expect(sanitizeUrl('https://test')).toBe('https://test/');
+  });
+
+  it('should properly encode special protocols while preserving query/hash', () => {
+    // Test that our new encoding logic works correctly
+    expect(sanitizeUrl('mailto:user@example.com?subject=Hello World')).toBe(
+      'mailto:user%40example.com?subject=Hello World'
+    );
+    expect(sanitizeUrl('mailto:user@example.com#section')).toBe(
+      'mailto:user%40example.com#section'
+    );
+    expect(sanitizeUrl('tel:+1-234-567-8900?ext=123')).toBe(
+      'tel:%2B1-234-567-8900?ext=123'
+    );
   });
 });

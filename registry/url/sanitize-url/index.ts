@@ -1,7 +1,7 @@
 export interface SanitizeUrlOptions {
   /** Default protocol to use for protocol-relative URLs */
   defaultProtocol?: string;
-  /** Allowed protocols (default: ['http', 'https', 'ftp', 'mailto']) */
+  /** Allowed protocols (default: ['http', 'https', 'ftp', 'mailto', 'tel', 'sms']) */
   allowedProtocols?: string[];
   /** Whether to remove query parameters (default: false) */
   removeQuery?: boolean;
@@ -87,7 +87,20 @@ export function sanitizeUrl(
 
     // Handle special protocols that don't follow standard URL structure
     if (['mailto', 'tel', 'sms'].includes(protocol)) {
-      sanitized = cleanUrl; // Keep original format for these protocols
+      // Encode everything after the protocol to prevent XSS attacks
+      // e.g. mailto:someone@example.com?subject=Hi
+      const colonIndex = cleanUrl.indexOf(':');
+      if (colonIndex !== -1) {
+        const proto = cleanUrl.slice(0, colonIndex + 1); // e.g. 'mailto:'
+        const rest = cleanUrl.slice(colonIndex + 1);
+        // For mailto, tel, sms, encode the address/number part, but preserve query/hash
+        const [addressPart, queryHash] = rest.split(/([?#].*)/, 2);
+        const encoded = encodeURIComponent(addressPart || '');
+        // queryHash may be undefined or empty
+        sanitized = proto + encoded + (queryHash || '');
+      } else {
+        sanitized = cleanUrl;
+      }
     } else {
       sanitized = `${parsed.protocol}//${parsed.host}${parsed.pathname}`;
 
