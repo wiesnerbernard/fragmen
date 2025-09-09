@@ -170,4 +170,41 @@ describe('sanitizeUrl', () => {
       'https://example.com/path/to/resource.html'
     );
   });
+
+  it('should handle edge cases in URL validation', () => {
+    // Test URLs that might fail the isValidSanitizedUrl check
+    // This covers lines 148-149: the special protocol validation path
+    expect(
+      sanitizeUrl('mailto:user<script>alert("xss")</script>@example.com')
+    ).toBe(null);
+    expect(sanitizeUrl('tel:javascript:alert("xss")')).toBe(null);
+
+    // Test URLs without hostnames that should fail validation (lines 153-154)
+    // Create a scenario where we have a protocol but no hostname
+    expect(sanitizeUrl('https://')).toBe(null);
+    expect(sanitizeUrl('http://')).toBe(null);
+  });
+
+  it('should handle malformed URLs that pass initial parsing but fail validation', () => {
+    // The URL constructor is more permissive than expected - 'https:///path' becomes 'https://path/'
+    // Let's test actual edge cases that would fail our validation
+
+    // Try to create a URL that has no hostname after parsing
+    expect(sanitizeUrl('custom:///')).toBe(null); // Should fail if custom protocol is not allowed
+
+    // Test with a protocol that's allowed but creates an invalid structure
+    const options = { allowedProtocols: ['custom'] };
+    expect(sanitizeUrl('custom:///', options)).toBe(null); // No hostname should fail
+  });
+
+  it('should handle URLs that cause validation errors', () => {
+    // Try to create a scenario where the isValidSanitizedUrl function throws an error
+    // This is difficult to achieve since the URL constructor is robust
+    // But we can test edge cases
+    expect(sanitizeUrl('mailto:test')).toBe('mailto:test');
+    expect(sanitizeUrl('tel:123')).toBe('tel:123');
+
+    // Test a case that might cause issues in hostname validation
+    expect(sanitizeUrl('https://test')).toBe('https://test/');
+  });
 });

@@ -124,4 +124,22 @@ describe('buildQuery', () => {
     const result = buildQuery(params);
     expect(result).toBe('z=last&a=first&m=middle');
   });
+
+  it('should handle edge case where params result in empty query string with prefix', () => {
+    // This covers the uncovered branch in line 122 where queryString is empty but prefix is true
+    const params = { nullValue: null, undefinedValue: undefined };
+    expect(buildQuery(params, { prefix: true })).toBe('?');
+  });
+
+  it('should handle arrays with all null/undefined values', () => {
+    // This ensures we hit the empty array case after filtering
+    const params = { items: [null, undefined, null] };
+    expect(buildQuery(params)).toBe('');
+  });
+
+  it('should handle nested objects without prefix', () => {
+    // This should cover the case where prefix is empty in flattenObject
+    const params = { level1: { level2: 'value' } };
+    expect(buildQuery(params)).toBe('level1%5Blevel2%5D=value');
+  });
 });
