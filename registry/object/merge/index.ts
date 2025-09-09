@@ -1,91 +1,81 @@
 /**
- * Deep merges multiple objects into a single object.
+ * Checks if a value is a non-array, non-null object.
  *
- * Combines multiple objects by merging their properties recursively.
- * Later objects in the arguments list will override properties of earlier objects.
- * Arrays are replaced entirely rather than merged element by element.
- *
- * @param objects The objects to merge
- * @returns A new object containing the merged properties
- *
- * @example
- * ```typescript
- * const obj1 = { a: 1, b: { x: 1, y: 2 } };
- * const obj2 = { b: { z: 3 }, c: 4 };
- * const merged = merge(obj1, obj2);
- * console.log(merged); // { a: 1, b: { x: 1, y: 2, z: 3 }, c: 4 }
- *
- * // Multiple objects
- * const base = { name: 'John', age: 30 };
- * const update1 = { age: 31, city: 'NYC' };
- * const update2 = { city: 'LA', country: 'USA' };
- * const result = merge(base, update1, update2);
- * console.log(result); // { name: 'John', age: 31, city: 'LA', country: 'USA' }
- *
- * // Arrays are replaced, not merged
- * const arr1 = { items: [1, 2] };
- * const arr2 = { items: [3, 4] };
- * const arrMerged = merge(arr1, arr2);
- * console.log(arrMerged); // { items: [3, 4] }
- * ```
+ * @param item The value to check.
+ * @returns True if the value is a plain object.
  */
-
-import { clone } from '../clone/index';
-
-export function merge(
-  ...objects: Array<Record<string, unknown> | null | undefined>
-): Record<string, unknown> {
-  if (objects.length === 0) {
-    return {};
-  }
-
-  const result: Record<string, unknown> = {};
-
-  for (const obj of objects) {
-    if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
-      mergeInto(result, obj);
-    }
-  }
-
-  return result;
+function _isObject(item: unknown): item is Record<string, unknown> {
+  return !!item && typeof item === 'object' && !Array.isArray(item);
 }
 
 /**
- * Helper function to recursively merge one object into another
+ * Creates a deep copy of an object or array.
+ *
+ * @param source The object or array to copy.
+ * @returns A deep copy of the source.
  */
-function mergeInto(
-  target: Record<string, unknown>,
-  source: Record<string, unknown>
-): void {
+function _deepCopy<T>(source: T): T {
+  if (!_isObject(source) && !Array.isArray(source)) {
+    return source;
+  }
+
+  if (Array.isArray(source)) {
+    return source.map(item => _deepCopy(item)) as unknown as T;
+  }
+
+  const newObject = {} as Record<keyof T, unknown>;
   for (const key in source) {
     if (Object.prototype.hasOwnProperty.call(source, key)) {
-      const sourceValue = source[key];
-      const targetValue = target[key];
+      newObject[key as keyof T] = _deepCopy(source[key]);
+    }
+  }
+  return newObject as T;
+}
 
-      if (
-        sourceValue &&
-        typeof sourceValue === 'object' &&
-        !Array.isArray(sourceValue) &&
-        targetValue &&
-        typeof targetValue === 'object' &&
-        !Array.isArray(targetValue)
-      ) {
-        // Both values are objects, create a new object and merge recursively
-        const newTarget = { ...targetValue };
-        mergeInto(
-          newTarget as Record<string, unknown>,
-          sourceValue as Record<string, unknown>
-        );
-        target[key] = newTarget;
-      } else {
-        // Replace the value (includes arrays, primitives, and null)
-        // For objects and arrays, we need to create a deep copy to avoid mutation
-        if (sourceValue && typeof sourceValue === 'object') {
-          target[key] = clone(sourceValue);
+/**
+ * Deep merges multiple objects into a new object.
+ *
+ * Combines objects by merging their properties recursively.
+ * Later objects in the arguments list override properties of earlier objects.
+ * Arrays are replaced entirely rather than merged.
+ *
+ * @template T - An array of object types.
+ * @param objects The objects to merge.
+ * @returns A new object containing the merged properties, with preserved types.
+ */
+export function merge<T extends object[]>(
+  ...objects: T
+): UnionToIntersection<T[number]> {
+  const result = {} as Record<string, unknown>;
+
+  for (const source of objects) {
+    if (!_isObject(source)) {
+      continue;
+    }
+
+    for (const key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        const sourceValue = source[key as keyof typeof source];
+        const targetValue = result[key];
+
+        if (_isObject(sourceValue) && _isObject(targetValue)) {
+          // Recursively merge if both are objects
+          result[key] = merge(targetValue, sourceValue);
         } else {
-          target[key] = sourceValue;
+          // Otherwise, overwrite (with a deep copy to prevent mutation)
+          result[key] = _deepCopy(sourceValue);
         }
       }
     }
   }
+
+  return result as UnionToIntersection<T[number]>;
 }
+
+// Helper type to convert a union of objects into an intersection of objects
+// Update unknown to your preference
+type UnionToIntersection<U> = (
+  U extends unknown ? (k: U) => void : never
+) extends (k: infer I) => void
+  ? I
+  : never;
