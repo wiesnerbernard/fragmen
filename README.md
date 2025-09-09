@@ -192,6 +192,61 @@ const publicInfo = pick(user, ['id', 'name']);
 // Result: { id: 1, name: 'John' }
 ```
 
+#### `object/omit`
+
+Creates a new object by omitting specified keys from the source object.
+
+```typescript
+import { omit } from './lib/utils/object-omit';
+
+const user = {
+  id: 1,
+  name: 'John',
+  email: 'john@example.com',
+  password: 'secret123',
+};
+const publicUser = omit(user, ['password', 'email']);
+// Result: { id: 1, name: 'John' }
+```
+
+#### `object/merge`
+
+Deep merges multiple objects into a single object.
+
+```typescript
+import { merge } from './lib/utils/object-merge';
+
+const obj1 = { a: 1, b: { x: 1, y: 2 } };
+const obj2 = { b: { z: 3 }, c: 4 };
+const merged = merge(obj1, obj2);
+// Result: { a: 1, b: { x: 1, y: 2, z: 3 }, c: 4 }
+```
+
+#### `object/clone`
+
+Creates a deep copy of an object.
+
+```typescript
+import { clone } from './lib/utils/object-clone';
+
+const original = { name: 'John', address: { city: 'NYC' } };
+const cloned = clone(original);
+cloned.address.city = 'LA';
+console.log(original.address.city); // 'NYC' (unchanged)
+```
+
+#### `object/has-path`
+
+Checks if a nested property path exists in an object.
+
+```typescript
+import { hasPath } from './lib/utils/object-has-path';
+
+const user = { profile: { settings: { theme: 'dark' } } };
+hasPath(user, 'profile.settings.theme'); // true
+hasPath(user, 'profile.settings.language'); // false
+```
+
 ### Promise Utilities
 
 #### `promise/delay`
