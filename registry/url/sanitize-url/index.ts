@@ -7,6 +7,14 @@ export interface SanitizeUrlOptions {
   removeQuery?: boolean;
   /** Whether to remove hash fragments (default: false) */
   removeHash?: boolean;
+  /** Whether to allow data URLs (default: false) */
+  allowDataUrls?: boolean;
+  /** Whether to allow blob URLs (default: false) */
+  allowBlobUrls?: boolean;
+  /** Maximum URL length (default: 2048) */
+  maxLength?: number;
+  /** Custom validation function */
+  customValidator?: (url: string) => boolean;
 }
 
 /**
@@ -15,6 +23,7 @@ export interface SanitizeUrlOptions {
  * Cleans URLs to prevent XSS attacks and other security issues by removing
  * dangerous protocols, encoding special characters, and validating the URL
  * structure. Returns null if the URL cannot be safely sanitized.
+ * Enhanced with additional security options and custom validation.
  *
  * @param url The URL to sanitize
  * @param options Sanitization options
@@ -31,6 +40,11 @@ export interface SanitizeUrlOptions {
  *
  * sanitizeUrl('//example.com/path', { defaultProtocol: 'https' });
  * // 'https://example.com/path'
+ *
+ * sanitizeUrl('data:text/plain;base64,SGVsbG8=', { allowDataUrls: true });
+ * // 'data:text/plain;base64,SGVsbG8='
+ *
+ * sanitizeUrl('https://example.com', { maxLength: 10 }); // null
  * ```
  */
 
@@ -47,7 +61,25 @@ export function sanitizeUrl(
     allowedProtocols = ['http', 'https', 'ftp', 'mailto', 'tel', 'sms'],
     removeQuery = false,
     removeHash = false,
+    allowDataUrls = false,
+    allowBlobUrls = false,
+    maxLength = 2048,
+    customValidator,
   } = options;
+
+  // Build final allowed protocols list
+  const finalAllowedProtocols = [...allowedProtocols];
+  if (allowDataUrls && !finalAllowedProtocols.includes('data')) {
+    finalAllowedProtocols.push('data');
+  }
+  if (allowBlobUrls && !finalAllowedProtocols.includes('blob')) {
+    finalAllowedProtocols.push('blob');
+  }
+
+  // Check URL length
+  if (url.length > maxLength) {
+    return null;
+  }
 
   try {
     let cleanUrl = url.trim();
@@ -63,7 +95,9 @@ export function sanitizeUrl(
       if (cleanUrl.includes(':') && !cleanUrl.startsWith('//')) {
         // Check if it's a special protocol
         const possibleProtocol = cleanUrl.split(':')[0].toLowerCase();
-        if (['mailto', 'tel', 'sms'].includes(possibleProtocol)) {
+        if (
+          ['mailto', 'tel', 'sms', 'data', 'blob'].includes(possibleProtocol)
+        ) {
           // Keep as-is for special protocols
         } else {
           // Assume it's host:port format
@@ -78,7 +112,18 @@ export function sanitizeUrl(
 
     // Check for dangerous protocols
     const protocol = parsed.protocol.slice(0, -1).toLowerCase();
-    if (!allowedProtocols.includes(protocol)) {
+
+    // Handle data URLs
+    if (protocol === 'data' && !allowDataUrls) {
+      return null;
+    }
+
+    // Handle blob URLs
+    if (protocol === 'blob' && !allowBlobUrls) {
+      return null;
+    }
+
+    if (!finalAllowedProtocols.includes(protocol)) {
       return null;
     }
 
@@ -101,6 +146,12 @@ export function sanitizeUrl(
       } else {
         sanitized = cleanUrl;
       }
+    } else if (protocol === 'data') {
+      // For data URLs, return as-is if allowed
+      sanitized = cleanUrl;
+    } else if (protocol === 'blob') {
+      // For blob URLs, return as-is if allowed
+      sanitized = cleanUrl;
     } else {
       sanitized = `${parsed.protocol}//${parsed.host}${parsed.pathname}`;
 
@@ -116,7 +167,12 @@ export function sanitizeUrl(
     }
 
     // Additional validation
-    if (!isValidSanitizedUrl(sanitized)) {
+    if (!isValidSanitizedUrl(sanitized, allowDataUrls, allowBlobUrls)) {
+      return null;
+    }
+
+    // Custom validation
+    if (customValidator && !customValidator(sanitized)) {
       return null;
     }
 
@@ -126,7 +182,11 @@ export function sanitizeUrl(
   }
 }
 
-function isValidSanitizedUrl(url: string): boolean {
+function isValidSanitizedUrl(
+  url: string,
+  allowDataUrls = false,
+  allowBlobUrls = false
+): boolean {
   try {
     const parsed = new URL(url);
 
@@ -140,6 +200,22 @@ function isValidSanitizedUrl(url: string): boolean {
       return (
         !urlToCheck.includes('<script') && !urlToCheck.includes('javascript:')
       );
+    }
+
+    // Handle data URLs
+    if (protocol === 'data') {
+      if (!allowDataUrls) {
+        return false;
+      }
+      // For data URLs, check for suspicious patterns
+      return (
+        !urlToCheck.includes('<script') && !urlToCheck.includes('javascript:')
+      );
+    }
+
+    // Handle blob URLs
+    if (protocol === 'blob') {
+      return allowBlobUrls;
     }
 
     // Check for suspicious patterns
@@ -157,7 +233,11 @@ function isValidSanitizedUrl(url: string): boolean {
     }
 
     // Ensure we have a valid hostname for standard protocols
-    if (!parsed.hostname || parsed.hostname.length === 0) {
+    // Data URLs don't have hostnames, so skip this check for them
+    if (
+      protocol !== 'data' &&
+      (!parsed.hostname || parsed.hostname.length === 0)
+    ) {
       return false;
     }
 
