@@ -128,6 +128,58 @@ const uniqueNumbers = unique(numbers);
 // Result: [1, 2, 3, 4]
 ```
 
+#### `array/chunk`
+
+Splits an array into chunks of a specified size.
+
+```typescript
+import { chunk } from './lib/utils/array-chunk';
+
+const numbers = [1, 2, 3, 4, 5, 6, 7];
+const chunks = chunk(numbers, 3);
+// Result: [[1, 2, 3], [4, 5, 6], [7]]
+```
+
+#### `array/flatten`
+
+Flattens nested arrays to a specified depth.
+
+```typescript
+import { flatten } from './lib/utils/array-flatten';
+
+const nested = [1, [2, 3], [4, [5, 6]]];
+const flat = flatten(nested);
+// Result: [1, 2, 3, 4, [5, 6]]
+
+const deepFlat = flatten(nested, Infinity);
+// Result: [1, 2, 3, 4, 5, 6]
+```
+
+#### `array/intersection`
+
+Finds the intersection of two or more arrays.
+
+```typescript
+import { intersection } from './lib/utils/array-intersection';
+
+const arr1 = [1, 2, 3, 4];
+const arr2 = [2, 3, 4, 5];
+const common = intersection(arr1, arr2);
+// Result: [2, 3, 4]
+```
+
+#### `array/compact`
+
+Removes falsy values from an array.
+
+```typescript
+import { compact } from './lib/utils/array-compact';
+
+const mixed = [0, 1, false, 2, '', 3, null, 4, undefined, 5, NaN];
+const clean = compact(mixed);
+// Result: [1, 2, 3, 4, 5]
+```
+
 ### Boolean Utilities
 
 #### `boolean/is-falsy`
