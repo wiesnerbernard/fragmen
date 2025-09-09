@@ -97,7 +97,7 @@ function updateReadme(coverageData) {
     // Add badges section after the first heading
     const firstHeadingMatch = readmeContent.match(/^(# .+$)/m);
     if (firstHeadingMatch) {
-      // Use .index if available, otherwise fallback to indexOf
+      // .index is always present on RegExp match objects from .match()
       const headingIndex = firstHeadingMatch.index;
       const firstHeadingEnd = readmeContent.indexOf('\n', headingIndex) + 1;
       const before = readmeContent.substring(0, firstHeadingEnd);
