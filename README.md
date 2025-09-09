@@ -289,6 +289,73 @@ capitalize('javaScript'); // 'JavaScript'
 capitalize(''); // ''
 ```
 
+### URL Utilities
+
+#### `url/parse-url`
+
+Parses a URL string into its component parts.
+
+```typescript
+import { parseUrl } from './lib/utils/url-parse-url';
+
+parseUrl('https://example.com:8080/path?query=value#hash');
+// {
+//   protocol: 'https:',
+//   host: 'example.com:8080',
+//   hostname: 'example.com',
+//   port: '8080',
+//   pathname: '/path',
+//   search: '?query=value',
+//   hash: '#hash',
+//   origin: 'https://example.com:8080'
+// }
+```
+
+#### `url/build-query`
+
+Builds a URL query string from an object of parameters.
+
+```typescript
+import { buildQuery } from './lib/utils/url-build-query';
+
+buildQuery({ name: 'John Doe', age: 30 });
+// 'name=John%20Doe&age=30'
+
+buildQuery({ tags: ['red', 'blue'], active: true });
+// 'tags=red&tags=blue&active=true'
+
+buildQuery({ search: 'hello world' }, { prefix: true });
+// '?search=hello%20world'
+```
+
+#### `url/is-valid-url`
+
+Checks if a string is a valid URL.
+
+```typescript
+import { isValidUrl } from './lib/utils/url-is-valid-url';
+
+isValidUrl('https://example.com'); // true
+isValidUrl('not-a-url'); // false
+isValidUrl('https://example.com', { protocols: ['https'] }); // true
+isValidUrl('example.com', { requireProtocol: false }); // true
+```
+
+#### `url/sanitize-url`
+
+Sanitizes a URL by removing or encoding potentially dangerous elements.
+
+```typescript
+import { sanitizeUrl } from './lib/utils/url-sanitize-url';
+
+sanitizeUrl('https://example.com/path?query=value');
+// 'https://example.com/path?query=value'
+
+sanitizeUrl('javascript:alert("xss")'); // null
+sanitizeUrl('//example.com/path', { defaultProtocol: 'https' });
+// 'https://example.com/path'
+```
+
 ---
 
 ## CLI Commands
