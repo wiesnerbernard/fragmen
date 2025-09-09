@@ -60,10 +60,7 @@ export function hasPath(
 
   for (const key of keys) {
     // Check if current is an object or array
-    if (
-      !current ||
-      (typeof current !== 'object' && typeof current !== 'function')
-    ) {
+    if (!current || typeof current !== 'object') {
       return false;
     }
 

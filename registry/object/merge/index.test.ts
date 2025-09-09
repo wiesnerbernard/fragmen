@@ -197,4 +197,80 @@ describe('merge', () => {
       },
     });
   });
+
+  it('should create deep copies to prevent shared references', () => {
+    const obj1 = {
+      data: {
+        nested: {
+          items: [1, 2, { deep: 'original', mutable: true }],
+          settings: { theme: 'light' },
+        },
+      },
+    };
+
+    const obj2 = {
+      other: 'property',
+    };
+
+    const result = merge(obj1, obj2);
+
+    // Modify the original nested objects/arrays
+    obj1.data.nested.items.push(3);
+    (obj1.data.nested.items[2] as any).deep = 'modified';
+    (obj1.data.nested.items[2] as any).mutable = false;
+    obj1.data.nested.settings.theme = 'dark';
+
+    // The merged result should not be affected by mutations to the original
+    const resultData = result.data as typeof obj1.data;
+    expect(resultData.nested.items).toHaveLength(3);
+    expect(resultData.nested.items[2]).toEqual({
+      deep: 'original',
+      mutable: true,
+    });
+    expect(resultData.nested.settings.theme).toBe('light');
+    expect(result.other).toBe('property');
+
+    // Verify the original was actually modified (sanity check)
+    expect(obj1.data.nested.items).toHaveLength(4);
+    expect(obj1.data.nested.items[2]).toEqual({
+      deep: 'modified',
+      mutable: false,
+    });
+    expect(obj1.data.nested.settings.theme).toBe('dark');
+  });
+
+  it('should deep copy arrays with nested objects', () => {
+    const obj1 = {
+      users: [
+        { id: 1, profile: { name: 'John', settings: { active: true } } },
+        { id: 2, profile: { name: 'Jane', settings: { active: false } } },
+      ],
+    };
+
+    const obj2 = {
+      meta: 'data',
+    };
+
+    const result = merge(obj1, obj2);
+
+    // Modify the original array and nested objects
+    obj1.users[0].profile.name = 'Modified John';
+    obj1.users[0].profile.settings.active = false;
+    obj1.users.push({
+      id: 3,
+      profile: { name: 'Bob', settings: { active: true } },
+    });
+
+    // The merged result should not be affected
+    const resultUsers = result.users as typeof obj1.users;
+    expect(resultUsers).toHaveLength(2);
+    expect(resultUsers[0].profile.name).toBe('John');
+    expect(resultUsers[0].profile.settings.active).toBe(true);
+    expect(result.meta).toBe('data');
+
+    // Verify the original was actually modified (sanity check)
+    expect(obj1.users).toHaveLength(3);
+    expect(obj1.users[0].profile.name).toBe('Modified John');
+    expect(obj1.users[0].profile.settings.active).toBe(false);
+  });
 });

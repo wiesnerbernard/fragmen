@@ -29,6 +29,9 @@
  * console.log(arrMerged); // { items: [3, 4] }
  * ```
  */
+
+import { clone } from '../clone/index.js';
+
 export function merge(
   ...objects: Array<Record<string, unknown> | null | undefined>
 ): Record<string, unknown> {
@@ -78,9 +81,7 @@ function mergeInto(
         // Replace the value (includes arrays, primitives, and null)
         // For objects and arrays, we need to create a deep copy to avoid mutation
         if (sourceValue && typeof sourceValue === 'object') {
-          target[key] = Array.isArray(sourceValue)
-            ? [...sourceValue]
-            : { ...sourceValue };
+          target[key] = clone(sourceValue);
         } else {
           target[key] = sourceValue;
         }
