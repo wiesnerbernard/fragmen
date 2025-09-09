@@ -142,4 +142,68 @@ describe('buildQuery', () => {
     const params = { level1: { level2: 'value' } };
     expect(buildQuery(params)).toBe('level1%5Blevel2%5D=value');
   });
+
+  it('should sort parameters alphabetically when sort option is true', () => {
+    const params = { zebra: 'last', apple: 'first', mango: 'middle' };
+    expect(buildQuery(params, { sort: true })).toBe(
+      'apple=first&mango=middle&zebra=last'
+    );
+  });
+
+  it('should use custom encoder when provided', () => {
+    const params = { message: 'hello world' };
+    const customEncoder = (value: string) => value.toUpperCase();
+    expect(buildQuery(params, { encoder: customEncoder })).toBe(
+      'MESSAGE=HELLO WORLD'
+    );
+  });
+
+  it('should skip encoding when skipEncoding is true', () => {
+    const params = { message: 'hello world' };
+    expect(buildQuery(params, { skipEncoding: true })).toBe(
+      'message=hello world'
+    );
+  });
+
+  it('should sort parameters alphabetically when sort option is true', () => {
+    const params = { zebra: 'last', apple: 'first', mango: 'middle' };
+    expect(buildQuery(params, { sort: true })).toBe(
+      'apple=first&mango=middle&zebra=last'
+    );
+  });
+
+  it('should respect maxDepth for nested objects', () => {
+    const params = { level1: { level2: { level3: 'deep' } } };
+    expect(buildQuery(params, { maxDepth: 1 })).toBe(
+      'level1%5Blevel2%5D=%5Bobject%20Object%5D'
+    );
+    expect(buildQuery(params, { maxDepth: 2 })).toBe(
+      'level1%5Blevel2%5D%5Blevel3%5D=deep'
+    );
+  });
+
+  it('should handle arrays with custom encoder', () => {
+    const params = { tags: ['hello world', 'foo bar'] };
+    const customEncoder = (value: string) => value.replace(/\s/g, '_');
+    expect(buildQuery(params, { encoder: customEncoder })).toBe(
+      'tags=hello_world&tags=foo_bar'
+    );
+  });
+
+  it('should handle sorting with arrays', () => {
+    const params = { z: 'last', a: ['item3', 'item1'], m: 'middle' };
+    expect(buildQuery(params, { sort: true })).toBe(
+      'a=item3&a=item1&m=middle&z=last'
+    );
+  });
+
+  it('should handle empty objects with new options', () => {
+    expect(buildQuery({}, { sort: true, prefix: true })).toBe('?');
+    expect(buildQuery({}, { skipEncoding: true })).toBe('');
+  });
+
+  it('should handle null params with new options', () => {
+    expect(buildQuery(null as any, { sort: true, prefix: true })).toBe('?');
+    expect(buildQuery(null as any, { skipEncoding: true })).toBe('');
+  });
 });

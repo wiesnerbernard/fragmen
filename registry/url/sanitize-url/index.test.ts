@@ -225,4 +225,65 @@ describe('sanitizeUrl', () => {
       'tel:%2B1-234-567-8900?ext=123'
     );
   });
+
+  it('should handle data URLs when allowed', () => {
+    const dataUrl = 'data:text/plain;base64,SGVsbG8gV29ybGQ=';
+    expect(sanitizeUrl(dataUrl, { allowDataUrls: true })).toBe(dataUrl);
+    expect(sanitizeUrl(dataUrl, { allowDataUrls: false })).toBe(null);
+    expect(sanitizeUrl(dataUrl)).toBe(null); // default is false
+  });
+
+  it('should handle blob URLs when allowed', () => {
+    const blobUrl = 'blob:https://example.com/12345-67890';
+    expect(sanitizeUrl(blobUrl, { allowBlobUrls: true })).toBe(blobUrl);
+    expect(sanitizeUrl(blobUrl, { allowBlobUrls: false })).toBe(null);
+    expect(sanitizeUrl(blobUrl)).toBe(null); // default is false
+  });
+
+  it('should enforce maximum URL length', () => {
+    const longUrl = `https://example.com/${'a'.repeat(2000)}`;
+    expect(sanitizeUrl(longUrl, { maxLength: 100 })).toBe(null);
+    expect(sanitizeUrl('https://example.com', { maxLength: 100 })).toBe(
+      'https://example.com/'
+    );
+  });
+
+  it('should support custom validation', () => {
+    const customValidator = (url: string) => url.includes('example.com');
+    expect(sanitizeUrl('https://example.com', { customValidator })).toBe(
+      'https://example.com/'
+    );
+    expect(sanitizeUrl('https://other.com', { customValidator })).toBe(null);
+  });
+
+  it('should handle data URLs with suspicious content', () => {
+    const safeDataUrl = 'data:text/plain;base64,SGVsbG8=';
+    const suspiciousDataUrl = 'data:text/html,<script>alert("xss")</script>';
+
+    expect(sanitizeUrl(safeDataUrl, { allowDataUrls: true })).toBe(safeDataUrl);
+    expect(sanitizeUrl(suspiciousDataUrl, { allowDataUrls: true })).toBe(null);
+  });
+
+  it('should handle blob URLs with various origins', () => {
+    const blobUrl1 = 'blob:http://localhost:3000/abc-123';
+    const blobUrl2 = 'blob:https://example.com/def-456';
+
+    expect(sanitizeUrl(blobUrl1, { allowBlobUrls: true })).toBe(blobUrl1);
+    expect(sanitizeUrl(blobUrl2, { allowBlobUrls: true })).toBe(blobUrl2);
+  });
+
+  it('should combine multiple new options', () => {
+    const options = {
+      allowDataUrls: true,
+      maxLength: 100,
+      customValidator: (url: string) => url.length < 50,
+    };
+
+    expect(sanitizeUrl('data:text/plain;base64,SGVsbG8=', options)).toBe(
+      'data:text/plain;base64,SGVsbG8='
+    );
+    expect(
+      sanitizeUrl(`data:text/plain;base64,${'a'.repeat(100)}`, options)
+    ).toBe(null); // too long
+  });
 });
