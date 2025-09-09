@@ -39,6 +39,16 @@ function getCoverageData() {
   }
 }
 
+function calculateOverallCoverage(coverageData) {
+  return Math.round(
+    (coverageData.lines +
+      coverageData.branches +
+      coverageData.functions +
+      coverageData.statements) /
+      4
+  );
+}
+
 function getCoverageColor(percentage) {
   if (percentage >= 90) return 'brightgreen';
   if (percentage >= 80) return 'green';
@@ -55,13 +65,7 @@ function generateBadgeMarkdown(label, percentage) {
 }
 
 function generateBadgesSection(coverageData) {
-  const overallCoverage = Math.round(
-    (coverageData.lines +
-      coverageData.branches +
-      coverageData.functions +
-      coverageData.statements) /
-      4
-  );
+  const overallCoverage = calculateOverallCoverage(coverageData);
 
   return `${BADGE_START_MARKER}
 ![Coverage](https://img.shields.io/badge/coverage-${overallCoverage}%25-${getCoverageColor(overallCoverage)})
@@ -123,7 +127,7 @@ function main() {
   if (updateReadme(coverageData)) {
     console.log('✅ README updated successfully with coverage badges!');
     console.log(
-      `📊 Overall Coverage: ${Math.round((coverageData.lines + coverageData.branches + coverageData.functions + coverageData.statements) / 4)}%`
+      `📊 Overall Coverage: ${calculateOverallCoverage(coverageData)}%`
     );
   } else {
     console.log('❌ Failed to update README');

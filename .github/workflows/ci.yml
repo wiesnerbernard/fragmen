@@ -46,7 +46,6 @@ jobs:
         if: matrix.node-version == 20
         uses: codecov/codecov-action@v4
         with:
-          file: ./coverage/coverage-final.json
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: false
