@@ -1,5 +1,15 @@
 # Fragmen 🧩
 
+<!-- COVERAGE-BADGES:START -->
+
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![Lines](https://img.shields.io/badge/lines-100%25-brightgreen)
+![Branches](https://img.shields.io/badge/branches-100%25-brightgreen)
+![Functions](https://img.shields.io/badge/functions-100%25-brightgreen)
+![Statements](https://img.shields.io/badge/statements-100%25-brightgreen)
+
+<!-- COVERAGE-BADGES:END -->
+
 **"ShadCN but for helper functions."**
 
 Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript utility functions directly into your project. Instead of adding another dependency to your `package.json`, you get the source code. You own it, you can change it, and you won't have to worry about bundle size or breaking changes from a third-party library.
@@ -19,6 +29,7 @@ Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript util
   - [Promise Utilities](#promise-utilities)
   - [String Utilities](#string-utilities)
 - [CLI Commands](#cli-commands)
+- [Testing & Coverage](#testing--coverage)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -245,6 +256,68 @@ The `add` command copies a fragment from the registry into your project.
 ```bash
 npx fragmen add <fragment-name>
 ```
+
+---
+
+## Testing & Coverage
+
+This project uses Vitest for testing and includes comprehensive coverage reporting.
+
+### Running Tests
+
+```bash
+# Run tests once
+npm run test:run
+
+# Run tests in watch mode
+npm test
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run tests with coverage in watch mode
+npm run test:coverage:watch
+
+# Generate coverage and open HTML report (macOS)
+npm run test:coverage:open
+
+# Check coverage thresholds
+npm run test:coverage:check
+```
+
+### Coverage Configuration
+
+The project is configured with coverage thresholds of 80% for:
+
+- Lines
+- Functions
+- Branches
+- Statements
+
+Coverage reports are generated in multiple formats:
+
+- **Text**: Displayed in terminal
+- **JSON**: `coverage/coverage-final.json`
+- **HTML**: `coverage/index.html` - Interactive report
+
+### Coverage Scripts
+
+For advanced coverage operations, use the coverage utility script:
+
+```bash
+# Generate coverage report
+node scripts/coverage.js generate
+
+# Run coverage in watch mode
+node scripts/coverage.js watch
+
+# Check if coverage meets thresholds
+node scripts/coverage.js check
+```
+
+### Automatic Badge Updates
+
+The coverage badges in this README are automatically updated by GitHub Actions whenever code is pushed to the main branch. This ensures the badges always reflect the current test coverage.
 
 ---
 

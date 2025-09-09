@@ -1,0 +1,28 @@
+{
+  "coverage": {
+    "thresholds": {
+      "lines": 80,
+      "functions": 80,
+      "branches": 80,
+      "statements": 80
+    },
+    "excludePatterns": [
+      "coverage/**",
+      "dist/**",
+      "**/*.d.ts",
+      "**/*.config.{js,ts}",
+      "**/*.test.{js,ts}",
+      "**/*.spec.{js,ts}",
+      "src/cli.ts",
+      "node_modules/**",
+      ".github/**",
+      "eslint.config.js",
+      "scripts/**"
+    ],
+    "includePatterns": ["src/**", "registry/**/index.ts"]
+  },
+  "reporting": {
+    "formats": ["text", "json", "html", "json-summary"],
+    "directory": "./coverage"
+  }
+}

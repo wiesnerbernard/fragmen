@@ -12,6 +12,6 @@
     "declarationMap": true,
     "sourceMap": true
   },
-  "include": ["src/**/*", "registry/**/*"],
+  "include": ["src/**/*", "registry/**/*", "vitest.config.ts"],
   "exclude": ["node_modules", "dist"]
 }
