@@ -60,7 +60,7 @@ function getCoverageColor(percentage) {
 
 function createBadge(label, percentage) {
   const color = getCoverageColor(percentage);
-  return `![${label}](https://img.shields.io/badge/${label.toLowerCase()}-${percentage}%25-${color})`;
+  return `![${label}](https://img.shields.io/badge/${encodeURIComponent(label.toLowerCase())}-${percentage}%25-${color})`;
 }
 
 function generateBadgesSection(coverageData) {
