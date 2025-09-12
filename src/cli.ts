@@ -13,7 +13,9 @@ const program = new Command();
 
 // ESM-compatible require for JSON imports at runtime
 const require = createRequire(import.meta.url);
-const packageJson = require('../package.json') as { version: string };
+// When running from dist/src/cli.js, this resolves to dist/package.json if we use '../package.json'.
+// To ensure we read the root package.json in both src and dist, use '../../package.json' here and adjust bin to dist/src/cli.js
+const packageJson = require('../../package.json') as { version: string };
 const packageVersion = packageJson.version;
 
 // Configuration file name
