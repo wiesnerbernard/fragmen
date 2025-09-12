@@ -22,4 +22,12 @@ describe('padEnd', () => {
   it('should handle an empty string', () => {
     expect(padEnd('', 3, '*')).toBe('***');
   });
+
+  it('should return original when padString is empty', () => {
+    expect(padEnd('abc', 10, '')).toBe('abc');
+  });
+
+  it('should correctly truncate multi-character pad at the boundary', () => {
+    expect(padEnd('ab', 7, 'xyz')).toBe('abxyzxy');
+  });
 });

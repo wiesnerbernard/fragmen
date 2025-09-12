@@ -17,14 +17,19 @@ export function padEnd(
   if (typeof str !== 'string') {
     return '';
   }
-  if (str.length >= targetLength) {
+  const needed = targetLength - str.length;
+  if (needed <= 0) {
     return str;
   }
 
-  targetLength = targetLength - str.length;
-  if (targetLength > padString.length) {
-    padString += padString.repeat(targetLength / padString.length);
+  if (padString === '') {
+    return str;
   }
 
-  return str + padString.slice(0, targetLength);
+  if (padString.length < needed) {
+    const repeatCount = Math.ceil(needed / padString.length);
+    padString = padString.repeat(repeatCount);
+  }
+
+  return str + padString.slice(0, needed);
 }
