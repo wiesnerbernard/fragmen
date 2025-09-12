@@ -1,7 +1,7 @@
 {
   "name": "fragmen",
   "description": "A utility library to copy code fragments into your project",
-  "version": "0.1.1",
+  "version": "0.0.0",
   "type": "module",
   "license": "MIT",
   "bin": {
