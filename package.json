@@ -1,11 +1,11 @@
 {
   "name": "fragmen",
   "description": "A utility library to copy code fragments into your project",
-  "version": "0.0.2",
+  "version": "0.0.0",
   "type": "module",
   "license": "MIT",
   "bin": {
-    "fragmen": "./dist/cli.js"
+    "fragmen": "./dist/src/cli.js"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -39,7 +39,7 @@
     "test:coverage:open": "npm run test:coverage && ( [ \"$OSTYPE\" = \"darwin\" ] && npx open-cli coverage/index.html || npx open-cli coverage/index.html || start coverage/index.html || xdg-open coverage/index.html )",
     "test:coverage:check": "node scripts/coverage.js check",
     "badges:update": "node scripts/update-badges.js",
-    "dev": "npm run build && node dist/cli.js",
+    "dev": "npm run build && node dist/src/cli.js",
     "release:patch": "npm version patch && git push && git push --tags",
     "release:minor": "npm version minor && git push && git push --tags",
     "release:major": "npm version major && git push && git push --tags",
