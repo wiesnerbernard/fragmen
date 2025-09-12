@@ -141,6 +141,7 @@ program
     const sourcePath = path.join(
       __dirname,
       '..',
+      '..',
       'registry',
       ...slug.split('/'),
       'index.ts'
