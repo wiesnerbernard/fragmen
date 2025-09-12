@@ -1,13 +1,20 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
+import { spawn } from 'child_process';
 import { Command } from 'commander';
 import fs from 'fs-extra';
+import { createRequire } from 'module';
 import path from 'path';
 import prompts from 'prompts';
 import { fileURLToPath } from 'url';
 
 const program = new Command();
+
+// ESM-compatible require for JSON imports at runtime
+const require = createRequire(import.meta.url);
+const packageJson = require('../package.json') as { version: string };
+const packageVersion = packageJson.version;
 
 // Configuration file name
 const CONFIG_FILE = 'fragmen.json';
@@ -56,7 +63,8 @@ async function loadConfig() {
 
 program
   .name('fragmen')
-  .description('Add high-quality utility functions to your project.');
+  .description('Add high-quality utility functions to your project.')
+  .version(packageVersion, '-v, --version', 'output the version number');
 
 program
   .command('init')
@@ -155,6 +163,90 @@ program
     console.log(
       `Fragmen ${chalk.cyan(`"${slug}"`)} added to ${chalk.magenta(destPath)}`
     );
+  });
+
+// Release command: bump version and optionally push and publish
+interface ReleaseOptions {
+  push: boolean;
+  publish: boolean;
+  dryRun: boolean;
+  tag?: string;
+}
+
+async function runCommand(command: string, args: string[], dryRun: boolean) {
+  if (dryRun) {
+    console.log(`$ ${command} ${args.join(' ')}`);
+    return;
+  }
+  await new Promise<void>((resolve, reject) => {
+    const child = spawn(command, args, { stdio: 'inherit' });
+    child.on('close', code => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(
+          new Error(`${command} ${args.join(' ')} exited with code ${code}`)
+        );
+      }
+    });
+  });
+}
+
+program
+  .command('release [type]')
+  .description('Bump version and publish to npm (default: patch)')
+  .option('--no-push', 'Skip pushing commit and tags')
+  .option('--no-publish', 'Skip npm publish')
+  .option('-d, --dry-run', 'Show commands without executing')
+  .option('-t, --tag <distTag>', 'Publish under given npm dist-tag (e.g. next)')
+  .action(async (type = 'patch', options: ReleaseOptions) => {
+    const validTypes = [
+      'patch',
+      'minor',
+      'major',
+      'prepatch',
+      'preminor',
+      'premajor',
+      'prerelease',
+    ];
+
+    if (!validTypes.includes(type)) {
+      console.error(
+        chalk.red(
+          `Invalid release type "${type}". Use one of: ${validTypes.join(', ')}`
+        )
+      );
+      process.exit(1);
+    }
+
+    const dryRun = Boolean(options.dryRun);
+    const shouldPush = options.push !== false; // --no-push sets push to false
+    const shouldPublish = options.publish !== false; // --no-publish sets publish to false
+
+    // 1) npm version <type>
+    await runCommand('npm', ['version', type, '-m', 'release: %s'], dryRun);
+
+    // 2) git push && git push --tags (unless skipped)
+    if (shouldPush) {
+      await runCommand('git', ['push'], dryRun);
+      await runCommand('git', ['push', '--tags'], dryRun);
+    }
+
+    // 3) npm publish (unless skipped)
+    if (shouldPublish) {
+      const publishArgs = ['publish'];
+      if (options.tag) {
+        publishArgs.push('--tag', options.tag);
+      }
+      if (dryRun) {
+        publishArgs.push('--dry-run');
+      }
+      await runCommand('npm', publishArgs, dryRun);
+    }
+
+    if (dryRun) {
+      console.log(chalk.green('Dry run complete. No changes were made.'));
+    }
   });
 
 program.parse(process.argv);
