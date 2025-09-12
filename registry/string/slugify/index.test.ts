@@ -26,9 +26,8 @@ describe('slugify', () => {
   });
 
   it('should use a custom separator', () => {
-    // Implementation currently normalizes separators to '-'
     expect(slugify('custom_separator', { separator: '_' })).toBe(
-      'custom-separator'
+      'custom_separator'
     );
   });
 
@@ -36,8 +35,18 @@ describe('slugify', () => {
     expect(slugify('français & español')).toBe('francais-and-espanol');
   });
 
+  it('should map ß to ss', () => {
+    expect(slugify('straße')).toBe('strasse');
+  });
+
   it('should return an empty string for empty or whitespace-only input', () => {
     expect(slugify('')).toBe('');
     expect(slugify('   ')).toBe('');
+  });
+
+  it('should return empty string for non-string input', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(slugify(undefined as unknown as string)).toBe('');
   });
 });

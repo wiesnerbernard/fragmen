@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { pascalCase } from './index.js';
 
 describe('pascalCase', () => {
@@ -43,6 +43,12 @@ describe('pascalCase', () => {
     expect(pascalCase('')).toBe('');
     expect(pascalCase('   ')).toBe('');
     expect(pascalCase('\t\n')).toBe('');
+  });
+
+  it('should return empty string for non-string input', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(pascalCase({} as unknown as string)).toBe('');
   });
 
   it('should handle single words', () => {

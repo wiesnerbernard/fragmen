@@ -4,7 +4,8 @@
  * @param str The string to pad.
  * @param targetLength The desired length of the resulting string.
  * @param padString The string to pad with. Defaults to a space ' '.
- * @returns The padded string.
+ *   If padString is '', the original string is returned (mirrors native behavior).
+ * @returns The padded string. Returns '' for non-string input.
  * @example
  * padStart('abc', 5, '0')
  * // => '00abc'

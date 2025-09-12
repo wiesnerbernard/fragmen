@@ -30,4 +30,10 @@ describe('padEnd', () => {
   it('should correctly truncate multi-character pad at the boundary', () => {
     expect(padEnd('ab', 7, 'xyz')).toBe('abxyzxy');
   });
+
+  it('should return empty string for non-string input', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(padEnd(undefined as unknown as string, 5, ' ')).toBe('');
+  });
 });

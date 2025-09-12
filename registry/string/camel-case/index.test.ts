@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { camelCase } from './index.js';
 
 describe('camelCase', () => {
@@ -43,6 +43,12 @@ describe('camelCase', () => {
     expect(camelCase('')).toBe('');
     expect(camelCase('   ')).toBe('');
     expect(camelCase('\t\n')).toBe('');
+  });
+
+  it('should return empty string for non-string input', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(camelCase(123 as unknown as string)).toBe('');
   });
 
   it('should handle single words', () => {

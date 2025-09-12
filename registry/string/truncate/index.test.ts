@@ -34,4 +34,10 @@ describe('truncate', () => {
     // default omission length is 3
     expect(truncate('anything', { length: 3 })).toBe('...');
   });
+
+  it('should return empty string for non-string input', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(truncate(null as unknown as string, { length: 5 })).toBe('');
+  });
 });

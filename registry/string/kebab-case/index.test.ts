@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { kebabCase } from './index.js';
 
 describe('kebabCase', () => {
@@ -43,6 +43,12 @@ describe('kebabCase', () => {
     expect(kebabCase('')).toBe('');
     expect(kebabCase('   ')).toBe('');
     expect(kebabCase('\t\n')).toBe('');
+  });
+
+  it('should return empty string for non-string input', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(kebabCase(null as unknown as string)).toBe('');
   });
 
   it('should handle single words', () => {

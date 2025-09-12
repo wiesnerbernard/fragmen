@@ -28,6 +28,23 @@ describe('reverse', () => {
     expect(reverse('你好')).toBe('好你');
   });
 
+  it('should reverse grapheme clusters when Intl.Segmenter is available', () => {
+    // Family emoji is composed of multiple code points joined by ZWJs
+    const family = '👩‍👩‍👧‍👧';
+    const heart = '❤️';
+    const input = `${family} ${heart} ok`;
+    const output = reverse(input);
+
+    // If Segmenter exists, reversal should keep clusters intact
+    // biome-ignore lint/suspicious/noExplicitAny: <test>
+    if (typeof (Intl as any).Segmenter === 'function') {
+      expect(output).toBe(`ko ${heart} ${family}`);
+    } else {
+      // Without Segmenter, fallback may split clusters; just assert it's a string
+      expect(typeof output).toBe('string');
+    }
+  });
+
   it('should return empty string for non-string input at runtime', () => {
     // Force a non-string through the type system to exercise the runtime guard
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
