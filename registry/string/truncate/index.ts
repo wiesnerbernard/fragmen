@@ -15,6 +15,9 @@ export function truncate(
   str: string,
   options: { length: number; omission?: string }
 ): string {
+  if (typeof str !== 'string') {
+    return '';
+  }
   const { length, omission = '...' } = options;
 
   if (str.length <= length) {

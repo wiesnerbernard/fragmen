@@ -14,6 +14,9 @@ export function padEnd(
   targetLength: number,
   padString = ' '
 ): string {
+  if (typeof str !== 'string') {
+    return '';
+  }
   if (str.length >= targetLength) {
     return str;
   }
