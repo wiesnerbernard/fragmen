@@ -20,7 +20,7 @@
  * ```
  */
 export function pascalCase(str: string): string {
-  if (!str) {
+  if (typeof str !== 'string') {
     return '';
   }
 
