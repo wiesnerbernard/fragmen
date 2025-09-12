@@ -104,7 +104,7 @@ This is the registry of available utility functions organized by category. Each 
 Groups the elements of an array based on the result of a callback function.
 
 ```typescript
-import { groupBy } from './lib/utils/array-group-by';
+import { groupBy } from '@/lib/utils/array-group-by';
 
 const users = [
   { name: 'Alice', department: 'Engineering' },
@@ -121,7 +121,7 @@ const byDepartment = groupBy(users, user => user.department);
 Returns a new array with only unique elements from the input array.
 
 ```typescript
-import { unique } from './lib/utils/array-unique';
+import { unique } from '@/lib/utils/array-unique';
 
 const numbers = [1, 2, 2, 3, 1, 4];
 const uniqueNumbers = unique(numbers);
@@ -133,7 +133,7 @@ const uniqueNumbers = unique(numbers);
 Splits an array into chunks of a specified size.
 
 ```typescript
-import { chunk } from './lib/utils/array-chunk';
+import { chunk } from '@/lib/utils/array-chunk';
 
 const numbers = [1, 2, 3, 4, 5, 6, 7];
 const chunks = chunk(numbers, 3);
@@ -145,7 +145,7 @@ const chunks = chunk(numbers, 3);
 Flattens nested arrays to a specified depth.
 
 ```typescript
-import { flatten } from './lib/utils/array-flatten';
+import { flatten } from '@/lib/utils/array-flatten';
 
 const nested = [1, [2, 3], [4, [5, 6]]];
 const flat = flatten(nested);
@@ -160,7 +160,7 @@ const deepFlat = flatten(nested, Infinity);
 Finds the intersection of two or more arrays.
 
 ```typescript
-import { intersection } from './lib/utils/array-intersection';
+import { intersection } from '@/lib/utils/array-intersection';
 
 const arr1 = [1, 2, 3, 4];
 const arr2 = [2, 3, 4, 5];
@@ -173,7 +173,7 @@ const common = intersection(arr1, arr2);
 Removes falsy values from an array.
 
 ```typescript
-import { compact } from './lib/utils/array-compact';
+import { compact } from '@/lib/utils/array-compact';
 
 const mixed = [0, 1, false, 2, '', 3, null, 4, undefined, 5, NaN];
 const clean = compact(mixed);
@@ -187,7 +187,7 @@ const clean = compact(mixed);
 Checks if a value is falsy (false, 0, "", null, undefined, NaN).
 
 ```typescript
-import { isFalsy } from './lib/utils/boolean-is-falsy';
+import { isFalsy } from '@/lib/utils/boolean-is-falsy';
 
 isFalsy(''); // true
 isFalsy(0); // true
@@ -199,7 +199,7 @@ isFalsy('hello'); // false
 Checks if a value is truthy (anything that is not falsy).
 
 ```typescript
-import { isTruthy } from './lib/utils/boolean-is-truthy';
+import { isTruthy } from '@/lib/utils/boolean-is-truthy';
 
 isTruthy('hello'); // true
 isTruthy([]); // true
@@ -213,7 +213,7 @@ isTruthy(0); // false
 Creates a debounced function that delays invoking until after wait milliseconds have elapsed.
 
 ```typescript
-import { debounce } from './lib/utils/function-debounce';
+import { debounce } from '@/lib/utils/function-debounce';
 
 const handleSearch = (query: string) => console.log('Searching:', query);
 const debouncedSearch = debounce(handleSearch, 300);
@@ -230,7 +230,7 @@ debouncedSearch('app'); // Executes after 300ms
 Safely parses a JSON string, returning undefined if parsing fails.
 
 ```typescript
-import { safeParse } from './lib/utils/json-safe-parse';
+import { safeParse } from '@/lib/utils/json-safe-parse';
 
 const validJson = '{"name": "John"}';
 const result = safeParse<{ name: string }>(validJson);
@@ -248,7 +248,7 @@ const failed = safeParse(invalidJson);
 Creates a new object composed of the picked object properties.
 
 ```typescript
-import { pick } from './lib/utils/object-pick';
+import { pick } from '@/lib/utils/object-pick';
 
 const user = { id: 1, name: 'John', email: 'john@example.com', age: 30 };
 const publicInfo = pick(user, ['id', 'name']);
@@ -260,7 +260,7 @@ const publicInfo = pick(user, ['id', 'name']);
 Creates a new object by omitting specified keys from the source object.
 
 ```typescript
-import { omit } from './lib/utils/object-omit';
+import { omit } from '@/lib/utils/object-omit';
 
 const user = {
   id: 1,
@@ -277,7 +277,7 @@ const publicUser = omit(user, ['password', 'email']);
 Deep merges multiple objects into a single object.
 
 ```typescript
-import { merge } from './lib/utils/object-merge';
+import { merge } from '@/lib/utils/object-merge';
 
 const obj1 = { a: 1, b: { x: 1, y: 2 } };
 const obj2 = { b: { z: 3 }, c: 4 };
@@ -290,7 +290,7 @@ const merged = merge(obj1, obj2);
 Creates a deep copy of an object.
 
 ```typescript
-import { clone } from './lib/utils/object-clone';
+import { clone } from '@/lib/utils/object-clone';
 
 const original = { name: 'John', address: { city: 'NYC' } };
 const cloned = clone(original);
@@ -303,7 +303,7 @@ console.log(original.address.city); // 'NYC' (unchanged)
 Checks if a nested property path exists in an object.
 
 ```typescript
-import { hasPath } from './lib/utils/object-has-path';
+import { hasPath } from '@/lib/utils/object-has-path';
 
 const user = { profile: { settings: { theme: 'dark' } } };
 hasPath(user, 'profile.settings.theme'); // true
@@ -317,7 +317,7 @@ hasPath(user, 'profile.settings.language'); // false
 Returns a promise that resolves after a given number of milliseconds.
 
 ```typescript
-import { delay } from './lib/utils/promise-delay';
+import { delay } from '@/lib/utils/promise-delay';
 
 // Simple delay
 await delay(1000); // Wait 1 second
@@ -330,60 +330,6 @@ for (const item of items) {
 }
 ```
 
-### Number Utilities
-
-#### `number/clamp`
-
-Clamps a number between a minimum and maximum value.
-
-```typescript
-import { clamp } from './lib/utils/number-clamp';
-
-clamp(10, 0, 5); // 5
-clamp(-5, 0, 10); // 0
-clamp(7, 0, 10); // 7
-clamp(3.7, 1.5, 8.2); // 3.7
-```
-
-#### `number/random`
-
-Generates a random number between min and max.
-
-```typescript
-import { random } from './lib/utils/number-random';
-
-random(0, 1); // e.g., 0.7234 (float)
-random(5, 10); // e.g., 7.832 (float)
-random(1, 7, true); // e.g., 4 (integer)
-random(0, 101, true); // e.g., 42 (integer)
-```
-
-#### `number/round`
-
-Rounds a number to a specified number of decimal places.
-
-```typescript
-import { round } from './lib/utils/number-round';
-
-round(3.14159); // 3
-round(3.14159, 2); // 3.14
-round(3.14159, 4); // 3.1416
-round(123.456, -1); // 120 (round to nearest 10)
-```
-
-#### `number/format-number`
-
-Formats a number with thousands separators and decimal places.
-
-```typescript
-import { formatNumber } from './lib/utils/number-format-number';
-
-formatNumber(1234.567); // '1,234.567'
-formatNumber(1234.567, { decimals: 2 }); // '1,234.57'
-formatNumber(1234567, { thousandsSeparator: ' ' }); // '1 234 567'
-formatNumber(1234.5, { decimalSeparator: ',' }); // '1,234,5'
-```
-
 ### String Utilities
 
 #### `string/capitalize`
@@ -391,7 +337,7 @@ formatNumber(1234.5, { decimalSeparator: ',' }); // '1,234,5'
 Capitalizes the first letter of a string while leaving the rest unchanged.
 
 ```typescript
-import { capitalize } from './lib/utils/string-capitalize';
+import { capitalize } from '@/lib/utils/string-capitalize';
 
 capitalize('hello world'); // 'Hello world'
 capitalize('javaScript'); // 'JavaScript'
@@ -403,7 +349,7 @@ capitalize(''); // ''
 Converts a string to kebab-case.
 
 ```typescript
-import { kebabCase } from './lib/utils/string-kebab-case';
+import { kebabCase } from '@/lib/utils/string-kebab-case';
 
 kebabCase('Hello World'); // 'hello-world'
 kebabCase('firstName'); // 'first-name'
@@ -416,7 +362,7 @@ kebabCase('snake_case_string'); // 'snake-case-string'
 Converts a string to snake_case.
 
 ```typescript
-import { snakeCase } from './lib/utils/string-snake-case';
+import { snakeCase } from '@/lib/utils/string-snake-case';
 
 snakeCase('Hello World'); // 'hello_world'
 snakeCase('firstName'); // 'first_name'
@@ -429,7 +375,7 @@ snakeCase('kebab-case-string'); // 'kebab_case_string'
 Converts a string to camelCase.
 
 ```typescript
-import { camelCase } from './lib/utils/string-camel-case';
+import { camelCase } from '@/lib/utils/string-camel-case';
 
 camelCase('Hello World'); // 'helloWorld'
 camelCase('first_name'); // 'firstName'
@@ -442,7 +388,7 @@ camelCase('PascalCase'); // 'pascalCase'
 Converts a string to PascalCase.
 
 ```typescript
-import { pascalCase } from './lib/utils/string-pascal-case';
+import { pascalCase } from '@/lib/utils/string-pascal-case';
 
 pascalCase('Hello World'); // 'HelloWorld'
 pascalCase('first_name'); // 'FirstName'
@@ -457,7 +403,7 @@ pascalCase('camelCase'); // 'CamelCase'
 Constrains a number to be within a specified range.
 
 ```typescript
-import { clamp } from './lib/utils/number-clamp';
+import { clamp } from '@/lib/utils/number-clamp';
 
 clamp(15, 10, 20); // 15
 clamp(5, 10, 20); // 10
@@ -469,7 +415,7 @@ clamp(25, 10, 20); // 20
 Generates a random number within a specified range.
 
 ```typescript
-import { random } from './lib/utils/number-random';
+import { random } from '@/lib/utils/number-random';
 
 random(1, 10); // Random float between 1 and 10
 random(1, 10, { integer: true }); // Random integer between 1 and 10
@@ -481,7 +427,7 @@ random(0, 1); // Random float between 0 and 1
 Rounds a number to a specified number of decimal places.
 
 ```typescript
-import { round } from './lib/utils/number-round';
+import { round } from '@/lib/utils/number-round';
 
 round(4.006, 2); // 4.01
 round(4.006, 0); // 4
@@ -493,7 +439,7 @@ round(4.006); // 4
 Formats a number with locale-specific formatting.
 
 ```typescript
-import { formatNumber } from './lib/utils/number-format-number';
+import { formatNumber } from '@/lib/utils/number-format-number';
 
 formatNumber(1234.56); // '1,234.56'
 formatNumber(1234.56, { locale: 'de-DE' }); // '1.234,56'
@@ -507,7 +453,7 @@ formatNumber(1234.56, { minimumFractionDigits: 3 }); // '1,234.560'
 Parses a URL string into its component parts.
 
 ```typescript
-import { parseUrl } from './lib/utils/url-parse-url';
+import { parseUrl } from '@/lib/utils/url-parse-url';
 
 parseUrl('https://example.com:8080/path?query=value#hash');
 // {
@@ -527,7 +473,7 @@ parseUrl('https://example.com:8080/path?query=value#hash');
 Builds a URL query string from an object of parameters.
 
 ```typescript
-import { buildQuery } from './lib/utils/url-build-query';
+import { buildQuery } from '@/lib/utils/url-build-query';
 
 buildQuery({ name: 'John Doe', age: 30 });
 // 'name=John%20Doe&age=30'
@@ -544,7 +490,7 @@ buildQuery({ search: 'hello world' }, { prefix: true });
 Checks if a string is a valid URL.
 
 ```typescript
-import { isValidUrl } from './lib/utils/url-is-valid-url';
+import { isValidUrl } from '@/lib/utils/url-is-valid-url';
 
 isValidUrl('https://example.com'); // true
 isValidUrl('not-a-url'); // false
@@ -557,7 +503,7 @@ isValidUrl('example.com', { requireProtocol: false }); // true
 Sanitizes a URL by removing or encoding potentially dangerous elements.
 
 ```typescript
-import { sanitizeUrl } from './lib/utils/url-sanitize-url';
+import { sanitizeUrl } from '@/lib/utils/url-sanitize-url';
 
 sanitizeUrl('https://example.com/path?query=value');
 // 'https://example.com/path?query=value'
