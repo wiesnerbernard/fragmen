@@ -330,60 +330,6 @@ for (const item of items) {
 }
 ```
 
-### Number Utilities
-
-#### `number/clamp`
-
-Clamps a number between a minimum and maximum value.
-
-```typescript
-import { clamp } from './lib/utils/number-clamp';
-
-clamp(10, 0, 5); // 5
-clamp(-5, 0, 10); // 0
-clamp(7, 0, 10); // 7
-clamp(3.7, 1.5, 8.2); // 3.7
-```
-
-#### `number/random`
-
-Generates a random number between min and max.
-
-```typescript
-import { random } from './lib/utils/number-random';
-
-random(0, 1); // e.g., 0.7234 (float)
-random(5, 10); // e.g., 7.832 (float)
-random(1, 7, true); // e.g., 4 (integer)
-random(0, 101, true); // e.g., 42 (integer)
-```
-
-#### `number/round`
-
-Rounds a number to a specified number of decimal places.
-
-```typescript
-import { round } from './lib/utils/number-round';
-
-round(3.14159); // 3
-round(3.14159, 2); // 3.14
-round(3.14159, 4); // 3.1416
-round(123.456, -1); // 120 (round to nearest 10)
-```
-
-#### `number/format-number`
-
-Formats a number with thousands separators and decimal places.
-
-```typescript
-import { formatNumber } from './lib/utils/number-format-number';
-
-formatNumber(1234.567); // '1,234.567'
-formatNumber(1234.567, { decimals: 2 }); // '1,234.57'
-formatNumber(1234567, { thousandsSeparator: ' ' }); // '1 234 567'
-formatNumber(1234.5, { decimalSeparator: ',' }); // '1,234,5'
-```
-
 ### String Utilities
 
 #### `string/capitalize`
