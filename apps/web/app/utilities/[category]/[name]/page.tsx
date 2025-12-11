@@ -2,6 +2,7 @@ import { getRegistryItem, getCategories, getItemsByCategory } from '@/lib/regist
 import { notFound } from 'next/navigation'
 import { codeToHtml } from 'shiki'
 import Link from 'next/link'
+import { CopyButton } from '@/components/copy-button'
 
 interface PageProps {
   params: {
@@ -71,14 +72,18 @@ export default async function UtilityPage({ params }: PageProps) {
             {/* Installation */}
             <section>
               <h2 className="text-2xl font-bold mb-4">Installation</h2>
-              <div className="rounded-lg border border-border bg-secondary/50 p-4">
+              <div className="rounded-lg border border-border bg-secondary/50 p-4 flex items-center justify-between">
                 <code className="text-sm">npx fragmen add {item.slug}</code>
+                <CopyButton text={`npx fragmen add ${item.slug}`} />
               </div>
             </section>
 
             {/* Code */}
             <section>
-              <h2 className="text-2xl font-bold mb-4">Source Code</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold">Source Code</h2>
+                <CopyButton text={item.code} />
+              </div>
               <div className="relative rounded-lg border border-border overflow-hidden">
                 <div
                   className="dark:hidden overflow-x-auto"

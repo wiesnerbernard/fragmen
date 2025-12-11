@@ -14,6 +14,8 @@
 
 Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript utility functions directly into your project. Instead of adding another dependency to your `package.json`, you get the source code. You own it, you can change it, and you won't have to worry about bundle size or breaking changes from a third-party library.
 
+🌐 **[Browse utilities on the web →](https://fragmen.vercel.app)**
+
 ## Table of Contents
 
 - [Core Philosophy](#core-philosophy)
@@ -49,7 +51,7 @@ Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript util
 
 ## Getting Started
 
-Get started in three simple steps.
+Get started in three simple steps. Or **[browse all utilities on the website](https://fragmen.vercel.app)** to see what's available.
 
 ### 1. Initialize Project
 
