@@ -196,6 +196,63 @@ async function runCommand(command: string, args: string[], dryRun: boolean) {
 }
 
 program
+  .command('list')
+  .description('List all available utilities')
+  .action(async () => {
+    try {
+      // Get the directory where this CLI file is located (dist/src/cli.js)
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const registryPath = path.join(__dirname, '../../registry');
+
+      if (!fs.existsSync(registryPath)) {
+        console.error(chalk.red('Registry not found'));
+        process.exit(1);
+      }
+
+      const categories = fs
+        .readdirSync(registryPath, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory())
+        .map(dirent => dirent.name)
+        .sort();
+
+      console.log(chalk.cyan.bold('\n📦 Available Utilities\n'));
+
+      for (const category of categories) {
+        const categoryPath = path.join(registryPath, category);
+        const utilities = fs
+          .readdirSync(categoryPath, { withFileTypes: true })
+          .filter(dirent => dirent.isDirectory())
+          .map(dirent => dirent.name)
+          .sort();
+
+        console.log(chalk.yellow.bold(`${category}/`));
+        for (const utility of utilities) {
+          console.log(chalk.gray(`  • ${utility}`));
+        }
+        console.log();
+      }
+
+      const totalCount = categories.reduce((count, category) => {
+        const categoryPath = path.join(registryPath, category);
+        const utilities = fs
+          .readdirSync(categoryPath, { withFileTypes: true })
+          .filter(dirent => dirent.isDirectory());
+        return count + utilities.length;
+      }, 0);
+
+      console.log(chalk.green(`Total: ${totalCount} utilities\n`));
+    } catch (error) {
+      console.error(
+        chalk.red(
+          `Failed to list utilities: ${error instanceof Error ? error.message : String(error)}`
+        )
+      );
+      process.exit(1);
+    }
+  });
+
+program
   .command('release [type]')
   .description('Bump version and publish to npm (default: patch)')
   .option('--no-push', 'Skip pushing commit and tags')

@@ -66,7 +66,17 @@ You'll be asked a few questions to set up your project:
 
 This creates your `shards.json` file.
 
-### 2. Add a Fragment
+### 2. Browse Available Utilities
+
+Use the `list` command to see all available utilities organized by category:
+
+```bash
+npx fragmen list
+```
+
+This will display all 50 utilities grouped by category (array, boolean, date, function, json, number, object, promise, string, url).
+
+### 3. Add a Fragment
 
 Use the `add` command to select and install a fragment. Let's add the `capitalize` utility.
 
