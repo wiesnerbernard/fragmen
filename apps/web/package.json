@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.0",
     "fuse.js": "^7.1.0",
     "gray-matter": "^4.0.3",

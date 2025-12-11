@@ -4,6 +4,7 @@ import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
 import { ThemeToggle } from '@/components/theme-toggle'
 import Link from 'next/link'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -103,6 +104,7 @@ export default function RootLayout({
             </div>
           </footer>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )

@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import { CopyButton } from '@/components/copy-button'
+import { CopyButton } from '@/components/copy-button';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -16,10 +16,10 @@ export default function HomePage() {
             A utility library to copy code fragments into your project
           </p>
           <p className="text-lg text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Browse 50+ high-quality TypeScript utilities across 9 categories. 
+            Browse 50+ high-quality TypeScript utilities across 9 categories.
             Copy the code directly into your project - no dependencies required.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/utilities"
@@ -44,19 +44,22 @@ export default function HomePage() {
             <div className="rounded-lg border bg-background p-6">
               <h3 className="text-lg font-semibold mb-2">Own Your Code</h3>
               <p className="text-muted-foreground text-sm">
-                Utilities are copied directly into your codebase. Full control to inspect, adapt, and learn from them.
+                Utilities are copied directly into your codebase. Full control
+                to inspect, adapt, and learn from them.
               </p>
             </div>
             <div className="rounded-lg border bg-background p-6">
               <h3 className="text-lg font-semibold mb-2">Zero Dependencies</h3>
               <p className="text-muted-foreground text-sm">
-                Each fragment is self-contained. Adding a utility doesn&apos;t bloat your node_modules folder.
+                Each fragment is self-contained. Adding a utility doesn&apos;t
+                bloat your node_modules folder.
               </p>
             </div>
             <div className="rounded-lg border bg-background p-6">
               <h3 className="text-lg font-semibold mb-2">TypeScript First</h3>
               <p className="text-muted-foreground text-sm">
-                All fragments are written in TypeScript with excellent type safety and JSDoc annotations.
+                All fragments are written in TypeScript with excellent type
+                safety and JSDoc annotations.
               </p>
             </div>
           </div>
@@ -67,7 +70,7 @@ export default function HomePage() {
       <section className="container mx-auto px-4 py-20">
         <div className="mx-auto max-w-3xl">
           <h2 className="text-3xl font-bold mb-8 text-center">Quick Start</h2>
-          
+
           <div className="space-y-6">
             <div className="rounded-lg border bg-background p-6">
               <div className="flex items-start gap-4">
@@ -116,7 +119,9 @@ export default function HomePage() {
                   <h3 className="font-semibold mb-2">Add to Your Project</h3>
                   <div className="relative">
                     <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
-                      <code>npx fragmen add promise/delay string/capitalize</code>
+                      <code>
+                        npx fragmen add promise/delay string/capitalize
+                      </code>
                     </pre>
                     <div className="absolute top-2 right-2">
                       <CopyButton text="npx fragmen add promise/delay string/capitalize" />
@@ -129,5 +134,5 @@ export default function HomePage() {
         </div>
       </section>
     </main>
-  )
+  );
 }

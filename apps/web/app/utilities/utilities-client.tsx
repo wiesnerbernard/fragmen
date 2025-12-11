@@ -1,29 +1,29 @@
-'use client'
+'use client';
 
-import { useState, useMemo, useEffect, useRef } from 'react'
-import Link from 'next/link'
-import Fuse from 'fuse.js'
-import type { RegistryItem } from '@/lib/registry'
+import type { RegistryItem } from '@/lib/registry';
+import Fuse from 'fuse.js';
+import Link from 'next/link';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface UtilitiesClientProps {
-  items: RegistryItem[]
-  categories: string[]
+  items: RegistryItem[];
+  categories: string[];
 }
 
 export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
-  const [search, setSearch] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
-  const [selectedTag, setSelectedTag] = useState<string>('all')
-  const searchInputRef = useRef<HTMLInputElement>(null)
+  const [search, setSearch] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedTag, setSelectedTag] = useState<string>('all');
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Extract all unique tags from items
   const allTags = useMemo(() => {
-    const tagSet = new Set<string>()
+    const tagSet = new Set<string>();
     items.forEach(item => {
-      item.tags?.forEach(tag => tagSet.add(tag))
-    })
-    return Array.from(tagSet).sort()
-  }, [items])
+      item.tags?.forEach(tag => tagSet.add(tag));
+    });
+    return Array.from(tagSet).sort();
+  }, [items]);
 
   // Configure Fuse.js for fuzzy search
   const fuse = useMemo(() => {
@@ -32,56 +32,59 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
         { name: 'name', weight: 2 },
         { name: 'description', weight: 1.5 },
         { name: 'category', weight: 1 },
-        { name: 'tags', weight: 1.2 }
+        { name: 'tags', weight: 1.2 },
       ],
       threshold: 0.4,
       includeScore: true,
-    })
-  }, [items])
+    });
+  }, [items]);
 
   const filteredItems = useMemo(() => {
-    let results = items
+    let results = items;
 
     // Apply fuzzy search if there's a search query
     if (search.trim() !== '') {
-      const fuseResults = fuse.search(search)
-      results = fuseResults.map(result => result.item)
+      const fuseResults = fuse.search(search);
+      results = fuseResults.map(result => result.item);
     }
 
     // Apply category and tag filters
     return results.filter(item => {
-      const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory
-      const matchesTag = selectedTag === 'all' || item.tags?.includes(selectedTag)
-      return matchesCategory && matchesTag
-    })
-  }, [items, search, selectedCategory, selectedTag, fuse])
+      const matchesCategory =
+        selectedCategory === 'all' || item.category === selectedCategory;
+      const matchesTag =
+        selectedTag === 'all' || item.tags?.includes(selectedTag);
+      return matchesCategory && matchesTag;
+    });
+  }, [items, search, selectedCategory, selectedTag, fuse]);
 
-  const hasActiveFilters = search !== '' || selectedCategory !== 'all' || selectedTag !== 'all'
+  const hasActiveFilters =
+    search !== '' || selectedCategory !== 'all' || selectedTag !== 'all';
 
   const clearFilters = () => {
-    setSearch('')
-    setSelectedCategory('all')
-    setSelectedTag('all')
-  }
+    setSearch('');
+    setSelectedCategory('all');
+    setSelectedTag('all');
+  };
 
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Cmd/Ctrl + K to focus search
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault()
-        searchInputRef.current?.focus()
+        e.preventDefault();
+        searchInputRef.current?.focus();
       }
       // Escape to clear filters
       if (e.key === 'Escape' && hasActiveFilters) {
-        clearFilters()
-        searchInputRef.current?.blur()
+        clearFilters();
+        searchInputRef.current?.blur();
       }
-    }
+    };
 
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [hasActiveFilters])
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [hasActiveFilters]);
 
   return (
     <main className="min-h-screen">
@@ -90,7 +93,8 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-4xl font-bold mb-4">Utilities</h1>
           <p className="text-lg text-muted-foreground">
-            Browse {items.length} high-quality TypeScript utilities across {categories.length} categories
+            Browse {items.length} high-quality TypeScript utilities across{' '}
+            {categories.length} categories
           </p>
         </div>
       </div>
@@ -105,7 +109,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 type="text"
                 placeholder="Search utilities... (⌘K)"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={e => setSearch(e.target.value)}
                 className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
@@ -132,7 +136,9 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
               All ({items.length})
             </button>
             {categories.map(category => {
-              const count = items.filter(item => item.category === category).length
+              const count = items.filter(
+                item => item.category === category
+              ).length;
               return (
                 <button
                   key={category}
@@ -145,14 +151,16 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 >
                   {category} ({count})
                 </button>
-              )
+              );
             })}
           </div>
 
           {/* Tag Filters */}
           {allTags.length > 0 && (
             <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">Filter by tag:</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Filter by tag:
+              </p>
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedTag('all')}
@@ -165,7 +173,9 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                   All
                 </button>
                 {allTags.map(tag => {
-                  const count = items.filter(item => item.tags?.includes(tag)).length
+                  const count = items.filter(item =>
+                    item.tags?.includes(tag)
+                  ).length;
                   return (
                     <button
                       key={tag}
@@ -178,7 +188,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                     >
                       {tag} ({count})
                     </button>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -187,7 +197,8 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
 
         {/* Results Count */}
         <p className="text-sm text-muted-foreground mb-4">
-          {filteredItems.length} {filteredItems.length === 1 ? 'utility' : 'utilities'} found
+          {filteredItems.length}{' '}
+          {filteredItems.length === 1 ? 'utility' : 'utilities'} found
         </p>
 
         {/* Grid */}
@@ -227,10 +238,12 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
 
         {filteredItems.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-lg text-muted-foreground">No utilities found matching your search.</p>
+            <p className="text-lg text-muted-foreground">
+              No utilities found matching your search.
+            </p>
           </div>
         )}
       </div>
     </main>
-  )
+  );
 }
