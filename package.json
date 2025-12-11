@@ -4,6 +4,9 @@
   "version": "1.0.2",
   "type": "module",
   "license": "MIT",
+  "workspaces": [
+    "apps/*"
+  ],
   "bin": {
     "fragmen": "./dist/src/cli.js"
   },
@@ -40,6 +43,9 @@
     "test:coverage:check": "node scripts/coverage.js check",
     "badges:update": "node scripts/update-badges.js",
     "dev": "npm run build && node dist/src/cli.js",
+    "web:dev": "npm run dev --workspace=apps/web",
+    "web:build": "npm run build --workspace=apps/web",
+    "web:start": "npm run start --workspace=apps/web",
     "release:patch": "npm version patch && git push && git push --tags",
     "release:minor": "npm version minor && git push && git push --tags",
     "release:major": "npm version major && git push && git push --tags",
