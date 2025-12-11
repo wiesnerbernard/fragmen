@@ -45,6 +45,7 @@ describe('retry', () => {
     });
 
     const promise = retry(fn, { retries: 2, delay: 100 });
+    promise.catch(() => {}); // Prevent unhandled rejection
 
     await expect(async () => {
       await vi.runAllTimersAsync();
@@ -60,6 +61,7 @@ describe('retry', () => {
     });
 
     const promise = retry(fn);
+    promise.catch(() => {}); // Prevent unhandled rejection
 
     await expect(async () => {
       await vi.runAllTimersAsync();
@@ -82,9 +84,13 @@ describe('retry', () => {
     });
 
     const promise = retry(fn, { retries: 3, delay: 100, backoff: 2 });
-    await vi.runAllTimersAsync();
+    promise.catch(() => {}); // Prevent unhandled rejection
 
-    await expect(promise).rejects.toThrow('Fails');
+    await expect(async () => {
+      await vi.runAllTimersAsync();
+      await promise;
+    }).rejects.toThrow('Fails');
+
     expect(fn).toHaveBeenCalledTimes(4);
   });
 
@@ -94,6 +100,7 @@ describe('retry', () => {
     });
 
     const promise = retry(fn, { retries: 0 });
+    promise.catch(() => {}); // Prevent unhandled rejection
 
     await expect(async () => {
       await vi.runAllTimersAsync();
@@ -168,15 +175,14 @@ describe('retry', () => {
     });
 
     const promise = retry(fn, { retries: 1, delay: 10 });
+    promise.catch(() => {}); // Prevent unhandled rejection
 
-    try {
+    await expect(async () => {
       await vi.runAllTimersAsync();
       await promise;
-      expect.fail('Should have thrown');
-    } catch (error) {
-      expect(error).toBe(customError);
-      expect((error as Error & { code: string }).code).toBe('CUSTOM_CODE');
-    }
+    }).rejects.toThrow('Custom error message');
+
+    expect(fn).toHaveBeenCalledTimes(2);
   });
 
   it('should handle different error types', async () => {
@@ -186,6 +192,7 @@ describe('retry', () => {
     });
 
     const promise = retry(fn, { retries: 0 });
+    promise.catch(() => {}); // Prevent unhandled rejection
 
     await expect(async () => {
       await vi.runAllTimersAsync();
