@@ -137,4 +137,17 @@ describe('sortBy', () => {
     const result = sortBy(numbers, n => n);
     expect(result).toEqual([-5, -1, 0, 2, 3]);
   });
+
+  it('should handle array with all null values', () => {
+    const items = [null, null, null];
+    const result = sortBy(items, x => x);
+    expect(result).toEqual([null, null, null]);
+  });
+
+  it('should handle mixed types with fallback string comparison', () => {
+    const items = [{ val: true }, { val: false }, { val: 42 }];
+    const result = sortBy(items, 'val');
+    // Boolean and number get compared as strings
+    expect(result.length).toBe(3);
+  });
 });

@@ -66,6 +66,18 @@ describe('difference', () => {
     expect(difference(arr, undefined as any, [2, 3])).toEqual([1, 4]);
   });
 
+  it('should return copy when only non-array exclusions provided', () => {
+    const arr = [1, 2, 3];
+    const result = difference(
+      arr,
+      null as any,
+      undefined as any,
+      'not an array' as any
+    );
+    expect(result).toEqual([1, 2, 3]);
+    expect(result).not.toBe(arr);
+  });
+
   it('should maintain order from first array', () => {
     const arr = [5, 3, 1, 4, 2];
     expect(difference(arr, [3, 4])).toEqual([5, 1, 2]);

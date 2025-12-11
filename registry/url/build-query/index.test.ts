@@ -142,4 +142,20 @@ describe('buildQuery', () => {
     const params = { level1: { level2: 'value' } };
     expect(buildQuery(params)).toBe('level1%5Blevel2%5D=value');
   });
+
+  it('should handle deeply nested objects', () => {
+    // This ensures the recursive flattenObject branch is fully covered
+    const params = {
+      level1: {
+        level2: {
+          level3: {
+            level4: 'deep value',
+          },
+        },
+      },
+    };
+    expect(buildQuery(params)).toBe(
+      'level1%5Blevel2%5D%5Blevel3%5D%5Blevel4%5D=deep%20value'
+    );
+  });
 });

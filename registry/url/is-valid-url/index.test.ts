@@ -142,6 +142,13 @@ describe('isValidUrl', () => {
     expect(isValidUrl('tel:+1234567890')).toBe(true);
   });
 
+  it('should reject non-special protocols without hostname', () => {
+    // ftp: is not a special protocol, so it should fail without hostname
+    expect(isValidUrl('ftp:')).toBe(false);
+    expect(isValidUrl('http:')).toBe(false);
+    expect(isValidUrl('https:')).toBe(false);
+  });
+
   it('should handle IPv6 addresses', () => {
     // Test IPv6 addresses to cover the isIpAddress function edge cases
     expect(isValidUrl('http://[::1]:8080')).toBe(true);

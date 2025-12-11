@@ -225,4 +225,20 @@ describe('sanitizeUrl', () => {
       'tel:%2B1-234-567-8900?ext=123'
     );
   });
+
+  it('should handle standard URLs with query and hash removal', () => {
+    // Test the else branch for standard URLs with query/hash handling
+    expect(
+      sanitizeUrl('https://example.com/path?query=test', { removeQuery: true })
+    ).toBe('https://example.com/path');
+    expect(
+      sanitizeUrl('https://example.com/path#hash', { removeHash: true })
+    ).toBe('https://example.com/path');
+    expect(
+      sanitizeUrl('https://example.com/path?q=1#section', {
+        removeQuery: true,
+        removeHash: true,
+      })
+    ).toBe('https://example.com/path');
+  });
 });
