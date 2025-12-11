@@ -481,6 +481,183 @@ program
   });
 
 program
+  .command('browse')
+  .description('Interactively browse and add utilities')
+  .action(async () => {
+    try {
+      console.log(chalk.cyan.bold('\n🔍 Browse Fragmen Utilities\n'));
+
+      // Get registry path
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const registryPath = path.join(__dirname, '..', '..', 'registry');
+
+      // Load configuration
+      const config = await loadConfig();
+
+      // Get all categories
+      const allCategories = fs
+        .readdirSync(registryPath, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory())
+        .map(dirent => dirent.name)
+        .sort();
+
+      // Step 1: Select category
+      const categoryResponse = await prompts({
+        type: 'select',
+        name: 'category',
+        message: 'Select a category:',
+        choices: allCategories.map(cat => {
+          const categoryPath = path.join(registryPath, cat);
+          const utilityCount = fs
+            .readdirSync(categoryPath, { withFileTypes: true })
+            .filter(dirent => dirent.isDirectory()).length;
+
+          return {
+            title: `${cat} (${utilityCount} utilities)`,
+            value: cat,
+            description: `Browse ${utilityCount} utilities in the ${cat} category`,
+          };
+        }),
+      });
+
+      if (!categoryResponse.category) {
+        console.log(chalk.yellow('\nBrowsing cancelled.\n'));
+        return;
+      }
+
+      const selectedCategory = categoryResponse.category;
+
+      // Get utilities in selected category
+      const categoryPath = path.join(registryPath, selectedCategory);
+      const utilities = fs
+        .readdirSync(categoryPath, { withFileTypes: true })
+        .filter(dirent => dirent.isDirectory())
+        .map(dirent => dirent.name)
+        .sort();
+
+      // Step 2: Select utilities (multi-select)
+      const utilitiesResponse = await prompts({
+        type: 'multiselect',
+        name: 'utilities',
+        message: `Select utilities from ${chalk.cyan(selectedCategory)}:`,
+        choices: utilities.map(util => ({
+          title: util,
+          value: util,
+          selected: false,
+        })),
+        hint: 'Space to select, Enter to confirm',
+        instructions: false,
+      });
+
+      if (
+        !utilitiesResponse.utilities ||
+        utilitiesResponse.utilities.length === 0
+      ) {
+        console.log(chalk.yellow('\nNo utilities selected.\n'));
+        return;
+      }
+
+      const selectedUtilities: string[] = utilitiesResponse.utilities;
+
+      // Step 3: Confirm selection
+      const confirmResponse = await prompts({
+        type: 'confirm',
+        name: 'confirm',
+        message: `Add ${selectedUtilities.length} ${selectedUtilities.length === 1 ? 'utility' : 'utilities'}?`,
+        initial: true,
+      });
+
+      if (!confirmResponse.confirm) {
+        console.log(chalk.yellow('\nCancelled.\n'));
+        return;
+      }
+
+      // Step 4: Add the selected utilities
+      console.log(
+        chalk.cyan(
+          `\nAdding ${selectedUtilities.length} ${selectedUtilities.length === 1 ? 'utility' : 'utilities'}...\n`
+        )
+      );
+
+      let successCount = 0;
+      const failedUtilities: string[] = [];
+
+      for (const utility of selectedUtilities) {
+        try {
+          const slug = `${selectedCategory}/${utility}`;
+          const sourcePath = path.join(
+            registryPath,
+            selectedCategory,
+            utility,
+            'index.ts'
+          );
+
+          if (!(await fs.pathExists(sourcePath))) {
+            console.log(chalk.red(`✗ ${slug} - not found`));
+            failedUtilities.push(slug);
+            continue;
+          }
+
+          const targetDir = path.resolve(process.cwd(), config.baseDir);
+          const fileName = `${slug.replace(/\//g, '-')}.${config.language}`;
+          const destPath = path.join(targetDir, fileName);
+
+          await fs.ensureDir(path.dirname(destPath));
+          await fs.copy(sourcePath, destPath);
+
+          console.log(chalk.green(`✓ ${slug}`));
+          successCount++;
+        } catch (error) {
+          const slug = `${selectedCategory}/${utility}`;
+          console.log(
+            chalk.red(
+              `✗ ${slug} - ${error instanceof Error ? error.message : 'unknown error'}`
+            )
+          );
+          failedUtilities.push(slug);
+        }
+      }
+
+      // Summary
+      console.log();
+      if (successCount > 0) {
+        console.log(
+          chalk.green(
+            `✓ Successfully added ${successCount} ${successCount === 1 ? 'utility' : 'utilities'}`
+          )
+        );
+        console.log(chalk.gray(`  Location: ${config.baseDir}/`));
+      }
+
+      if (failedUtilities.length > 0) {
+        console.log(chalk.red(`✗ Failed to add ${failedUtilities.length}:`));
+        failedUtilities.forEach(util => console.log(chalk.gray(`  • ${util}`)));
+      }
+
+      console.log();
+
+      if (failedUtilities.length > 0) {
+        process.exit(1);
+      }
+    } catch (error) {
+      if (
+        (error as { message?: string }).message ===
+        'User force closed the prompt with 0 null'
+      ) {
+        console.log(chalk.yellow('\n\nBrowsing cancelled.\n'));
+        process.exit(0);
+      }
+      console.error(
+        chalk.red(
+          `Failed to browse utilities: ${error instanceof Error ? error.message : String(error)}`
+        )
+      );
+      process.exit(1);
+    }
+  });
+
+program
   .command('release [type]')
   .description('Bump version and publish to npm (default: patch)')
   .option('--no-push', 'Skip pushing commit and tags')
