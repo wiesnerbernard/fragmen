@@ -11,6 +11,7 @@
  * 5. Removes non-word characters except the chosen separator.
  * 6. Collapses multiple separators and trims from start/end.
  *
+ * @tags url, formatting, sanitization
  * @param str The string to convert.
  * @param options Options for slugification.
  * @param options.separator The character to use as a word separator. Defaults to '-'.

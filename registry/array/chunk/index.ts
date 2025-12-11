@@ -5,6 +5,7 @@
  * each with a maximum length of the specified size. The last chunk may contain
  * fewer elements if the array length is not evenly divisible by the chunk size.
  *
+ * @tags pure, array-manipulation
  * @param array The array to split into chunks
  * @param size The maximum size of each chunk (must be positive integer)
  * @returns A new array containing the chunks, or empty array if input is invalid

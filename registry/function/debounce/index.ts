@@ -5,6 +5,7 @@
  * events like search input, button clicks, or window resize where you want to limit
  * the frequency of function execution.
  *
+ * @tags performance, event-handling
  * @param fn The function to debounce.
  * @param wait The number of milliseconds to delay execution.
  * @returns A debounced version of the function that accepts the same parameters.
