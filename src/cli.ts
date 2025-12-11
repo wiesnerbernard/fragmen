@@ -334,6 +334,112 @@ program
   });
 
 program
+  .command('show <category/utility-name>')
+  .description('Show detailed information about a utility')
+  .action(async (slug: string) => {
+    try {
+      // Validate format
+      if (!slug.includes('/')) {
+        console.error(
+          chalk.red('\nError: Utility name must include category.')
+        );
+        console.log(chalk.yellow('\nFormat: category/utility-name'));
+        console.log(
+          chalk.gray('Example:'),
+          chalk.cyan('fragmen show promise/delay')
+        );
+        console.log();
+        process.exit(1);
+      }
+
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const registryPath = path.join(__dirname, '../../registry');
+
+      const [category, utilityName] = slug.split('/');
+      const utilityPath = path.join(registryPath, category, utilityName);
+      const indexPath = path.join(utilityPath, 'index.ts');
+
+      if (!fs.existsSync(indexPath)) {
+        console.error(chalk.red(`\nUtility "${slug}" not found.`));
+        console.log(
+          chalk.cyan('\nRun "fragmen list" to see all available utilities\n')
+        );
+        process.exit(1);
+      }
+
+      // Read the utility source code
+      const sourceCode = await fs.readFile(indexPath, 'utf-8');
+
+      // Extract JSDoc comment
+      const jsdocMatch = sourceCode.match(/\/\*\*([\s\S]*?)\*\//);
+      let description = '';
+      let example = '';
+
+      if (jsdocMatch) {
+        const jsdocContent = jsdocMatch[1];
+
+        // Extract description (lines before @example)
+        const descMatch = jsdocContent.match(/\*\s*([^\n@]+)/);
+        if (descMatch) {
+          description = descMatch[1].trim();
+        }
+
+        // Extract example
+        const exampleMatch = jsdocContent.match(
+          /@example\s*([\s\S]*?)(?=\*\/|\*\s*@)/
+        );
+        if (exampleMatch) {
+          example = exampleMatch[1]
+            .split('\n')
+            .map(line => line.replace(/^\s*\*\s?/, ''))
+            .join('\n')
+            .trim();
+        }
+      }
+
+      // Extract function signature
+      // const functionMatch = sourceCode.match(/export\s+(?:function|const)\s+(\w+)[^{]*({|\()/);
+      // const functionName = functionMatch ? functionMatch[1] : utilityName;
+
+      // Display info
+      console.log(chalk.cyan.bold(`\n📖 ${slug}\n`));
+
+      if (description) {
+        console.log(chalk.white(description));
+        console.log();
+      }
+
+      console.log(chalk.yellow.bold('Usage:'));
+      console.log(chalk.gray(`  fragmen add ${slug}`));
+      console.log();
+
+      if (example) {
+        console.log(chalk.yellow.bold('Example:'));
+        console.log(chalk.gray(example));
+        console.log();
+      }
+
+      console.log(chalk.yellow.bold('Source:'));
+      console.log(chalk.gray(`  registry/${category}/${utilityName}/index.ts`));
+      console.log();
+
+      console.log(
+        chalk.gray('To add this utility:'),
+        chalk.cyan(`fragmen add ${slug}`)
+      );
+      console.log();
+    } catch (error) {
+      console.error(
+        chalk.red(
+          `Failed to show utility: ${error instanceof Error ? error.message : String(error)}`
+        )
+      );
+      process.exit(1);
+    }
+  });
+
+program
   .command('release [type]')
   .description('Bump version and publish to npm (default: patch)')
   .option('--no-push', 'Skip pushing commit and tags')
