@@ -69,59 +69,169 @@ You'll be asked a few questions to set up your project:
 
 This creates your `fragmen.json` configuration file.
 
-### 2. Browse Available Utilities
+### 2. Discover Utilities
 
-Use the `list` command to see all 50 available utilities organized by category:
+There are three ways to discover and explore the 50+ available utilities:
+
+#### Option A: Interactive Browse (Recommended)
+
+Use the interactive `browse` command to visually explore utilities by category and add multiple at once:
 
 ```bash
+npx fragmen browse
+```
+
+This opens an interactive menu where you can:
+
+1. Select a category (with utility count shown)
+2. Multi-select utilities using spacebar
+3. Confirm and add all selected utilities at once
+
+```
+🔍 Browse Fragmen Utilities
+
+? Select a category: (Use arrow keys)
+❯ array (10 utilities)
+  boolean (2 utilities)
+  function (3 utilities)
+  promise (3 utilities)
+  string (11 utilities)
+  ...
+
+? Select utilities from promise: (Space to select, Enter to confirm)
+❯◉ delay
+ ◯ retry
+ ◉ timeout
+
+? Add 2 utilities? Yes
+
+✓ promise/delay
+✓ promise/timeout
+
+✓ Successfully added 2 utilities
+```
+
+#### Option B: Preview Details
+
+Use the `show` command to preview a utility's documentation, examples, and source before adding:
+
+```bash
+npx fragmen show promise/delay
+```
+
+This displays:
+
+```
+📖 promise/delay
+
+Returns a promise that resolves after a given number of milliseconds.
+
+Usage:
+  fragmen add promise/delay
+
+Example:
+await delay(1000);
+console.log('This runs after 1 second');
+
+Source:
+  registry/promise/delay/index.ts
+
+To add this utility: fragmen add promise/delay
+```
+
+#### Option C: List All Utilities
+
+Use the `list` command to see all available utilities organized by category:
+
+```bash
+# List all utilities
 npx fragmen list
+
+# Filter by category
+npx fragmen list promise
+npx fragmen list string
 ```
 
-This will display output like:
+Output:
 
 ```
-📦 Array Utilities (10)
-   • array/chunk - Split array into chunks
-   • array/compact - Remove falsy values
-   • array/difference - Array difference
-   ...
+📦 Available Utilities
 
-🔧 Function Utilities (3)
-   • function/debounce - Debounce function calls
-   • function/once - Execute function once
-   • function/throttle - Throttle function calls
+promise/ (3)
+  • promise/delay
+  • promise/retry
+  • promise/timeout
 
-⏱️  Promise Utilities (3)
-   • promise/delay - Delay execution
-   • promise/retry - Retry failed promises
-   • promise/timeout - Add timeout to promises
-   ...
+string/ (11)
+  • string/camel-case
+  • string/capitalize
+  ...
+
+Total: 50 utilities
 ```
 
-### 3. Add a Utility
+### 3. Add Utilities
 
-Use the `add` command with the full path (category/utility-name) to install a utility. Let's add the `delay` utility from the promise category:
+Once you've discovered utilities you want, add them to your project:
+
+#### Add Single Utility
+
+Use the `add` command with the full path (category/utility-name):
 
 ```bash
 npx fragmen add promise/delay
 ```
 
-The utility will be copied to your project:
+#### Add Multiple Utilities
+
+Add multiple utilities in a single command for efficiency:
+
+```bash
+npx fragmen add promise/delay promise/retry string/capitalize
+```
+
+This will process all utilities with progress feedback:
+
+```
+Adding 3 utilities...
+
+✓ promise/delay
+✓ promise/retry
+✓ string/capitalize
+
+✓ Successfully added 3 utilities
+  Location: lib/utils/
+```
+
+The utilities will be copied to your project:
 
 ```
 your-project/
 └── lib/
     └── utils/
-        └── promise-delay.ts   <-- Your new utility!
+        ├── promise-delay.ts
+        ├── promise-retry.ts
+        └── string-capitalize.ts
 ```
 
-Now you can import and use it anywhere in your project:
+Now you can import and use them anywhere in your project:
 
 ```typescript
 import { delay } from '@/lib/utils/promise-delay';
+import { retry } from '@/lib/utils/promise-retry';
+import { capitalize } from '@/lib/utils/string-capitalize';
 
-await delay(1000); // Wait 1 second
+// Use delay
+await delay(1000);
 console.log('This runs after 1 second');
+
+// Use retry with fetch
+const data = await retry(() => fetch('https://api.example.com'), {
+  retries: 3,
+});
+
+// Use capitalize
+const title = capitalize('hello world'); // 'Hello world'
 ```
 
 ---
@@ -881,6 +991,8 @@ resolveUrl('/absolute/path', 'https://example.com/base/');
 
 ## CLI Commands
 
+Fragmen provides a comprehensive CLI with 6 commands to help you discover, preview, and add utilities to your project.
+
 ### `init`
 
 Initialize your project with a `fragmen.json` configuration file.
@@ -895,51 +1007,282 @@ This command will prompt you for:
 - **Language**: TypeScript or JavaScript
 - **Module system**: ESM or CommonJS
 
-### `list [category]`
+Creates a `fragmen.json` file in your project root with your preferences.
 
-Display all 50 available utilities organized by category, or filter by a specific category.
+---
+
+### `browse`
+
+**Interactive menu for discovering and adding utilities.** This is the recommended way to explore the registry.
 
 ```bash
-# List all utilities
+npx fragmen browse
+```
+
+Features:
+
+- **Category selection**: Browse utilities organized by category
+- **Multi-select**: Use spacebar to select multiple utilities
+- **Utility counts**: See how many utilities are in each category
+- **Bulk add**: Add all selected utilities at once with progress feedback
+- **Keyboard navigation**: Arrow keys to navigate, Enter to confirm, Ctrl+C to cancel
+
+Example workflow:
+
+```
+🔍 Browse Fragmen Utilities
+
+? Select a category: promise (3 utilities)
+? Select utilities from promise:
+  ◉ delay
+  ◉ retry
+  ◯ timeout
+
+? Add 2 utilities? Yes
+
+Adding 2 utilities...
+
+✓ promise/delay
+✓ promise/retry
+
+✓ Successfully added 2 utilities
+  Location: lib/utils/
+```
+
+---
+
+### `show`
+
+Preview detailed information about a utility before adding it.
+
+```bash
+npx fragmen show <category/utility-name>
+```
+
+**Examples:**
+
+```bash
+npx fragmen show promise/delay
+npx fragmen show string/slugify
+npx fragmen show array/chunk
+```
+
+Displays:
+
+- **Description**: What the utility does (from JSDoc)
+- **Usage command**: How to add it to your project
+- **Code example**: How to use the utility
+- **Source location**: Where to find the source code
+
+Example output:
+
+```
+📖 promise/delay
+
+Returns a promise that resolves after a given number of milliseconds.
+
+Usage:
+  fragmen add promise/delay
+
+Example:
+await delay(1000);
+console.log('This runs after 1 second');
+
+Source:
+  registry/promise/delay/index.ts
+```
+
+---
+
+### `list [category]`
+
+Display all available utilities, optionally filtered by category.
+
+```bash
+# List all utilities (50+ total)
 npx fragmen list
 
 # List utilities in a specific category
 npx fragmen list promise
 npx fragmen list string
 npx fragmen list array
-```
-
-When listing all utilities, this shows a categorized list with their full paths. When filtering by category, it only shows utilities from that category. This makes it easy to discover what's available before adding to your project.
-
-### `add <category/utility-name>`
-
-Copy a utility from the registry into your project. **You must specify the full path** including the category.
-
-```bash
-npx fragmen add <category/utility-name>
+npx fragmen list function
 ```
 
 **Examples:**
 
 ```bash
-# Add promise utilities
-npx fragmen add promise/delay
-npx fragmen add promise/retry
+# See all categories and utilities
+$ npx fragmen list
 
-# Add string utilities
-npx fragmen add string/capitalize
-npx fragmen add string/slugify
+📦 Available Utilities
 
-# Add array utilities
-npx fragmen add array/chunk
-npx fragmen add array/unique
+array/ (10)
+  • array/chunk
+  • array/compact
+  • array/difference
+  ...
 
-# Add number utilities
-npx fragmen add number/clamp
-npx fragmen add number/format-number
+promise/ (3)
+  • promise/delay
+  • promise/retry
+  • promise/timeout
+
+string/ (11)
+  • string/camel-case
+  • string/capitalize
+  ...
+
+Total: 50 utilities
+
+# Filter by category
+$ npx fragmen list promise
+
+📦 promise Utilities
+
+promise/ (3)
+  • promise/delay
+  • promise/retry
+  • promise/timeout
+
+3 utilities in promise
 ```
 
-The utility will be saved as `category-utility-name.ts` (or `.js`) in your configured base directory.
+---
+
+### `add`
+
+Copy one or more utilities from the registry into your project.
+
+```bash
+# Add a single utility
+npx fragmen add <category/utility-name>
+
+# Add multiple utilities at once
+npx fragmen add <utility1> <utility2> <utility3>
+```
+
+**Examples:**
+
+```bash
+# Add a single utility
+npx fragmen add promise/delay
+
+# Add multiple utilities at once (bulk add)
+npx fragmen add promise/delay promise/retry string/capitalize
+
+# Add multiple utilities from different categories
+npx fragmen add array/chunk array/unique number/clamp string/slugify
+```
+
+**Single utility output:**
+
+```
+Adding 1 utility...
+
+✓ promise/delay
+
+✓ Successfully added 1 utility
+  Location: lib/utils/
+```
+
+**Bulk add output:**
+
+```
+Adding 3 utilities...
+
+✓ promise/delay
+✓ promise/retry
+✓ string/capitalize
+
+✓ Successfully added 3 utilities
+  Location: lib/utils/
+```
+
+If any utilities fail to add (e.g., not found or incorrect path), the command will show which ones succeeded and which failed:
+
+```
+Adding 3 utilities...
+
+✓ promise/delay
+✗ promise/invalid - not found
+✓ string/capitalize
+
+✓ Successfully added 2 utilities
+  Location: lib/utils/
+✗ Failed to add 1:
+  • promise/invalid
+
+Run "fragmen list" to see available utilities
+```
+
+**Important:** You must specify the full path including the category (e.g., `promise/delay`, not just `delay`).
+
+---
+
+### `release`
+
+Bump version and publish to npm (for maintainers only).
+
+```bash
+npx fragmen release [type]
+```
+
+Options:
+
+- `patch` (default): 1.0.0 → 1.0.1
+- `minor`: 1.0.0 → 1.1.0
+- `major`: 1.0.0 → 2.0.0
+
+Flags:
+
+- `--no-push`: Skip pushing commit and tags
+- `--no-publish`: Skip npm publish
+- `--dry-run`: Show commands without executing
+- `--tag <distTag>`: Publish under given npm dist-tag
+
+---
+
+## Quick Start Examples
+
+### Example 1: Setting up a new project
+
+```bash
+# 1. Initialize configuration
+npx fragmen init
+
+# 2. Browse and add utilities interactively
+npx fragmen browse
+  # Select 'promise' category
+  # Select 'delay' and 'retry'
+  # Confirm
+
+# 3. Start using them
+import { delay, retry } from '@/lib/utils/promise-delay';
+```
+
+### Example 2: Adding specific utilities
+
+```bash
+# Preview what a utility does
+npx fragmen show string/slugify
+
+# Add it if you like it
+npx fragmen add string/slugify
+
+# Or add multiple at once
+npx fragmen add string/slugify string/capitalize string/truncate
+```
+
+### Example 3: Exploring a category
+
+```bash
+# See what's available in the array category
+npx fragmen list array
+
+# Add the ones you need
+npx fragmen add array/chunk array/unique array/flatten
+```
 
 ---
 
