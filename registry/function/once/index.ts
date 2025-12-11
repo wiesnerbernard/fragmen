@@ -5,6 +5,7 @@
  * Useful for initialization functions, event handlers that should only fire once, or
  * expensive operations that should only run once.
  *
+ * @tags performance
  * @param fn The function to restrict to a single execution.
  * @returns A new function that invokes fn only once and caches the result.
  *

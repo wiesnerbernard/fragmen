@@ -5,6 +5,7 @@
  * except for the specified keys. This is the opposite of the pick utility.
  * The operation is shallow - nested objects are not deeply omitted.
  *
+ * @tags pure, object-manipulation
  * @param obj The source object to omit properties from
  * @param keys Array of keys to omit from the object
  * @returns A new object without the specified keys

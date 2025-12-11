@@ -5,6 +5,7 @@
  * of the subsequent arrays. The order of elements follows the order of the first array.
  * Duplicates in the first array are preserved unless they appear in other arrays.
  *
+ * @tags pure, array-manipulation
  * @param array The array to inspect
  * @param values Arrays of values to exclude
  * @returns A new array of filtered values

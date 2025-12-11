@@ -5,6 +5,7 @@
  * a specific range compared to Math.random(). Supports both integer and
  * floating-point ranges.
  *
+ * @tags math
  * @param min The minimum value (inclusive)
  * @param max The maximum value (exclusive)
  * @param integer Whether to return an integer (default: false)

@@ -5,6 +5,7 @@
  * and camelCase boundaries with underscores. Commonly used for database column names,
  * Python variables, and configuration keys.
  *
+ * @tags pure, string-manipulation, formatting
  * @param str The string to convert
  * @returns The snake_case version of the string
  *

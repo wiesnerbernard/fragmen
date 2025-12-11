@@ -5,6 +5,7 @@
  * of items that belong to that group. The grouping is determined by the callback
  * function which is applied to each element.
  *
+ * @tags pure, array-manipulation
  * @param array The array of elements to group.
  * @param getKey Function that takes an item and returns the key for grouping.
  * @returns An object where keys are group identifiers and values are arrays of grouped items.

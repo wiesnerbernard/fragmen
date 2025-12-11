@@ -16,6 +16,7 @@ export interface SanitizeUrlOptions {
  * dangerous protocols, encoding special characters, and validating the URL
  * structure. Returns null if the URL cannot be safely sanitized.
  *
+ * @tags pure, sanitization, url
  * @param url The URL to sanitize
  * @param options Sanitization options
  * @returns Sanitized URL or null if unsafe

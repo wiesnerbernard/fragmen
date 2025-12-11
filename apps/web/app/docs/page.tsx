@@ -1,3 +1,7 @@
+'use client'
+
+import { CopyButton } from '@/components/copy-button'
+
 export default function DocsPage() {
   return (
     <main className="min-h-screen">
@@ -11,29 +15,64 @@ export default function DocsPage() {
             
             <h2>Installation</h2>
             <p>Initialize Fragmen in your project:</p>
-            <pre><code>npx fragmen init</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen init</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen init" />
+              </div>
+            </div>
             
             <h2>Commands</h2>
             
             <h3>List Utilities</h3>
             <p>View all available utilities:</p>
-            <pre><code>npx fragmen list</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen list</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen list" />
+              </div>
+            </div>
             <p>Filter by category:</p>
-            <pre><code>npx fragmen list promise</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen list promise</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen list promise" />
+              </div>
+            </div>
             
             <h3>Add Utilities</h3>
             <p>Add a single utility:</p>
-            <pre><code>npx fragmen add promise/delay</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen add promise/delay</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen add promise/delay" />
+              </div>
+            </div>
             <p>Add multiple utilities at once:</p>
-            <pre><code>npx fragmen add promise/delay string/capitalize array/chunk</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen add promise/delay string/capitalize array/chunk</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen add promise/delay string/capitalize array/chunk" />
+              </div>
+            </div>
             
             <h3>Show Utility</h3>
             <p>Preview a utility before adding it:</p>
-            <pre><code>npx fragmen show promise/delay</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen show promise/delay</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen show promise/delay" />
+              </div>
+            </div>
             
             <h3>Browse</h3>
             <p>Interactive browser to explore and select utilities:</p>
-            <pre><code>npx fragmen browse</code></pre>
+            <div className="relative">
+              <pre><code>npx fragmen browse</code></pre>
+              <div className="absolute top-2 right-2">
+                <CopyButton text="npx fragmen browse" />
+              </div>
+            </div>
             
             <h2>Categories</h2>
             <ul>

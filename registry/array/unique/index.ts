@@ -4,6 +4,7 @@
  * Uses Set to efficiently remove duplicates while preserving the order of first
  * occurrence. Works with primitive types and object references.
  *
+ * @tags pure, array-manipulation
  * @param array The array to filter for unique elements.
  * @returns A new array containing only unique elements in order of first appearance.
  *

@@ -5,6 +5,7 @@
  * decimal places, and custom separators. Useful for displaying numbers in
  * user interfaces, reports, and financial applications.
  *
+ * @tags pure, formatting
  * @param value The number to format
  * @param options Formatting options
  * @returns The formatted number string

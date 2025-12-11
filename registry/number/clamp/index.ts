@@ -5,6 +5,7 @@
  * the minimum, returns the minimum. If greater than the maximum, returns the
  * maximum. Otherwise returns the original number.
  *
+ * @tags pure, math
  * @param value The number to clamp
  * @param min The minimum allowed value
  * @param max The maximum allowed value

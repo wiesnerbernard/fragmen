@@ -5,6 +5,7 @@
  * allowing you to specify the number of decimal places to round to.
  * Uses standard mathematical rounding (round half up).
  *
+ * @tags pure, math
  * @param value The number to round
  * @param precision The number of decimal places (default: 0)
  * @returns The rounded number

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Fuse from 'fuse.js'
 import type { RegistryItem } from '@/lib/registry'
@@ -14,6 +14,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [selectedTag, setSelectedTag] = useState<string>('all')
+  const searchInputRef = useRef<HTMLInputElement>(null)
 
   // Extract all unique tags from items
   const allTags = useMemo(() => {
@@ -55,6 +56,33 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
     })
   }, [items, search, selectedCategory, selectedTag, fuse])
 
+  const hasActiveFilters = search !== '' || selectedCategory !== 'all' || selectedTag !== 'all'
+
+  const clearFilters = () => {
+    setSearch('')
+    setSelectedCategory('all')
+    setSelectedTag('all')
+  }
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd/Ctrl + K to focus search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault()
+        searchInputRef.current?.focus()
+      }
+      // Escape to clear filters
+      if (e.key === 'Escape' && hasActiveFilters) {
+        clearFilters()
+        searchInputRef.current?.blur()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [hasActiveFilters])
+
   return (
     <main className="min-h-screen">
       {/* Header */}
@@ -70,13 +98,27 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
       <div className="container mx-auto px-4 py-8">
         {/* Search and Filters */}
         <div className="mb-8 space-y-4">
-          <input
-            type="text"
-            placeholder="Search utilities..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-          />
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search utilities... (⌘K)"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="px-4 py-3 rounded-lg border border-border bg-background text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
+                title="Clear all filters (Esc)"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
 
           <div className="flex flex-wrap gap-2">
             <button

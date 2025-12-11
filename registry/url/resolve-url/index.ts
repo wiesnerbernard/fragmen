@@ -5,6 +5,7 @@
  * Handles various URL formats including absolute URLs, protocol-relative URLs, and complex
  * relative paths with .. and ./ references.
  *
+ * @tags pure, url
  * @param relativeUrl The relative URL to resolve
  * @param baseUrl The base URL to resolve against
  * @returns The resolved absolute URL

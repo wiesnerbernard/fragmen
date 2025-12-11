@@ -2,6 +2,7 @@
  * Truncates a string if it's longer than the given maximum length.
  * The last characters of the truncated string are replaced with the omission string.
  *
+ * @tags pure, string-manipulation, formatting
  * @param str The string to truncate.
  * @param options Options for truncation.
  * @param options.length The maximum length of the string, including the omission string.

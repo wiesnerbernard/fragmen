@@ -5,6 +5,7 @@
  * the first letter of each word except the first one. Commonly used for JavaScript
  * variable names, object properties, and function names.
  *
+ * @tags pure, string-manipulation, formatting
  * @param str The string to convert
  * @returns The camelCase version of the string
  *

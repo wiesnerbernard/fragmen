@@ -5,6 +5,7 @@
  * The order of elements is determined by the order they first appear across
  * all arrays. Duplicates are removed.
  *
+ * @tags pure, array-manipulation
  * @param arrays The arrays to combine
  * @returns A new array of unique values from all arrays
  *

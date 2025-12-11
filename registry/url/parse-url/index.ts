@@ -15,6 +15,7 @@ export interface ParsedUrl {
  * Breaks down a URL into its constituent components like protocol, host, path,
  * query parameters, and hash. Returns null if the URL is invalid.
  *
+ * @tags pure, url
  * @param url The URL string to parse
  * @returns Parsed URL components or null if invalid
  *

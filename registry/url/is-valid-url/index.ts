@@ -16,6 +16,7 @@ export interface IsValidUrlOptions {
  * Can optionally check for specific protocols or require certain
  * URL components.
  *
+ * @tags pure, validation, url
  * @param url The string to validate
  * @param options Validation options
  * @returns True if the URL is valid, false otherwise

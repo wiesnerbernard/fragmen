@@ -1,6 +1,7 @@
 /**
  * Pads the start of a string with another string until it reaches the target length.
  *
+ * @tags pure, string-manipulation, formatting
  * @param str The string to pad.
  * @param targetLength The desired length of the resulting string.
  * @param padString The string to pad with. Defaults to a space ' '.

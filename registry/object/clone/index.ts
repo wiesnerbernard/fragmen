@@ -5,6 +5,7 @@
  * Handles circular references by maintaining a reference map. Primitive values,
  * functions, and built-in objects like Date and RegExp are handled appropriately.
  *
+ * @tags pure, object-manipulation
  * @param obj The object to clone
  * @returns A deep copy of the input object
  *

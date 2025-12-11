@@ -5,6 +5,7 @@
  * provided arrays. The order of elements in the result follows the order
  * of the first array. Duplicates are removed from the result.
  *
+ * @tags pure, array-manipulation
  * @param arrays The arrays to find intersection of
  * @returns A new array containing elements common to all input arrays
  *

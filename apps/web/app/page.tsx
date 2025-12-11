@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { CopyButton } from '@/components/copy-button'
 
 export default function HomePage() {
   return (
@@ -73,9 +76,14 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-2">Initialize</h3>
-                  <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
-                    <code>npx fragmen init</code>
-                  </pre>
+                  <div className="relative">
+                    <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
+                      <code>npx fragmen init</code>
+                    </pre>
+                    <div className="absolute top-2 right-2">
+                      <CopyButton text="npx fragmen init" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -87,9 +95,14 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-2">Browse Utilities</h3>
-                  <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
-                    <code>npx fragmen browse</code>
-                  </pre>
+                  <div className="relative">
+                    <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
+                      <code>npx fragmen browse</code>
+                    </pre>
+                    <div className="absolute top-2 right-2">
+                      <CopyButton text="npx fragmen browse" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -101,9 +114,14 @@ export default function HomePage() {
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold mb-2">Add to Your Project</h3>
-                  <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
-                    <code>npx fragmen add promise/delay string/capitalize</code>
-                  </pre>
+                  <div className="relative">
+                    <pre className="rounded bg-secondary p-3 text-sm overflow-x-auto">
+                      <code>npx fragmen add promise/delay string/capitalize</code>
+                    </pre>
+                    <div className="absolute top-2 right-2">
+                      <CopyButton text="npx fragmen add promise/delay string/capitalize" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

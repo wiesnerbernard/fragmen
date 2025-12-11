@@ -5,6 +5,7 @@
  * up to the specified depth. A depth of 1 flattens only the first level of nesting,
  * while Infinity flattens all levels.
  *
+ * @tags pure, array-manipulation
  * @param array The array to flatten
  * @param depth The maximum depth to flatten (default: 1)
  * @returns A new flattened array

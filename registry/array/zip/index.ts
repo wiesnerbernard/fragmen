@@ -5,6 +5,7 @@
  * The returned array is truncated to the length of the shortest input array.
  * This is useful for combining parallel arrays into tuples.
  *
+ * @tags pure, array-manipulation
  * @param arrays The arrays to zip together
  * @returns A new array of grouped elements
  *

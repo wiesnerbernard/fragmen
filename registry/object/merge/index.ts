@@ -39,6 +39,7 @@ function _deepCopy<T>(source: T): T {
  * Later objects in the arguments list override properties of earlier objects.
  * Arrays are replaced entirely rather than merged.
  *
+ * @tags pure, object-manipulation
  * @template T - An array of object types.
  * @param objects The objects to merge.
  * @returns A new object containing the merged properties, with preserved types.

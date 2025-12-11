@@ -5,6 +5,7 @@
  * intervals. The first call is executed immediately, and subsequent calls within the wait period
  * are ignored. Useful for rate-limiting events like scroll, mousemove, or API requests.
  *
+ * @tags performance
  * @param fn The function to throttle.
  * @param wait The number of milliseconds to throttle invocations to.
  * @returns A throttled version of the function that accepts the same parameters.

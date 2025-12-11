@@ -4,6 +4,7 @@
  * Creates a new sorted array without mutating the original. Can sort by a property name
  * (for objects) or by using a custom iteratee function. Supports ascending and descending order.
  *
+ * @tags pure, array-manipulation
  * @param array The array to sort
  * @param iteratee Property name or function to determine sort order
  * @param order Sort order: 'asc' for ascending (default), 'desc' for descending

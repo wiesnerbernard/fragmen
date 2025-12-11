@@ -5,6 +5,7 @@
  * and camelCase boundaries with hyphens. Useful for creating URL slugs, CSS class names,
  * and file names.
  *
+ * @tags pure, string-manipulation, formatting
  * @param str The string to convert
  * @returns The kebab-case version of the string
  *

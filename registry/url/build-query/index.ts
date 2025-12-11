@@ -11,6 +11,7 @@ export interface BuildQueryOptions {
  * Converts an object into a properly encoded URL query string. Handles arrays,
  * nested objects, and special characters. Filters out null and undefined values.
  *
+ * @tags pure, url, formatting
  * @param params Object containing query parameters
  * @param options Configuration options
  * @returns URL-encoded query string

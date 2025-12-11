@@ -5,6 +5,7 @@
  * false, null, 0, "", undefined, and NaN. This is useful for cleaning
  * arrays and ensuring only truthy values remain.
  *
+ * @tags pure, array-manipulation
  * @param array The array to remove falsy values from
  * @returns A new array with falsy values removed
  *
