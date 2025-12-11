@@ -49,11 +49,11 @@ Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript util
 
 ## Getting Started
 
-Get started in two simple steps.
+Get started in three simple steps.
 
 ### 1. Initialize Project
 
-Run the `init` command in the root of your project. This will create a `shards.json` file to configure where your utilities will be stored.
+Run the `init` command in the root of your project. This will create a `fragmen.json` file to configure where your utilities will be stored.
 
 ```bash
 npx fragmen init
@@ -62,46 +62,66 @@ npx fragmen init
 You'll be asked a few questions to set up your project:
 
 ```
-✔ Where should we save your fragments? › lib/utils
-✔ Are you using TypeScript? › Yes
-✔ Which module system are you using? › ESM
+✔ Where should utility functions be copied? › lib/utils
+✔ Which language are you using? › TypeScript
+✔ Which module system? › ESM (import/export)
 ```
 
-This creates your `shards.json` file.
+This creates your `fragmen.json` configuration file.
 
 ### 2. Browse Available Utilities
 
-Use the `list` command to see all available utilities organized by category:
+Use the `list` command to see all 50 available utilities organized by category:
 
 ```bash
 npx fragmen list
 ```
 
-This will display all 50 utilities grouped by category (array, boolean, date, function, json, number, object, promise, string, url).
+This will display output like:
 
-### 3. Add a Fragment
+```
+📦 Array Utilities (10)
+   • array/chunk - Split array into chunks
+   • array/compact - Remove falsy values
+   • array/difference - Array difference
+   ...
 
-Use the `add` command to select and install a fragment. Let's add the `capitalize` utility.
+🔧 Function Utilities (3)
+   • function/debounce - Debounce function calls
+   • function/once - Execute function once
+   • function/throttle - Throttle function calls
 
-```bash
-npx fragmen add string/capitalize
+⏱️  Promise Utilities (3)
+   • promise/delay - Delay execution
+   • promise/retry - Retry failed promises
+   • promise/timeout - Add timeout to promises
+   ...
 ```
 
-This will add the file to your project at the specified path:
+### 3. Add a Utility
+
+Use the `add` command with the full path (category/utility-name) to install a utility. Let's add the `delay` utility from the promise category:
+
+```bash
+npx fragmen add promise/delay
+```
+
+The utility will be copied to your project:
 
 ```
 your-project/
-└── src/
+└── lib/
     └── utils/
-        └── capitalize.ts   <-- Your new fragment!
+        └── promise-delay.ts   <-- Your new utility!
 ```
 
-Now you can import it and use it anywhere in your project:
+Now you can import and use it anywhere in your project:
 
 ```typescript
-import { capitalize } from '@/lib/utils/string/capitalize';
+import { delay } from '@/lib/utils/promise-delay';
 
-console.log(capitalize('hello world')); // "Hello world"
+await delay(1000); // Wait 1 second
+console.log('This runs after 1 second');
 ```
 
 ---
@@ -863,29 +883,63 @@ resolveUrl('/absolute/path', 'https://example.com/base/');
 
 ### `init`
 
-The `init` command sets up your project by creating a `fragmen.json` configuration file.
+Initialize your project with a `fragmen.json` configuration file.
 
 ```bash
 npx fragmen init
 ```
 
-### `list`
+This command will prompt you for:
 
-The `list` command displays all available utilities organized by category.
+- **Base directory**: Where utilities should be copied (default: `lib/utils`)
+- **Language**: TypeScript or JavaScript
+- **Module system**: ESM or CommonJS
+
+### `list [category]`
+
+Display all 50 available utilities organized by category, or filter by a specific category.
 
 ```bash
+# List all utilities
 npx fragmen list
+
+# List utilities in a specific category
+npx fragmen list promise
+npx fragmen list string
+npx fragmen list array
 ```
 
-This will show all 50 utilities grouped by their categories (array, boolean, date, function, json, number, object, promise, string, url), making it easy to discover what utilities are available.
+When listing all utilities, this shows a categorized list with their full paths. When filtering by category, it only shows utilities from that category. This makes it easy to discover what's available before adding to your project.
 
-### `add <name>`
+### `add <category/utility-name>`
 
-The `add` command copies a fragment from the registry into your project.
+Copy a utility from the registry into your project. **You must specify the full path** including the category.
 
 ```bash
-npx fragmen add <fragment-name>
+npx fragmen add <category/utility-name>
 ```
+
+**Examples:**
+
+```bash
+# Add promise utilities
+npx fragmen add promise/delay
+npx fragmen add promise/retry
+
+# Add string utilities
+npx fragmen add string/capitalize
+npx fragmen add string/slugify
+
+# Add array utilities
+npx fragmen add array/chunk
+npx fragmen add array/unique
+
+# Add number utilities
+npx fragmen add number/clamp
+npx fragmen add number/format-number
+```
+
+The utility will be saved as `category-utility-name.ts` (or `.js`) in your configured base directory.
 
 ---
 

@@ -119,17 +119,47 @@ program
     };
     await fs.writeJson(configPath, configWithSchema, { spaces: 2 });
 
-    console.log(`\n ${chalk.green('Configuration saved to')} ${CONFIG_FILE}`);
+    console.log(chalk.green('\n✓ Configuration saved!'));
+    console.log(chalk.gray(`Created ${CONFIG_FILE}\n`));
+    console.log(chalk.bold('Next steps:'));
     console.log(
-      `You can now use \`${chalk.cyan('fragmen add <utility>')}\` to add utilities to your project!`
+      chalk.gray('  1. Run'),
+      chalk.cyan('fragmen list'),
+      chalk.gray('to see available utilities')
+    );
+    console.log(
+      chalk.gray('  2. Run'),
+      chalk.cyan('fragmen add <category/utility-name>'),
+      chalk.gray('to add a utility')
+    );
+    console.log(
+      chalk.gray('\nExample:'),
+      chalk.cyan('fragmen add promise/delay'),
+      chalk.gray('\n')
     );
   });
 
 program
-  .command('add <slug>')
-  .description('Add a new fragmen to your project')
+  .command('add <category/utility-name>')
+  .description(
+    'Add a utility to your project (e.g., promise/delay, string/capitalize)'
+  )
   .action(async (slug: string) => {
-    console.log(`Locating fragmen: ${slug}...`);
+    console.log(`Locating utility: ${slug}...`);
+
+    // Validate format
+    if (!slug.includes('/')) {
+      console.error(chalk.red('\nError: Utility name must include category.'));
+      console.log(chalk.yellow('\nFormat: category/utility-name'));
+      console.log(chalk.gray('Examples:'));
+      console.log(chalk.gray('  • fragmen add promise/delay'));
+      console.log(chalk.gray('  • fragmen add string/capitalize'));
+      console.log(chalk.gray('  • fragmen add array/chunk'));
+      console.log(
+        chalk.cyan('\nTip: Run "fragmen list" to see all available utilities\n')
+      );
+      process.exit(1);
+    }
 
     // Load configuration
     const config = await loadConfig();
@@ -148,7 +178,13 @@ program
     );
 
     if (!(await fs.pathExists(sourcePath))) {
-      console.error(chalk.red(`Fragmen "${slug}" not found.`));
+      console.error(chalk.red(`\nUtility "${slug}" not found.`));
+      console.log(
+        chalk.yellow('\nMake sure you use the format: category/utility-name')
+      );
+      console.log(
+        chalk.cyan('\nRun "fragmen list" to see all available utilities\n')
+      );
       process.exit(1);
     }
 
@@ -163,8 +199,12 @@ program
     // Copy the file
     await fs.copy(sourcePath, destPath);
 
+    console.log(chalk.green('\n✓ Success!'));
+    console.log(`Added ${chalk.cyan(slug)} to ${chalk.magenta(destPath)}`);
     console.log(
-      `Fragmen ${chalk.cyan(`"${slug}"`)} added to ${chalk.magenta(destPath)}`
+      chalk.gray(
+        `\nYou can now import it:\nimport { ... } from '@/lib/utils/${slug.replace('/', '-')}'\n`
+      )
     );
   });
 
@@ -196,9 +236,9 @@ async function runCommand(command: string, args: string[], dryRun: boolean) {
 }
 
 program
-  .command('list')
-  .description('List all available utilities')
-  .action(async () => {
+  .command('list [category]')
+  .description('List all available utilities or filter by category')
+  .action(async (categoryFilter?: string) => {
     try {
       // Get the directory where this CLI file is located (dist/src/cli.js)
       const __filename = fileURLToPath(import.meta.url);
@@ -210,13 +250,34 @@ program
         process.exit(1);
       }
 
-      const categories = fs
+      const allCategories = fs
         .readdirSync(registryPath, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name)
         .sort();
 
-      console.log(chalk.cyan.bold('\n📦 Available Utilities\n'));
+      // Filter categories if a filter is provided
+      let categories = allCategories;
+      if (categoryFilter) {
+        const matchingCategory = allCategories.find(
+          cat => cat.toLowerCase() === categoryFilter.toLowerCase()
+        );
+
+        if (!matchingCategory) {
+          console.error(chalk.red(`\nCategory "${categoryFilter}" not found.`));
+          console.log(chalk.yellow('\nAvailable categories:'));
+          allCategories.forEach(cat => console.log(chalk.gray(`  • ${cat}`)));
+          console.log();
+          process.exit(1);
+        }
+
+        categories = [matchingCategory];
+        console.log(chalk.cyan.bold(`\n📦 ${matchingCategory} Utilities\n`));
+      } else {
+        console.log(chalk.cyan.bold('\n📦 Available Utilities\n'));
+      }
+
+      let totalCount = 0;
 
       for (const category of categories) {
         const categoryPath = path.join(registryPath, category);
@@ -226,22 +287,42 @@ program
           .map(dirent => dirent.name)
           .sort();
 
-        console.log(chalk.yellow.bold(`${category}/`));
+        totalCount += utilities.length;
+
+        console.log(chalk.yellow.bold(`${category}/ (${utilities.length})`));
         for (const utility of utilities) {
-          console.log(chalk.gray(`  • ${utility}`));
+          console.log(chalk.gray(`  • ${category}/${utility}`));
         }
         console.log();
       }
 
-      const totalCount = categories.reduce((count, category) => {
-        const categoryPath = path.join(registryPath, category);
-        const utilities = fs
-          .readdirSync(categoryPath, { withFileTypes: true })
-          .filter(dirent => dirent.isDirectory());
-        return count + utilities.length;
-      }, 0);
+      if (!categoryFilter) {
+        console.log(chalk.green(`Total: ${totalCount} utilities`));
+        console.log(
+          chalk.gray('\nFilter by category:'),
+          chalk.cyan('fragmen list <category>')
+        );
+        console.log(
+          chalk.gray('Example:'),
+          chalk.cyan('fragmen list promise'),
+          chalk.gray('or'),
+          chalk.cyan('fragmen list string')
+        );
+      } else {
+        console.log(
+          chalk.green(`${totalCount} utilities in ${categoryFilter}`)
+        );
+      }
 
-      console.log(chalk.green(`Total: ${totalCount} utilities\n`));
+      console.log(
+        chalk.gray('\nTo add a utility, use:'),
+        chalk.cyan('fragmen add <category/utility-name>')
+      );
+      console.log(
+        chalk.gray('Example:'),
+        chalk.cyan('fragmen add promise/delay'),
+        chalk.gray('\n')
+      );
     } catch (error) {
       console.error(
         chalk.red(
