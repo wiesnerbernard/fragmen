@@ -140,72 +140,113 @@ program
   });
 
 program
-  .command('add <category/utility-name>')
+  .command('add <utilities...>')
   .description(
-    'Add a utility to your project (e.g., promise/delay, string/capitalize)'
+    'Add one or more utilities to your project (e.g., promise/delay, string/capitalize)'
   )
-  .action(async (slug: string) => {
-    console.log(`Locating utility: ${slug}...`);
+  .action(async (slugs: string[]) => {
+    // Validate all slugs first
+    const invalidSlugs = slugs.filter(slug => !slug.includes('/'));
 
-    // Validate format
-    if (!slug.includes('/')) {
-      console.error(chalk.red('\nError: Utility name must include category.'));
+    if (invalidSlugs.length > 0) {
+      console.error(
+        chalk.red('\nError: All utility names must include category.')
+      );
       console.log(chalk.yellow('\nFormat: category/utility-name'));
-      console.log(chalk.gray('Examples:'));
+      console.log(chalk.gray('\nInvalid utilities:'));
+      invalidSlugs.forEach(slug => console.log(chalk.gray(`  • ${slug}`)));
+      console.log(chalk.gray('\nExamples:'));
       console.log(chalk.gray('  • fragmen add promise/delay'));
-      console.log(chalk.gray('  • fragmen add string/capitalize'));
-      console.log(chalk.gray('  • fragmen add array/chunk'));
+      console.log(
+        chalk.gray(
+          '  • fragmen add promise/delay promise/retry string/capitalize'
+        )
+      );
       console.log(
         chalk.cyan('\nTip: Run "fragmen list" to see all available utilities\n')
       );
       process.exit(1);
     }
 
-    // Load configuration
+    // Load configuration once
     const config = await loadConfig();
-
-    // Find the fragmen in your registry
-    // Use ESM-compatible __dirname
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const sourcePath = path.join(
-      __dirname,
-      '..',
-      '..',
-      'registry',
-      ...slug.split('/'),
-      'index.ts'
-    );
 
-    if (!(await fs.pathExists(sourcePath))) {
-      console.error(chalk.red(`\nUtility "${slug}" not found.`));
-      console.log(
-        chalk.yellow('\nMake sure you use the format: category/utility-name')
-      );
-      console.log(
-        chalk.cyan('\nRun "fragmen list" to see all available utilities\n')
-      );
-      process.exit(1);
-    }
-
-    // Determine the destination using config
-    const targetDir = path.resolve(process.cwd(), config.baseDir);
-    const fileName = `${slug.replace(/\//g, '-')}.${config.language}`;
-    const destPath = path.join(targetDir, fileName);
-
-    // Ensure the destination directory exists
-    await fs.ensureDir(path.dirname(destPath));
-
-    // Copy the file
-    await fs.copy(sourcePath, destPath);
-
-    console.log(chalk.green('\n✓ Success!'));
-    console.log(`Added ${chalk.cyan(slug)} to ${chalk.magenta(destPath)}`);
     console.log(
-      chalk.gray(
-        `\nYou can now import it:\nimport { ... } from '@/lib/utils/${slug.replace('/', '-')}'\n`
+      chalk.cyan(
+        `\nAdding ${slugs.length} ${slugs.length === 1 ? 'utility' : 'utilities'}...\n`
       )
     );
+
+    let successCount = 0;
+    const failedUtilities: string[] = [];
+
+    // Process each utility
+    for (const slug of slugs) {
+      try {
+        const sourcePath = path.join(
+          __dirname,
+          '..',
+          '..',
+          'registry',
+          ...slug.split('/'),
+          'index.ts'
+        );
+
+        if (!(await fs.pathExists(sourcePath))) {
+          console.log(chalk.red(`✗ ${slug} - not found`));
+          failedUtilities.push(slug);
+          continue;
+        }
+
+        // Determine the destination using config
+        const targetDir = path.resolve(process.cwd(), config.baseDir);
+        const fileName = `${slug.replace(/\//g, '-')}.${config.language}`;
+        const destPath = path.join(targetDir, fileName);
+
+        // Ensure the destination directory exists
+        await fs.ensureDir(path.dirname(destPath));
+
+        // Copy the file
+        await fs.copy(sourcePath, destPath);
+
+        console.log(chalk.green(`✓ ${slug}`));
+        successCount++;
+      } catch (error) {
+        console.log(
+          chalk.red(
+            `✗ ${slug} - ${error instanceof Error ? error.message : 'unknown error'}`
+          )
+        );
+        failedUtilities.push(slug);
+      }
+    }
+
+    // Summary
+    console.log();
+    if (successCount > 0) {
+      console.log(
+        chalk.green(
+          `✓ Successfully added ${successCount} ${successCount === 1 ? 'utility' : 'utilities'}`
+        )
+      );
+      console.log(chalk.gray(`  Location: ${config.baseDir}/`));
+    }
+
+    if (failedUtilities.length > 0) {
+      console.log(chalk.red(`✗ Failed to add ${failedUtilities.length}:`));
+      failedUtilities.forEach(util => console.log(chalk.gray(`  • ${util}`)));
+      console.log(
+        chalk.cyan('\nRun "fragmen list" to see available utilities')
+      );
+    }
+
+    console.log();
+
+    if (failedUtilities.length > 0) {
+      process.exit(1);
+    }
   });
 
 // Release command: bump version and optionally push and publish
@@ -327,6 +368,112 @@ program
       console.error(
         chalk.red(
           `Failed to list utilities: ${error instanceof Error ? error.message : String(error)}`
+        )
+      );
+      process.exit(1);
+    }
+  });
+
+program
+  .command('show <category/utility-name>')
+  .description('Show detailed information about a utility')
+  .action(async (slug: string) => {
+    try {
+      // Validate format
+      if (!slug.includes('/')) {
+        console.error(
+          chalk.red('\nError: Utility name must include category.')
+        );
+        console.log(chalk.yellow('\nFormat: category/utility-name'));
+        console.log(
+          chalk.gray('Example:'),
+          chalk.cyan('fragmen show promise/delay')
+        );
+        console.log();
+        process.exit(1);
+      }
+
+      const __filename = fileURLToPath(import.meta.url);
+      const __dirname = path.dirname(__filename);
+      const registryPath = path.join(__dirname, '../../registry');
+
+      const [category, utilityName] = slug.split('/');
+      const utilityPath = path.join(registryPath, category, utilityName);
+      const indexPath = path.join(utilityPath, 'index.ts');
+
+      if (!fs.existsSync(indexPath)) {
+        console.error(chalk.red(`\nUtility "${slug}" not found.`));
+        console.log(
+          chalk.cyan('\nRun "fragmen list" to see all available utilities\n')
+        );
+        process.exit(1);
+      }
+
+      // Read the utility source code
+      const sourceCode = await fs.readFile(indexPath, 'utf-8');
+
+      // Extract JSDoc comment
+      const jsdocMatch = sourceCode.match(/\/\*\*([\s\S]*?)\*\//);
+      let description = '';
+      let example = '';
+
+      if (jsdocMatch) {
+        const jsdocContent = jsdocMatch[1];
+
+        // Extract description (lines before @example)
+        const descMatch = jsdocContent.match(/\*\s*([^\n@]+)/);
+        if (descMatch) {
+          description = descMatch[1].trim();
+        }
+
+        // Extract example
+        const exampleMatch = jsdocContent.match(
+          /@example\s*([\s\S]*?)(?=\*\/|\*\s*@)/
+        );
+        if (exampleMatch) {
+          example = exampleMatch[1]
+            .split('\n')
+            .map(line => line.replace(/^\s*\*\s?/, ''))
+            .join('\n')
+            .trim();
+        }
+      }
+
+      // Extract function signature
+      // const functionMatch = sourceCode.match(/export\s+(?:function|const)\s+(\w+)[^{]*({|\()/);
+      // const functionName = functionMatch ? functionMatch[1] : utilityName;
+
+      // Display info
+      console.log(chalk.cyan.bold(`\n📖 ${slug}\n`));
+
+      if (description) {
+        console.log(chalk.white(description));
+        console.log();
+      }
+
+      console.log(chalk.yellow.bold('Usage:'));
+      console.log(chalk.gray(`  fragmen add ${slug}`));
+      console.log();
+
+      if (example) {
+        console.log(chalk.yellow.bold('Example:'));
+        console.log(chalk.gray(example));
+        console.log();
+      }
+
+      console.log(chalk.yellow.bold('Source:'));
+      console.log(chalk.gray(`  registry/${category}/${utilityName}/index.ts`));
+      console.log();
+
+      console.log(
+        chalk.gray('To add this utility:'),
+        chalk.cyan(`fragmen add ${slug}`)
+      );
+      console.log();
+    } catch (error) {
+      console.error(
+        chalk.red(
+          `Failed to show utility: ${error instanceof Error ? error.message : String(error)}`
         )
       );
       process.exit(1);
