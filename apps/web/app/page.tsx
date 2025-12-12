@@ -462,6 +462,80 @@ const debouncedSearch = debounce(handleSearch, 300);
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="border-t border-border/60 bg-secondary/20">
+        <div className="container mx-auto px-6 py-20">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-3xl font-bold mb-4 text-center">Frequently Asked Questions</h2>
+            <p className="text-center text-muted-foreground mb-12">
+              Everything you need to know about Fragmen
+            </p>
+            
+            <div className="space-y-4">
+              <details className="group rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <summary className="cursor-pointer font-semibold text-base list-none flex items-center justify-between">
+                  How is Fragmen different from lodash or other utility libraries?
+                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  Unlike traditional npm packages, Fragmen copies utilities directly into your codebase. This means you own the code completely, can modify it freely, and don&apos;t add dependencies to your project. Each utility is self-contained with no external dependencies.
+                </p>
+              </details>
+
+              <details className="group rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <summary className="cursor-pointer font-semibold text-base list-none flex items-center justify-between">
+                  Do I need to credit Fragmen in my project?
+                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  No attribution required! Fragmen is MIT licensed. Once you copy a utility, it&apos;s yours to use, modify, and distribute however you like. We only ask that you keep the MIT license notice in the code.
+                </p>
+              </details>
+
+              <details className="group rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <summary className="cursor-pointer font-semibold text-base list-none flex items-center justify-between">
+                  Can I modify the utilities after copying them?
+                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  Absolutely! That&apos;s the whole point. The code is now part of your project. Adapt it to your specific needs, add features, optimize for your use case, or learn from it. You have complete freedom.
+                </p>
+              </details>
+
+              <details className="group rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <summary className="cursor-pointer font-semibold text-base list-none flex items-center justify-between">
+                  How do updates work if I copy code into my project?
+                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  Since the code lives in your project, updates are manual. You can check the registry for improvements and copy new versions when needed. This gives you control over when and what to update, avoiding breaking changes.
+                </p>
+              </details>
+
+              <details className="group rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <summary className="cursor-pointer font-semibold text-base list-none flex items-center justify-between">
+                  Are the utilities tested?
+                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  Yes! Every utility has comprehensive test coverage with multiple test cases. You can view the tests in the registry alongside the source code. Tests are written using Vitest.
+                </p>
+              </details>
+
+              <details className="group rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <summary className="cursor-pointer font-semibold text-base list-none flex items-center justify-between">
+                  Can I use Fragmen in commercial projects?
+                  <span className="text-muted-foreground group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                  Yes! Fragmen is MIT licensed, which means you can use it freely in both personal and commercial projects without any restrictions or fees.
+                </p>
+              </details>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Start Section */}
       <section className="container mx-auto px-6 py-20">
         <div className="mx-auto max-w-3xl">
