@@ -41,8 +41,16 @@ export function isEmail(email: string): boolean {
   }
 
   // Domain part (after @) constraints
-  if (domain.length > 255 || domain.startsWith('-') || domain.endsWith('-')) {
+  if (domain.length > 255) {
     return false;
+  }
+
+  // Check each label in domain for hyphen constraints
+  const domainLabels = domain.split('.');
+  for (const label of domainLabels) {
+    if (label.startsWith('-') || label.endsWith('-')) {
+      return false;
+    }
   }
 
   return true;
