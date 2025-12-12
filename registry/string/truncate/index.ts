@@ -3,11 +3,11 @@
  * The last characters of the truncated string are replaced with the omission string.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to truncate.
- * @param options Options for truncation.
- * @param options.length The maximum length of the string, including the omission string.
- * @param options.omission The string to append to the end of the truncated string. Defaults to '...'.
- * @returns The truncated string, or the original string if it's not longer than the specified length.
+ * @param {string} str The string to truncate.
+ * @param {object} options Options for truncation.
+ * @param {number} options.length The maximum length of the string, including the omission string.
+ * @param {string} options.omission The string to append to the end of the truncated string. Defaults to '...'.
+ * @returns {string} The truncated string, or the original string if it's not longer than the specified length.
  *   Returns '' for non-string input.
  * @example
  * truncate('Hello world, this is a long string', { length: 20 })

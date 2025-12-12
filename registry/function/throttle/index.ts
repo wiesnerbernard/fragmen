@@ -6,9 +6,9 @@
  * are ignored. Useful for rate-limiting events like scroll, mousemove, or API requests.
  *
  * @tags performance
- * @param fn The function to throttle.
- * @param wait The number of milliseconds to throttle invocations to.
- * @returns A throttled version of the function that accepts the same parameters.
+ * @param {(...args: Args) => void} fn The function to throttle.
+ * @param {number} wait The number of milliseconds to throttle invocations to.
+ * @returns {(...args: Args) => void} A throttled version of the function that accepts the same parameters.
  *
  * @example
  * ```typescript

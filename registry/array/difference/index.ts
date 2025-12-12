@@ -6,9 +6,9 @@
  * Duplicates in the first array are preserved unless they appear in other arrays.
  *
  * @tags pure, array-manipulation
- * @param array The array to inspect
- * @param values Arrays of values to exclude
- * @returns A new array of filtered values
+ * @param {T[]} array The array to inspect
+ * @param {...T[][]} values Arrays of values to exclude
+ * @returns {T[]} A new array of filtered values
  *
  * @example
  * ```typescript

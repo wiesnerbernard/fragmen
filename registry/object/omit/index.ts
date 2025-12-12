@@ -6,9 +6,9 @@
  * The operation is shallow - nested objects are not deeply omitted.
  *
  * @tags pure, object-manipulation
- * @param obj The source object to omit properties from
- * @param keys Array of keys to omit from the object
- * @returns A new object without the specified keys
+ * @param {T} obj The source object to omit properties from
+ * @param {K[]} keys Array of keys to omit from the object
+ * @returns {Omit<T, K>} A new object without the specified keys
  *
  * @example
  * ```typescript

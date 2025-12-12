@@ -6,7 +6,7 @@
  * back to Math.random() if needed. Follows RFC 4122 version 4 format.
  *
  * @tags crypto, pure
- * @returns A UUID v4 string in the format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
+ * @returns {string} A UUID v4 string in the format xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx
  *
  * @example
  * ```typescript

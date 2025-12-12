@@ -5,9 +5,9 @@
  * with just those properties. Non-existent keys are silently ignored.
  *
  * @tags pure, object-manipulation
- * @param obj The source object to pick properties from.
- * @param keys Array of property names to pick from the source object.
- * @returns A new object containing only the specified properties.
+ * @param {T} obj The source object to pick properties from.
+ * @param {K[]} keys Array of property names to pick from the source object.
+ * @returns {Pick<T, K>} A new object containing only the specified properties.
  *
  * @example
  * ```typescript

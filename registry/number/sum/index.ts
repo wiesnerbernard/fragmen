@@ -4,8 +4,8 @@
  * Adds all numbers in the array and returns the total. Returns 0 for empty arrays.
  * Handles negative numbers, decimals, and mixed positive/negative values.
  *
- * @param numbers The array of numbers to sum
- * @returns The sum of all numbers in the array, or 0 if array is empty
+ * @param {number[]} numbers The array of numbers to sum
+ * @returns {number} The sum of all numbers in the array, or 0 if array is empty
  *
  * @example
  * ```typescript

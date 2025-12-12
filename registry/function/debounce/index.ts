@@ -6,9 +6,9 @@
  * the frequency of function execution.
  *
  * @tags performance, event-handling
- * @param fn The function to debounce.
- * @param wait The number of milliseconds to delay execution.
- * @returns A debounced version of the function that accepts the same parameters.
+ * @param {(...args: Args) => void} fn The function to debounce.
+ * @param {number} wait The number of milliseconds to delay execution.
+ * @returns {(...args: Args) => void} A debounced version of the function that accepts the same parameters.
  *
  * @example
  * ```typescript

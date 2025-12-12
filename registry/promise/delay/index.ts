@@ -5,8 +5,8 @@
  * timeouts, rate limiting, animation delays, or simulating async operations in testing.
  *
  * @tags async
- * @param ms The number of milliseconds to delay before resolving.
- * @returns A promise that resolves to void after the specified delay.
+ * @param {number} ms The number of milliseconds to delay before resolving.
+ * @returns {Promise<void>} A promise that resolves to void after the specified delay.
  *
  * @example
  * ```typescript

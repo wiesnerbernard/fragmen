@@ -6,8 +6,8 @@
  * characters in the local part and common TLDs.
  *
  * @tags validation, string-manipulation
- * @param email The string to validate as an email
- * @returns True if the string is a valid email format, false otherwise
+ * @param {string} email The string to validate as an email
+ * @returns {boolean} True if the string is a valid email format, false otherwise
  *
  * @example
  * ```typescript

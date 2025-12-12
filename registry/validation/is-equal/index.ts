@@ -6,9 +6,9 @@
  * all primitive types. Useful for comparing complex data structures.
  *
  * @tags validation, pure
- * @param a First value to compare
- * @param b Second value to compare
- * @returns True if values are deeply equal, false otherwise
+ * @param {unknown} a First value to compare
+ * @param {unknown} b Second value to compare
+ * @returns {boolean} True if values are deeply equal, false otherwise
  *
  * @example
  * ```typescript

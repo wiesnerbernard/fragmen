@@ -5,8 +5,8 @@
  * Safely handles edge cases like empty strings and non-string inputs.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to capitalize.
- * @returns The string with the first letter capitalized, or empty string if invalid input.
+ * @param {string} str The string to capitalize.
+ * @returns {string} The string with the first letter capitalized, or empty string if invalid input.
  *
  * @example
  * ```typescript

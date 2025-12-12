@@ -6,8 +6,8 @@
  * This is useful for combining parallel arrays into tuples.
  *
  * @tags pure, array-manipulation
- * @param arrays The arrays to zip together
- * @returns A new array of grouped elements
+ * @param {...Array<any>[]} arrays The arrays to zip together
+ * @returns {Array<any>[]} A new array of grouped elements
  *
  * @example
  * ```typescript

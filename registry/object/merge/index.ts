@@ -1,8 +1,8 @@
 /**
  * Checks if a value is a non-array, non-null object.
  *
- * @param item The value to check.
- * @returns True if the value is a plain object.
+ * @param {unknown} item The value to check.
+ * @returns {boolean} True if the value is a plain object.
  */
 function _isObject(item: unknown): item is Record<string, unknown> {
   return !!item && typeof item === 'object' && !Array.isArray(item);
@@ -11,8 +11,8 @@ function _isObject(item: unknown): item is Record<string, unknown> {
 /**
  * Creates a deep copy of an object or array.
  *
- * @param source The object or array to copy.
- * @returns A deep copy of the source.
+ * @param {T} source The object or array to copy.
+ * @returns {T} A deep copy of the source.
  */
 function _deepCopy<T>(source: T): T {
   if (!_isObject(source) && !Array.isArray(source)) {
@@ -41,8 +41,8 @@ function _deepCopy<T>(source: T): T {
  *
  * @tags pure, object-manipulation
  * @template T - An array of object types.
- * @param objects The objects to merge.
- * @returns A new object containing the merged properties, with preserved types.
+ * @param {...T} objects The objects to merge.
+ * @returns {UnionToIntersection<T[number]>} A new object containing the merged properties, with preserved types.
  */
 export function merge<T extends object[]>(
   ...objects: T

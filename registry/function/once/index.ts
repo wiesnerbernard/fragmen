@@ -6,8 +6,8 @@
  * expensive operations that should only run once.
  *
  * @tags performance
- * @param fn The function to restrict to a single execution.
- * @returns A new function that invokes fn only once and caches the result.
+ * @param {(...args: Args) => R} fn The function to restrict to a single execution.
+ * @returns {(...args: Args) => R} A new function that invokes fn only once and caches the result.
  *
  * @example
  * ```typescript

@@ -6,8 +6,8 @@
  * of the first array. Duplicates are removed from the result.
  *
  * @tags pure, array-manipulation
- * @param arrays The arrays to find intersection of
- * @returns A new array containing elements common to all input arrays
+ * @param {T[][]} arrays The arrays to find intersection of
+ * @returns {T[]} A new array containing elements common to all input arrays
  *
  * @example
  * ```typescript

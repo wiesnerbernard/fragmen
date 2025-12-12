@@ -16,8 +16,8 @@ export interface ParsedUrl {
  * query parameters, and hash. Returns null if the URL is invalid.
  *
  * @tags pure, url
- * @param url The URL string to parse
- * @returns Parsed URL components or null if invalid
+ * @param {string} url The URL string to parse
+ * @returns {ParsedUrl | null} Parsed URL components or null if invalid
  *
  * @example
  * ```typescript

@@ -17,9 +17,9 @@ export interface IsValidUrlOptions {
  * URL components.
  *
  * @tags pure, validation, url
- * @param url The string to validate
- * @param options Validation options
- * @returns True if the URL is valid, false otherwise
+ * @param {string} url The string to validate
+ * @param {IsValidUrlOptions} options Validation options
+ * @returns {boolean} True if the URL is valid, false otherwise
  *
  * @example
  * ```typescript

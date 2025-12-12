@@ -6,8 +6,8 @@
  * all arrays. Duplicates are removed.
  *
  * @tags pure, array-manipulation
- * @param arrays The arrays to combine
- * @returns A new array of unique values from all arrays
+ * @param {...T[][]} arrays The arrays to combine
+ * @returns {T[]} A new array of unique values from all arrays
  *
  * @example
  * ```typescript

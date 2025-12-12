@@ -6,10 +6,10 @@
  * floating-point ranges.
  *
  * @tags math
- * @param min The minimum value (inclusive)
- * @param max The maximum value (exclusive)
- * @param integer Whether to return an integer (default: false)
- * @returns A random number within the specified range
+ * @param {number} min The minimum value (inclusive)
+ * @param {number} max The maximum value (exclusive)
+ * @param {boolean} integer Whether to return an integer (default: false)
+ * @returns {number} A random number within the specified range
  *
  * @example
  * ```typescript

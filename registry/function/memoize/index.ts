@@ -6,9 +6,9 @@
  * redundant calculations. Uses JSON.stringify for key generation.
  *
  * @tags performance, pure
- * @param fn The function to memoize (should be pure)
- * @param maxCacheSize Optional maximum cache size (defaults to unlimited)
- * @returns Memoized version of the function with a clear() method
+ * @param {(...args: Args) => R} fn The function to memoize (should be pure)
+ * @param {number} maxCacheSize Optional maximum cache size (defaults to unlimited)
+ * @returns {((...args: Args) => R) & { clear: () => void }} Memoized version of the function with a clear() method
  *
  * @example
  * ```typescript

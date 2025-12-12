@@ -4,8 +4,8 @@
  * Converts characters that have special meaning in HTML into their corresponding
  * HTML entities. Essential for safely displaying user-generated content in web pages.
  *
- * @param str The string to escape
- * @returns The string with HTML special characters escaped
+ * @param {string} str The string to escape
+ * @returns {string} The string with HTML special characters escaped
  *
  * @example
  * ```typescript

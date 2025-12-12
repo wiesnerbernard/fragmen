@@ -6,9 +6,9 @@
  * while Infinity flattens all levels.
  *
  * @tags pure, array-manipulation
- * @param array The array to flatten
- * @param depth The maximum depth to flatten (default: 1)
- * @returns A new flattened array
+ * @param {T[]} array The array to flatten
+ * @param {number} depth The maximum depth to flatten (default: 1)
+ * @returns {T[]} A new flattened array
  *
  * @example
  * ```typescript

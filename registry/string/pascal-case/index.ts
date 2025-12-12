@@ -6,8 +6,8 @@
  * interface names, type names, and component names.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to convert
- * @returns The PascalCase version of the string
+ * @param {string} str The string to convert
+ * @returns {string} The PascalCase version of the string
  *
  * @example
  * ```typescript

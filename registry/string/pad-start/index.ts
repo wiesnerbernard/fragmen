@@ -2,11 +2,11 @@
  * Pads the start of a string with another string until it reaches the target length.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to pad.
- * @param targetLength The desired length of the resulting string.
- * @param padString The string to pad with. Defaults to a space ' '.
+ * @param {string} str The string to pad.
+ * @param {number} targetLength The desired length of the resulting string.
+ * @param {string} padString The string to pad with. Defaults to a space ' '.
  *   If padString is '', the original string is returned (mirrors native behavior).
- * @returns The padded string. Returns '' for non-string input.
+ * @returns {string} The padded string. Returns '' for non-string input.
  * @example
  * padStart('abc', 5, '0')
  * // => '00abc'

@@ -5,8 +5,8 @@
  * Useful for form validation, data cleaning, and conditional rendering.
  *
  * @tags validation, type-checking
- * @param value The value to check for emptiness
- * @returns True if the value is considered empty, false otherwise
+ * @param {unknown} value The value to check for emptiness
+ * @returns {boolean} True if the value is considered empty, false otherwise
  *
  * @example
  * ```typescript

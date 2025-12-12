@@ -6,8 +6,8 @@
  * Falls back to a simple split/reverse/join when Segmenter is not available.
  *
  * @tags pure, string-manipulation
- * @param str The string to reverse.
- * @returns The reversed string. Returns '' for non-string input.
+ * @param {string} str The string to reverse.
+ * @returns {string} The reversed string. Returns '' for non-string input.
  * @example
  * reverse('hello')
  * // => 'olleh'

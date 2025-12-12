@@ -6,9 +6,9 @@
  * is undefined), false if any part of the path is missing.
  *
  * @tags pure, validation
- * @param obj The object to check
- * @param path The property path as a string (dot notation) or array of keys
- * @returns True if the path exists, false otherwise
+ * @param {object} obj The object to check
+ * @param {string | string[]} path The property path as a string (dot notation) or array of keys
+ * @returns {boolean} True if the path exists, false otherwise
  *
  * @example
  * ```typescript

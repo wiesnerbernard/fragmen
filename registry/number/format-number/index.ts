@@ -6,9 +6,9 @@
  * user interfaces, reports, and financial applications.
  *
  * @tags pure, formatting
- * @param value The number to format
- * @param options Formatting options
- * @returns The formatted number string
+ * @param {number} value The number to format
+ * @param {object} options Formatting options
+ * @returns {string} The formatted number string
  *
  * @example
  * ```typescript

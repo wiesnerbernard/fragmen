@@ -5,8 +5,8 @@
  * occurrence. Works with primitive types and object references.
  *
  * @tags pure, array-manipulation
- * @param array The array to filter for unique elements.
- * @returns A new array containing only unique elements in order of first appearance.
+ * @param {T[]} array The array to filter for unique elements.
+ * @returns {T[]} A new array containing only unique elements in order of first appearance.
  *
  * @example
  * ```typescript

@@ -6,8 +6,8 @@
  * functions, and built-in objects like Date and RegExp are handled appropriately.
  *
  * @tags pure, object-manipulation
- * @param obj The object to clone
- * @returns A deep copy of the input object
+ * @param {T} obj The object to clone
+ * @returns {T} A deep copy of the input object
  *
  * @example
  * ```typescript

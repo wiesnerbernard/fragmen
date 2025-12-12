@@ -6,9 +6,9 @@
  * Uses standard mathematical rounding (round half up).
  *
  * @tags pure, math
- * @param value The number to round
- * @param precision The number of decimal places (default: 0)
- * @returns The rounded number
+ * @param {number} value The number to round
+ * @param {number} precision The number of decimal places (default: 0)
+ * @returns {number} The rounded number
  *
  * @example
  * ```typescript

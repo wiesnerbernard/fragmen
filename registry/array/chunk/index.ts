@@ -6,9 +6,9 @@
  * fewer elements if the array length is not evenly divisible by the chunk size.
  *
  * @tags pure, array-manipulation
- * @param array The array to split into chunks
- * @param size The maximum size of each chunk (must be positive integer)
- * @returns A new array containing the chunks, or empty array if input is invalid
+ * @param {T[]} array The array to split into chunks
+ * @param {number} size The maximum size of each chunk (must be positive integer)
+ * @returns {T[][]} A new array containing the chunks, or empty array if input is invalid
  *
  * @example
  * ```typescript

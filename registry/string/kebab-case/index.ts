@@ -6,8 +6,8 @@
  * and file names.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to convert
- * @returns The kebab-case version of the string
+ * @param {string} str The string to convert
+ * @returns {string} The kebab-case version of the string
  *
  * @example
  * ```typescript

@@ -5,12 +5,12 @@
  * Each retry waits longer than the previous one (exponential backoff). Useful for handling
  * flaky network requests, rate-limited APIs, or temporary failures.
  *
- * @param fn The async function to retry
- * @param options Configuration for retry behavior
- * @param options.retries Maximum number of retry attempts (default: 3)
- * @param options.delay Initial delay in milliseconds between retries (default: 1000)
- * @param options.backoff Multiplier for exponential backoff (default: 2)
- * @returns A promise that resolves with the function's result or rejects after all retries fail
+ * @param {() => Promise<T>} fn The async function to retry
+ * @param {object} options Configuration for retry behavior
+ * @param {number} options.retries Maximum number of retry attempts (default: 3)
+ * @param {number} options.delay Initial delay in milliseconds between retries (default: 1000)
+ * @param {number} options.backoff Multiplier for exponential backoff (default: 2)
+ * @returns {Promise<T>} A promise that resolves with the function's result or rejects after all retries fail
  *
  * @example
  * ```typescript

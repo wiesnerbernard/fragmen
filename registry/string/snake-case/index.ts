@@ -6,8 +6,8 @@
  * Python variables, and configuration keys.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to convert
- * @returns The snake_case version of the string
+ * @param {string} str The string to convert
+ * @returns {string} The snake_case version of the string
  *
  * @example
  * ```typescript

@@ -6,9 +6,9 @@
  * relative paths with .. and ./ references.
  *
  * @tags pure, url
- * @param relativeUrl The relative URL to resolve
- * @param baseUrl The base URL to resolve against
- * @returns The resolved absolute URL
+ * @param {string} relativeUrl The relative URL to resolve
+ * @param {string} baseUrl The base URL to resolve against
+ * @returns {string} The resolved absolute URL
  * @throws {Error} If either URL is invalid or malformed
  *
  * @example
@@ -64,8 +64,8 @@ export function resolveUrl(relativeUrl: string, baseUrl: string): string {
 /**
  * Checks if a URL is absolute (has a protocol).
  *
- * @param url The URL to check
- * @returns True if the URL is absolute, false otherwise
+ * @param {string} url The URL to check
+ * @returns {boolean} True if the URL is absolute, false otherwise
  */
 function isAbsoluteUrl(url: string): boolean {
   return /^[a-zA-Z][a-zA-Z\d+\-.]*:/.test(url);

@@ -6,8 +6,8 @@
  * gracefully rather than with try-catch blocks.
  *
  * @tags pure, validation
- * @param str The JSON string to parse.
- * @returns The parsed value with the specified type, or undefined if parsing fails.
+ * @param {string} str The JSON string to parse.
+ * @returns {T | undefined} The parsed value with the specified type, or undefined if parsing fails.
  *
  * @example
  * ```typescript

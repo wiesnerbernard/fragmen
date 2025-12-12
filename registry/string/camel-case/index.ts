@@ -6,8 +6,8 @@
  * variable names, object properties, and function names.
  *
  * @tags pure, string-manipulation, formatting
- * @param str The string to convert
- * @returns The camelCase version of the string
+ * @param {string} str The string to convert
+ * @returns {string} The camelCase version of the string
  *
  * @example
  * ```typescript

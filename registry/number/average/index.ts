@@ -4,8 +4,8 @@
  * Sums all numbers in the array and divides by the count. Returns 0 for empty arrays.
  * Handles negative numbers, decimals, and mixed positive/negative values.
  *
- * @param numbers The array of numbers to average
- * @returns The arithmetic mean of the numbers, or 0 if array is empty
+ * @param {number[]} numbers The array of numbers to average
+ * @returns {number} The arithmetic mean of the numbers, or 0 if array is empty
  *
  * @example
  * ```typescript

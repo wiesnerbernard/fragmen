@@ -5,10 +5,10 @@
  * (for objects) or by using a custom iteratee function. Supports ascending and descending order.
  *
  * @tags pure, array-manipulation
- * @param array The array to sort
- * @param iteratee Property name or function to determine sort order
- * @param order Sort order: 'asc' for ascending (default), 'desc' for descending
- * @returns A new sorted array
+ * @param {T[]} array The array to sort
+ * @param {keyof T | ((item: T) => any)} iteratee Property name or function to determine sort order
+ * @param {'asc' | 'desc'} order Sort order: 'asc' for ascending (default), 'desc' for descending
+ * @returns {T[]} A new sorted array
  *
  * @example
  * ```typescript

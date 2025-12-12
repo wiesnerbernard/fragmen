@@ -17,9 +17,9 @@ export interface SanitizeUrlOptions {
  * structure. Returns null if the URL cannot be safely sanitized.
  *
  * @tags pure, sanitization, url
- * @param url The URL to sanitize
- * @param options Sanitization options
- * @returns Sanitized URL or null if unsafe
+ * @param {string} url The URL to sanitize
+ * @param {SanitizeUrlOptions} options Sanitization options
+ * @returns {string | null} Sanitized URL or null if unsafe
  *
  * @example
  * ```typescript

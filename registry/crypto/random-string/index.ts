@@ -6,9 +6,9 @@
  * Useful for generating tokens, IDs, or passwords.
  *
  * @tags crypto, string-manipulation
- * @param length The desired length of the random string
- * @param charset Optional custom character set to use (defaults to alphanumeric)
- * @returns A random string of the specified length
+ * @param {number} length The desired length of the random string
+ * @param {string} charset Optional custom character set to use (defaults to alphanumeric)
+ * @returns {string} A random string of the specified length
  *
  * @example
  * ```typescript

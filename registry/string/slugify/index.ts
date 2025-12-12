@@ -12,12 +12,12 @@
  * 6. Collapses multiple separators and trims from start/end.
  *
  * @tags url, formatting, sanitization
- * @param str The string to convert.
- * @param options Options for slugification.
- * @param options.separator The character to use as a word separator. Defaults to '-'.
+ * @param {string} str The string to convert.
+ * @param {object} options Options for slugification.
+ * @param {string} options.separator The character to use as a word separator. Defaults to '-'.
  *   Any single character is supported; occurrences of '-' in the normalized string
  *   are unified to the chosen separator.
- * @returns The slugified string.
+ * @returns {string} The slugified string.
  *   Returns '' for non-string input or whitespace-only strings.
  * @example
  * slugify('  Hello World!  -- 123  ')

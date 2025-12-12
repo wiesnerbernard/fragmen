@@ -6,10 +6,10 @@
  * maximum. Otherwise returns the original number.
  *
  * @tags pure, math
- * @param value The number to clamp
- * @param min The minimum allowed value
- * @param max The maximum allowed value
- * @returns The clamped number
+ * @param {number} value The number to clamp
+ * @param {number} min The minimum allowed value
+ * @param {number} max The maximum allowed value
+ * @returns {number} The clamped number
  *
  * @example
  * ```typescript

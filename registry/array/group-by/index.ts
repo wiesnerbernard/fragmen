@@ -6,9 +6,9 @@
  * function which is applied to each element.
  *
  * @tags pure, array-manipulation
- * @param array The array of elements to group.
- * @param getKey Function that takes an item and returns the key for grouping.
- * @returns An object where keys are group identifiers and values are arrays of grouped items.
+ * @param {T[]} array The array of elements to group.
+ * @param {(item: T) => string} getKey Function that takes an item and returns the key for grouping.
+ * @returns {Record<K, T[]>} An object where keys are group identifiers and values are arrays of grouped items.
  *
  * @example
  * ```typescript

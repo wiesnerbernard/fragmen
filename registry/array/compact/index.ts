@@ -6,8 +6,8 @@
  * arrays and ensuring only truthy values remain.
  *
  * @tags pure, array-manipulation
- * @param array The array to remove falsy values from
- * @returns A new array with falsy values removed
+ * @param {T[]} array The array to remove falsy values from
+ * @returns {NonNullable<T>[]} A new array with falsy values removed
  *
  * @example
  * ```typescript

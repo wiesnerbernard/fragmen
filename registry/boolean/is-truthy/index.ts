@@ -5,8 +5,8 @@
  * Complementary function to isFalsy, useful for filtering and validation.
  *
  * @tags pure, validation, type-checking
- * @param value The value to check for truthiness.
- * @returns True if the value is truthy, false otherwise.
+ * @param {unknown} value The value to check for truthiness.
+ * @returns {boolean} True if the value is truthy, false otherwise.
  *
  * @example
  * ```typescript

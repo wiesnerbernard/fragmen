@@ -5,8 +5,8 @@
  * Useful for type-safe falsy checks and filtering operations.
  *
  * @tags pure, validation, type-checking
- * @param value The value to check for falsiness.
- * @returns True if the value is falsy, false otherwise.
+ * @param {unknown} value The value to check for falsiness.
+ * @returns {boolean} True if the value is falsy, false otherwise.
  *
  * @example
  * ```typescript

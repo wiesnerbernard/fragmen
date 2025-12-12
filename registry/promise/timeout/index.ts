@@ -5,10 +5,10 @@
  * or reject before the timeout, it will be rejected with a timeout error. Useful for preventing
  * indefinite hangs, enforcing SLAs, or handling slow operations gracefully.
  *
- * @param promise The promise to wrap with a timeout
- * @param ms The timeout in milliseconds
- * @param message Optional custom error message (default: "Operation timed out after {ms}ms")
- * @returns A promise that resolves with the original promise's value or rejects on timeout
+ * @param {Promise<T>} promise The promise to wrap with a timeout
+ * @param {number} ms The timeout in milliseconds
+ * @param {string} message Optional custom error message (default: "Operation timed out after {ms}ms")
+ * @returns {Promise<T>} A promise that resolves with the original promise's value or rejects on timeout
  *
  * @example
  * ```typescript

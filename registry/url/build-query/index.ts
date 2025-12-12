@@ -12,9 +12,9 @@ export interface BuildQueryOptions {
  * nested objects, and special characters. Filters out null and undefined values.
  *
  * @tags pure, url, formatting
- * @param params Object containing query parameters
- * @param options Configuration options
- * @returns URL-encoded query string
+ * @param {Record<string, any>} params Object containing query parameters
+ * @param {BuildQueryOptions} options Configuration options
+ * @returns {string} URL-encoded query string
  *
  * @example
  * ```typescript

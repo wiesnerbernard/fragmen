@@ -6,8 +6,8 @@
  * errors gracefully and works in both browser and server environments.
  *
  * @tags storage, type-checking
- * @param key The localStorage key
- * @returns An object with get, set, and remove methods
+ * @param {string} key The localStorage key
+ * @returns {{ get: (defaultValue: T) => T, set: (value: T) => void, remove: () => void }} An object with get, set, and remove methods
  *
  * @example
  * ```typescript
@@ -60,7 +60,7 @@ export function storage<T>(key: string) {
   return {
     /**
      * Get value from localStorage
-     * @param defaultValue Value to return if key doesn't exist or parsing fails
+     * @param {T} defaultValue Value to return if key doesn't exist or parsing fails
      */
     get(defaultValue: T): T {
       if (!isLocalStorageAvailable) {
@@ -80,7 +80,7 @@ export function storage<T>(key: string) {
 
     /**
      * Set value in localStorage
-     * @param value Value to store (will be JSON stringified)
+     * @param {T} value Value to store (will be JSON stringified)
      */
     set(value: T): void {
       if (!isLocalStorageAvailable) {
