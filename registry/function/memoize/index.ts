@@ -42,11 +42,17 @@ export function memoize<TArgs extends unknown[], TResult>(
   const cache = new Map<string, TResult>();
 
   const memoized = (...args: TArgs): TResult => {
-    const key = JSON.stringify(args);
+    // Custom key generation that distinguishes null from undefined
+    const key = JSON.stringify(args, (_, value) => {
+      if (value === undefined) {
+        return '__undefined__';
+      }
+      return value;
+    });
 
-    const cached = cache.get(key);
-    if (cached !== undefined) {
-      return cached;
+    if (cache.has(key)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return cache.get(key)!;
     }
 
     const result = fn(...args);

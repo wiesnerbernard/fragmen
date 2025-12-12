@@ -40,18 +40,8 @@
  * ```
  */
 export function isEqual(a: unknown, b: unknown): boolean {
-  // Same reference or primitive equality
-  if (a === b) {
-    return true;
-  }
-
-  // Handle NaN (NaN !== NaN in JavaScript)
-  if (
-    typeof a === 'number' &&
-    typeof b === 'number' &&
-    Number.isNaN(a) &&
-    Number.isNaN(b)
-  ) {
+  // Use Object.is for proper 0 vs -0 comparison and NaN handling
+  if (Object.is(a, b)) {
     return true;
   }
 

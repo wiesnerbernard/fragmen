@@ -3,6 +3,24 @@ import { storage } from '.';
 
 describe('storage', () => {
   beforeEach(() => {
+    // Mock localStorage if not available (CI/SSR environment)
+    if (typeof window === 'undefined') {
+      const store: Record<string, string> = {};
+      global.window = {
+        localStorage: {
+          getItem: (key: string) => store[key] || null,
+          setItem: (key: string, value: string) => {
+            store[key] = value;
+          },
+          removeItem: (key: string) => {
+            delete store[key];
+          },
+          clear: () => {
+            Object.keys(store).forEach(key => delete store[key]);
+          },
+        },
+      } as any;
+    }
     // Clear localStorage before each test
     if (typeof window !== 'undefined') {
       window.localStorage.clear();
