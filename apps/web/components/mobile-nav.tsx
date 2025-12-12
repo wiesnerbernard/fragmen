@@ -36,6 +36,13 @@ export function MobileNav() {
                   Utilities
                 </Link>
                 <Link
+                  href="/favorites"
+                  className="text-sm font-medium px-3 py-2 rounded-md hover:bg-secondary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Favorites
+                </Link>
+                <Link
                   href="/docs"
                   className="text-sm font-medium px-3 py-2 rounded-md hover:bg-secondary transition-colors"
                   onClick={() => setIsOpen(false)}

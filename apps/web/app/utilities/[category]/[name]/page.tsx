@@ -1,5 +1,6 @@
 import { BackToTop } from '@/components/back-to-top';
 import { CopyButton } from '@/components/copy-button';
+import { FavoriteButton } from '@/components/favorite-button';
 import { QuickActions } from '@/components/quick-actions';
 import {
   getAllRegistryItems,
@@ -31,6 +32,27 @@ export async function generateStaticParams() {
   }
 
   return params;
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { category, name } = params;
+  const item = getRegistryItem(category, name);
+
+  if (!item) {
+    return {};
+  }
+
+  return {
+    title: `${item.name} - ${item.category} utility | Fragmen`,
+    description: item.description,
+    keywords: [item.name, item.category, ...item.tags, 'typescript', 'utility'],
+    openGraph: {
+      title: `${item.name} - ${item.category} utility`,
+      description: item.description,
+      type: 'article',
+      url: `https://fragmen.vercel.app/utilities/${item.slug}`,
+    },
+  };
 }
 
 export default async function UtilityPage({ params }: PageProps) {
@@ -71,10 +93,17 @@ export default async function UtilityPage({ params }: PageProps) {
               {item.category}
             </span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">{item.name}</h1>
-          <p className="text-base sm:text-lg text-muted-foreground">
-            {item.description}
-          </p>
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+                {item.name}
+              </h1>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                {item.description}
+              </p>
+            </div>
+            <FavoriteButton slug={item.slug} className="flex-shrink-0" />
+          </div>
         </div>
       </div>
 
@@ -189,7 +218,7 @@ export default async function UtilityPage({ params }: PageProps) {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            <QuickActions code={item.code} slug={item.slug} />
+            <QuickActions code={item.code} slug={item.slug} name={item.name} />
 
             {/* Tags */}
             {item.tags.length > 0 && (

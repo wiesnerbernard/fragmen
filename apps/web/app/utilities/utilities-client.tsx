@@ -1,5 +1,6 @@
 'use client';
 
+import { FavoriteButton } from '@/components/favorite-button';
 import type { RegistryItem } from '@/lib/registry';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
@@ -214,17 +215,17 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 item => item.category === category
               ).length;
               return (
-                <button
+                <Link
                   key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
+                  href={`/utilities/${category}`}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 hover:bg-secondary ${
                     selectedCategory === category
                       ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'bg-secondary/60 text-secondary-foreground hover:bg-secondary'
+                      : 'bg-secondary/60 text-secondary-foreground'
                   }`}
                 >
                   {category} ({count})
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -283,15 +284,18 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
               href={`/utilities/${item.slug}`}
               className="group block rounded-lg border border-border/60 bg-background p-5 transition-colors hover:bg-secondary/40"
             >
-              <div className="mb-2 flex items-center gap-2">
-                <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
-                  {item.category}
-                </span>
-                {isNewItem(item) && (
-                  <span className="inline-block rounded bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground">
-                    New
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    {item.category}
                   </span>
-                )}
+                  {isNewItem(item) && (
+                    <span className="inline-block rounded bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground">
+                      New
+                    </span>
+                  )}
+                </div>
+                <FavoriteButton slug={item.slug} />
               </div>
               <h3 className="mb-2 text-lg font-semibold group-hover:text-foreground transition-colors">
                 {item.name}
