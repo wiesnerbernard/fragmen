@@ -168,6 +168,173 @@ const debouncedSearch = debounce(handleSearch, 300);
         </div>
       </section>
 
+      {/* Popular Utilities Section */}
+      <section className="border-t border-border/60 bg-secondary/20">
+        <div className="container mx-auto px-6 py-20">
+          <div className="mx-auto max-w-6xl">
+            <h2 className="text-3xl font-bold mb-4 text-center">Popular Utilities</h2>
+            <p className="text-center text-muted-foreground mb-12">
+              Most commonly used utilities to solve everyday problems
+            </p>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Debounce */}
+              <Link
+                href="/utilities/function/debounce"
+                className="group rounded-xl bg-background p-6 ring-1 ring-border/60 transition-all hover:ring-2 hover:ring-primary/50"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    function
+                  </span>
+                  <span className="text-xs text-muted-foreground">⚡ Performance</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                  debounce
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  Delay function execution until after wait time has elapsed since last call. Perfect for search inputs and resize handlers.
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-3 font-mono text-xs overflow-x-auto">
+                  <code className="text-muted-foreground">
+                    debounce(fn, 300)
+                  </code>
+                </div>
+              </Link>
+
+              {/* Delay */}
+              <Link
+                href="/utilities/promise/delay"
+                className="group rounded-xl bg-background p-6 ring-1 ring-border/60 transition-all hover:ring-2 hover:ring-primary/50"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    promise
+                  </span>
+                  <span className="text-xs text-muted-foreground">⏱️ Async</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                  delay
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  Promise-based delay for async operations. Useful for rate limiting, animations, and testing scenarios.
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-3 font-mono text-xs overflow-x-auto">
+                  <code className="text-muted-foreground">
+                    await delay(1000)
+                  </code>
+                </div>
+              </Link>
+
+              {/* Clone */}
+              <Link
+                href="/utilities/object/clone"
+                className="group rounded-xl bg-background p-6 ring-1 ring-border/60 transition-all hover:ring-2 hover:ring-primary/50"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    object
+                  </span>
+                  <span className="text-xs text-muted-foreground">🔄 Data</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                  clone
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  Deep clone objects and arrays without reference issues. Essential for immutable state management.
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-3 font-mono text-xs overflow-x-auto">
+                  <code className="text-muted-foreground">
+                    clone(object)
+                  </code>
+                </div>
+              </Link>
+
+              {/* Chunk */}
+              <Link
+                href="/utilities/array/chunk"
+                className="group rounded-xl bg-background p-6 ring-1 ring-border/60 transition-all hover:ring-2 hover:ring-primary/50"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    array
+                  </span>
+                  <span className="text-xs text-muted-foreground">📊 Collections</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                  chunk
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  Split arrays into smaller chunks of specified size. Great for pagination and batch processing.
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-3 font-mono text-xs overflow-x-auto">
+                  <code className="text-muted-foreground">
+                    chunk(array, 3)
+                  </code>
+                </div>
+              </Link>
+
+              {/* Slugify */}
+              <Link
+                href="/utilities/string/slugify"
+                className="group rounded-xl bg-background p-6 ring-1 ring-border/60 transition-all hover:ring-2 hover:ring-primary/50"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    string
+                  </span>
+                  <span className="text-xs text-muted-foreground">🔤 Text</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                  slugify
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  Convert strings to URL-friendly slugs. Handles special characters, spaces, and case conversion.
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-3 font-mono text-xs overflow-x-auto">
+                  <code className="text-muted-foreground">
+                    slugify(&quot;Hello World&quot;)
+                  </code>
+                </div>
+              </Link>
+
+              {/* Random String */}
+              <Link
+                href="/utilities/crypto/random-string"
+                className="group rounded-xl bg-background p-6 ring-1 ring-border/60 transition-all hover:ring-2 hover:ring-primary/50"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    crypto
+                  </span>
+                  <span className="text-xs text-muted-foreground">🔐 Security</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+                  randomString
+                </h3>
+                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                  Generate cryptographically secure random strings. Perfect for tokens, IDs, and passwords.
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-3 font-mono text-xs overflow-x-auto">
+                  <code className="text-muted-foreground">
+                    randomString(16)
+                  </code>
+                </div>
+              </Link>
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href="/utilities"
+                className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+              >
+                Browse All 50+ Utilities
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quick Start Section */}
       <section className="container mx-auto px-6 py-20">
         <div className="mx-auto max-w-3xl">
