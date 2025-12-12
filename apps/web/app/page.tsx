@@ -83,7 +83,7 @@ export default function HomePage() {
               <div className="rounded-lg border border-border/60 bg-background/60 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono text-foreground shadow-sm backdrop-blur overflow-x-auto max-w-full">
                 <code>npx fragmen add promise/delay</code>
               </div>
-            </div>
+            </motion.div>
 
             {/* Stats */}
             <motion.div

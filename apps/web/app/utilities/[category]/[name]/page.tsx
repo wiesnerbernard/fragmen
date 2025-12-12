@@ -276,21 +276,6 @@ export default async function UtilityPage({ params }: PageProps) {
                 </p>
               </section>
             )}
-
-            {/* Meta Information */}
-            {item.since && (
-              <section className="rounded-lg border border-border bg-background p-4 shadow-sm">
-                <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-                  Information
-                </h3>
-                <div className="space-y-2 text-xs">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Added</span>
-                    <span className="font-medium">{item.since}</span>
-                  </div>
-                </div>
-              </section>
-            )}
           </div>
         </div>
       </div>
