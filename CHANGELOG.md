@@ -5,7 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.2] - 2025-12-11
+## [Unreleased]
+
+### Added
+
+- **Web App: Related Utilities** - Smart algorithm shows 6 related utilities on detail pages based on category, tags, and name similarity
+- **Web App: Changelog Page** - Markdown-rendered changelog accessible at `/changelog` with full project history
+- **Web App: Utility Requests** - Community voting system for utility ideas at `/requests` with upvoting and status tracking
+- **Web App: RSS Feed** - Automated feed at `/rss.xml` with latest 20 utilities sorted by date added
+- **Web App: Enhanced Search** - Search icon, clear button, dynamic results count, and keyboard shortcuts (⌘K, Esc)
+- **Web App: Back-to-Top Button** - Smooth scroll button appears after 500px of scrolling
+- **Web App: Quick Actions Sidebar** - Copy code and install command with visual feedback
+- **Web App: Clickable Tags** - Tags on utility pages link to filtered search results
+- **Web App: Meta Information Panel** - Shows dependencies, test coverage, and date added
+- **Documentation: Release Process** - Comprehensive guide for changelog maintenance and version releases
+
+### Changed
+
+- **Web App: Code Blocks** - Improved with rounded corners, shadows, and better theme integration
+- **Web App: Navigation** - Added Changelog and Requests links to main navigation
+- **Web App: Homepage** - New "Explore More" section with cards for Changelog, Requests, and RSS
+
+### Dependencies
+
+- Added `remark` and `remark-html` for markdown processing
+
+## [1.0.2] - 2024-12-11
 
 ### Added
 
