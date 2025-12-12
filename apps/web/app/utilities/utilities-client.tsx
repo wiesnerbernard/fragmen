@@ -4,6 +4,7 @@ import { FavoriteButton } from '@/components/favorite-button';
 import type { RegistryItem } from '@/lib/registry';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface UtilitiesClientProps {
@@ -22,10 +23,19 @@ function isNewItem(item: RegistryItem): boolean {
 }
 
 export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
+  const searchParams = useSearchParams();
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedTag, setSelectedTag] = useState<string>('all');
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Read tag from URL on mount
+  useEffect(() => {
+    const tagFromUrl = searchParams.get('tag');
+    if (tagFromUrl) {
+      setSelectedTag(tagFromUrl);
+    }
+  }, [searchParams]);
 
   // Extract all unique tags from items
   const allTags = useMemo(() => {
