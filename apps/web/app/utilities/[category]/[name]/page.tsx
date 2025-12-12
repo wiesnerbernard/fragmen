@@ -69,12 +69,12 @@ export default async function UtilityPage({ params }: PageProps) {
   // Render code with syntax highlighting for both light and dark themes
   const highlightedCodeLight = await codeToHtml(item.code, {
     lang: 'typescript',
-    theme: 'github-light',
+    theme: 'min-light',
   });
 
   const highlightedCodeDark = await codeToHtml(item.code, {
     lang: 'typescript',
-    theme: 'github-dark',
+    theme: 'min-dark',
   });
 
   return (
