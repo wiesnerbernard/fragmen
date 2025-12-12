@@ -50,7 +50,7 @@
     "release:patch": "npm version patch && git push && git push --tags",
     "release:minor": "npm version minor && git push && git push --tags",
     "release:major": "npm version major && git push && git push --tags",
-    "prepare": "husky install"
+    "prepare": "husky || true"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
