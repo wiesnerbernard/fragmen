@@ -105,7 +105,7 @@ export default function HomePage() {
                 transition={{ duration: 0.5, delay: 0.4 }}
               >
                 <div className="text-3xl font-bold mb-1">
-                  <AnimatedCounter value={0} />
+                  <AnimatedCounter value={0} countDown={true} />
                 </div>
                 <div className="text-sm text-muted-foreground">
                   Dependencies

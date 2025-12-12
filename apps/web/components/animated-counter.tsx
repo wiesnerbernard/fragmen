@@ -7,15 +7,17 @@ interface AnimatedCounterProps {
   value: number;
   suffix?: string;
   duration?: number;
+  countDown?: boolean;
 }
 
 export function AnimatedCounter({
   value,
   suffix = '',
   duration = 2,
+  countDown = false,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const motionValue = useMotionValue(0);
+  const motionValue = useMotionValue(countDown ? 100 : 0);
   const springValue = useSpring(motionValue, {
     damping: 60,
     stiffness: 100,
