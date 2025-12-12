@@ -1,6 +1,6 @@
+import { MobileNav } from '@/components/mobile-nav';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { MobileNav } from '@/components/mobile-nav';
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';

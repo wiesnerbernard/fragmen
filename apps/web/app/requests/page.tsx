@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function RequestsPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -12,17 +12,17 @@ export default function RequestsPage() {
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const category = formData.get('category') as string;
-    
+
     // Create a GitHub issue with the request details
     const issueTitle = encodeURIComponent(`[Utility Request] ${title}`);
     const issueBody = encodeURIComponent(
       `**Category:** ${category}\n\n**Description:**\n${description}\n\n---\n*Submitted via fragmen.vercel.app*`
     );
     const githubUrl = `https://github.com/wiesnerbernard/fragmen/issues/new?title=${issueTitle}&body=${issueBody}&labels=utility-request`;
-    
+
     // Open GitHub in new tab
     window.open(githubUrl, '_blank');
-    
+
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
     e.currentTarget.reset();
@@ -40,7 +40,8 @@ export default function RequestsPage() {
           </Link>
           <h1 className="text-4xl font-bold mb-4">Request a Utility</h1>
           <p className="text-lg text-muted-foreground">
-            Have an idea for a utility function? Let us know what you'd like to see added to Fragmen.
+            Have an idea for a utility function? Let us know what you'd like to
+            see added to Fragmen.
           </p>
         </div>
       </div>
@@ -75,7 +76,10 @@ export default function RequestsPage() {
           <div className="rounded-xl border border-border bg-background p-8 shadow-sm">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="title" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="title"
+                  className="block text-sm font-medium mb-2"
+                >
                   Utility Name <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -92,7 +96,10 @@ export default function RequestsPage() {
               </div>
 
               <div>
-                <label htmlFor="description" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium mb-2"
+                >
                   Description <span className="text-red-500">*</span>
                 </label>
                 <textarea
@@ -104,12 +111,16 @@ export default function RequestsPage() {
                   required
                 />
                 <p className="mt-1.5 text-xs text-muted-foreground">
-                  Be as specific as possible about the functionality and use cases.
+                  Be as specific as possible about the functionality and use
+                  cases.
                 </p>
               </div>
 
               <div>
-                <label htmlFor="category" className="block text-sm font-medium mb-2">
+                <label
+                  htmlFor="category"
+                  className="block text-sm font-medium mb-2"
+                >
                   Category <span className="text-red-500">*</span>
                 </label>
                 <select
@@ -150,7 +161,8 @@ export default function RequestsPage() {
           <div className="mt-8 rounded-lg border border-border bg-secondary/30 p-6">
             <h3 className="text-sm font-semibold mb-2">Prefer GitHub?</h3>
             <p className="text-sm text-muted-foreground mb-4">
-              You can also submit utility requests directly as GitHub issues where you can track progress and join the discussion.
+              You can also submit utility requests directly as GitHub issues
+              where you can track progress and join the discussion.
             </p>
             <a
               href="https://github.com/wiesnerbernard/fragmen/issues/new?labels=utility-request&template=utility-request.md"

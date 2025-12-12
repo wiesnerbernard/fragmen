@@ -11,10 +11,11 @@ The changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) f
 ### When Adding New Utilities
 
 1. **Add @since tag** to the utility's JSDoc comment:
+
    ```typescript
    /**
     * Description of your utility
-    * 
+    *
     * @since 2024-12-15
     * @tags category, tags
     * @param {type} param Description
@@ -23,18 +24,22 @@ The changelog follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) f
    ```
 
 2. **Update CHANGELOG.md** under the `[Unreleased]` section:
+
    ```markdown
    ## [Unreleased]
-   
+
    ### Added
+
    - `category/utility-name` - Brief description of what it does
    ```
 
 ### When Fixing Bugs
 
 Add to the `### Fixed` section under `[Unreleased]`:
+
 ```markdown
 ### Fixed
+
 - Fixed issue with `utility-name` where it didn't handle edge case X
 - Corrected type definitions for `another-utility`
 ```
@@ -42,8 +47,10 @@ Add to the `### Fixed` section under `[Unreleased]`:
 ### When Making Breaking Changes
 
 Add to the `### Changed` section with a `⚠️ BREAKING:` prefix:
+
 ```markdown
 ### Changed
+
 - ⚠️ BREAKING: `utility-name` now returns `newType` instead of `oldType`
 ```
 
@@ -57,14 +64,17 @@ Add to the `### Changed` section with a `⚠️ BREAKING:` prefix:
 4. Update the comparison links at the bottom of CHANGELOG.md
 
 Example:
+
 ```markdown
 ## [1.1.0] - 2024-12-15
 
 ### Added
+
 - `string/format-template` - Template string formatter with variable interpolation
 - `array/sample` - Get random sample from array
 
-### Fixed  
+### Fixed
+
 - Fixed `merge` utility deep copying circular references
 
 [Unreleased]: https://github.com/wiesnerbernard/fragmen/compare/v1.1.0...HEAD

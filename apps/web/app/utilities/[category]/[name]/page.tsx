@@ -1,11 +1,11 @@
-import { CopyButton } from '@/components/copy-button';
 import { BackToTop } from '@/components/back-to-top';
+import { CopyButton } from '@/components/copy-button';
 import { QuickActions } from '@/components/quick-actions';
 import {
+  getAllRegistryItems,
   getCategories,
   getItemsByCategory,
   getRegistryItem,
-  getAllRegistryItems,
 } from '@/lib/registry';
 import { findRelatedUtilities } from '@/lib/related';
 import Link from 'next/link';
@@ -72,7 +72,9 @@ export default async function UtilityPage({ params }: PageProps) {
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold mb-4">{item.name}</h1>
-          <p className="text-base sm:text-lg text-muted-foreground">{item.description}</p>
+          <p className="text-base sm:text-lg text-muted-foreground">
+            {item.description}
+          </p>
         </div>
       </div>
 
@@ -82,9 +84,13 @@ export default async function UtilityPage({ params }: PageProps) {
           <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Installation */}
             <section>
-              <h2 className="text-xl sm:text-2xl font-bold mb-4">Installation</h2>
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">
+                Installation
+              </h2>
               <div className="rounded-lg bg-secondary/40 p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 ring-1 ring-border/60">
-                <code className="text-xs sm:text-sm break-all">npx fragmen add {item.slug}</code>
+                <code className="text-xs sm:text-sm break-all">
+                  npx fragmen add {item.slug}
+                </code>
                 <CopyButton text={`npx fragmen add ${item.slug}`} />
               </div>
             </section>
@@ -264,7 +270,7 @@ export default async function UtilityPage({ params }: PageProps) {
           </div>
         </div>
       </div>
-      
+
       <BackToTop />
     </main>
   );

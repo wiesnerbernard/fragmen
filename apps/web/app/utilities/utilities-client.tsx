@@ -190,7 +190,8 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 <>Showing all {items.length} utilities</>
               ) : (
                 <>
-                  Found {filteredItems.length} {filteredItems.length === 1 ? 'utility' : 'utilities'}
+                  Found {filteredItems.length}{' '}
+                  {filteredItems.length === 1 ? 'utility' : 'utilities'}
                   {search && ` matching "${search}"`}
                 </>
               )}
