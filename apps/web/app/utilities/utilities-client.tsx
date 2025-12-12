@@ -146,6 +146,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
               <nav className="space-y-1">
                 <Link
                   href="/utilities"
+                  prefetch={true}
                   className="block px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-secondary/60 text-foreground"
                 >
                   All Utilities
@@ -162,6 +163,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                     <Link
                       key={category}
                       href={`/utilities/${category}`}
+                      prefetch={true}
                       className="block px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-secondary/60 text-muted-foreground hover:text-foreground capitalize"
                     >
                       {category}

@@ -17,6 +17,10 @@ interface PageProps {
   };
 }
 
+// Force static generation at build time
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const categories = getCategories();
   return categories.map(category => ({ category }));
@@ -101,6 +105,7 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
               <nav className="space-y-1">
                 <Link
                   href="/utilities"
+                  prefetch={true}
                   className="block px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-secondary/60 text-foreground"
                 >
                   All Utilities
@@ -116,6 +121,7 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
                     <Link
                       key={cat}
                       href={`/utilities/${cat}`}
+                      prefetch={true}
                       className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
                         cat === category
                           ? 'bg-secondary text-foreground'
