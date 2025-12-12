@@ -98,7 +98,7 @@ export default function HomePage() {
                   <div className="text-orange-500">API call: "rea"</div>
                   <div className="text-orange-500">API call: "reac"</div>
                   <div className="text-orange-500">API call: "react"</div>
-                  <div className="text-muted-foreground mt-2">💸 5 API calls made</div>
+                  <div className="text-red-500 mt-2 font-semibold">5 API calls made</div>
                 </div>
               </div>
 
@@ -117,7 +117,7 @@ export default function HomePage() {
                   <div className="text-muted-foreground/50">Waiting...</div>
                   <div className="text-muted-foreground/50">Waiting...</div>
                   <div className="text-green-500">API call: "react"</div>
-                  <div className="text-muted-foreground mt-2">✅ 1 API call made</div>
+                  <div className="text-green-500 mt-2 font-semibold">1 API call made</div>
                 </div>
               </div>
             </div>
@@ -314,7 +314,7 @@ const debouncedSearch = debounce(handleSearch, 300);
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     function
                   </span>
-                  <span className="text-xs text-muted-foreground">⚡ Performance</span>
+                  <span className="text-xs text-muted-foreground">Performance</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   debounce
@@ -338,7 +338,7 @@ const debouncedSearch = debounce(handleSearch, 300);
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     promise
                   </span>
-                  <span className="text-xs text-muted-foreground">⏱️ Async</span>
+                  <span className="text-xs text-muted-foreground">Async</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   delay
@@ -362,7 +362,7 @@ const debouncedSearch = debounce(handleSearch, 300);
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     object
                   </span>
-                  <span className="text-xs text-muted-foreground">🔄 Data</span>
+                  <span className="text-xs text-muted-foreground">Data</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   clone
@@ -386,7 +386,7 @@ const debouncedSearch = debounce(handleSearch, 300);
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     array
                   </span>
-                  <span className="text-xs text-muted-foreground">📊 Collections</span>
+                  <span className="text-xs text-muted-foreground">Collections</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   chunk
@@ -410,7 +410,7 @@ const debouncedSearch = debounce(handleSearch, 300);
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     string
                   </span>
-                  <span className="text-xs text-muted-foreground">🔤 Text</span>
+                  <span className="text-xs text-muted-foreground">Text</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   slugify
@@ -434,7 +434,7 @@ const debouncedSearch = debounce(handleSearch, 300);
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     crypto
                   </span>
-                  <span className="text-xs text-muted-foreground">🔐 Security</span>
+                  <span className="text-xs text-muted-foreground">Security</span>
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   randomString
