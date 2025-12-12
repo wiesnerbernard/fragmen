@@ -242,37 +242,6 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => setSelectedCategory('all')}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
-                selectedCategory === 'all'
-                  ? 'bg-primary text-primary-foreground shadow-sm'
-                  : 'bg-secondary/60 text-secondary-foreground hover:bg-secondary'
-              }`}
-            >
-              All ({items.length})
-            </button>
-            {categories.map(category => {
-              const count = items.filter(
-                item => item.category === category
-              ).length;
-              return (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
-                    selectedCategory === category
-                      ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'bg-secondary/60 text-secondary-foreground hover:bg-secondary'
-                  }`}
-                >
-                  {category} ({count})
-                </button>
-              );
-            })}
-          </div>
-
           {/* Tag Filters */}
           {allTags.length > 0 && (
             <div>
