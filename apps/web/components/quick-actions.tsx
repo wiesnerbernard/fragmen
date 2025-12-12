@@ -1,15 +1,20 @@
 'use client';
 
+import { formatBundleSize } from '@/lib/bundle-size';
 import { useState } from 'react';
 
 interface QuickActionsProps {
   code: string;
   slug: string;
+  name: string;
 }
 
-export function QuickActions({ code, slug }: QuickActionsProps) {
+export function QuickActions({ code, slug, name }: QuickActionsProps) {
   const [copiedCode, setCopiedCode] = useState(false);
   const [copiedCommand, setCopiedCommand] = useState(false);
+  const [copiedImport, setCopiedImport] = useState(false);
+
+  const bundleSize = new Blob([code]).size;
 
   const handleCopyCode = async () => {
     try {
@@ -26,6 +31,17 @@ export function QuickActions({ code, slug }: QuickActionsProps) {
       await navigator.clipboard.writeText(`npx fragmen add ${slug}`);
       setCopiedCommand(true);
       setTimeout(() => setCopiedCommand(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
+  const handleCopyWithImport = async () => {
+    try {
+      const codeWithImport = `import { ${name} } from './utils/${slug}';\n\n${code}`;
+      await navigator.clipboard.writeText(codeWithImport);
+      setCopiedImport(true);
+      setTimeout(() => setCopiedImport(false), 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
@@ -66,6 +82,34 @@ export function QuickActions({ code, slug }: QuickActionsProps) {
           {copiedCode ? 'Copied!' : 'Copy Source Code'}
         </button>
         <button
+          onClick={handleCopyWithImport}
+          className="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg bg-secondary/60 hover:bg-secondary transition-colors text-left"
+        >
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {copiedImport ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"
+              />
+            )}
+          </svg>
+          {copiedImport ? 'Copied!' : 'Copy with Import'}
+        </button>
+        <button
           onClick={handleCopyCommand}
           className="w-full flex items-center gap-2 px-3 py-2 text-sm rounded-lg bg-secondary/60 hover:bg-secondary transition-colors text-left"
         >
@@ -93,6 +137,14 @@ export function QuickActions({ code, slug }: QuickActionsProps) {
           </svg>
           {copiedCommand ? 'Copied!' : 'Copy Install Command'}
         </button>
+      </div>
+
+      {/* Bundle Size */}
+      <div className="mt-4 pt-4 border-t border-border">
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-muted-foreground">Estimated size:</span>
+          <span className="font-medium">{formatBundleSize(bundleSize)}</span>
+        </div>
       </div>
     </section>
   );

@@ -59,6 +59,12 @@ export default function RootLayout({
                       Utilities
                     </Link>
                     <Link
+                      href="/favorites"
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Favorites
+                    </Link>
+                    <Link
                       href="/docs"
                       className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                     >
