@@ -1,7 +1,7 @@
 'use client';
 
-import { Check, Copy } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Check, Copy } from 'lucide-react';
 import { useState } from 'react';
 
 interface CopyButtonProps {

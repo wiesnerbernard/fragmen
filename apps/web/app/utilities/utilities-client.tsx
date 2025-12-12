@@ -243,8 +243,10 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
               {/* Tag Filters */}
               {allTags.length > 0 && (
                 <div className="flex flex-wrap gap-2">
-                  <button
+                  <motion.button
                     onClick={() => setSelectedTag('all')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                       selectedTag === 'all'
                         ? 'bg-accent text-accent-foreground'
@@ -252,15 +254,17 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                     }`}
                   >
                     All
-                  </button>
+                  </motion.button>
                   {allTags.map(tag => {
                     const count = items.filter(item =>
                       item.tags?.includes(tag)
                     ).length;
                     return (
-                      <button
+                      <motion.button
                         key={tag}
                         onClick={() => setSelectedTag(tag)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                           selectedTag === tag
                             ? 'bg-accent text-accent-foreground'
@@ -268,7 +272,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                         }`}
                       >
                         {tag} ({count})
-                      </button>
+                      </motion.button>
                     );
                   })}
                 </div>
@@ -282,11 +286,31 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
             </p>
 
             {/* Grid */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {filteredItems.map(item => (
-                <UtilityCard key={item.slug} item={item} showCategory={true} />
+            <motion.div
+              className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.05,
+                  },
+                },
+              }}
+            >
+              {filteredItems.map((item, index) => (
+                <motion.div
+                  key={item.slug}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <UtilityCard item={item} showCategory={true} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {filteredItems.length === 0 && (
               <div className="text-center py-12">

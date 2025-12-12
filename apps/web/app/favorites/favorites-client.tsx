@@ -4,6 +4,7 @@ import { BackToTop } from '@/components/back-to-top';
 import { UtilityCard } from '@/components/utility-card';
 import type { RegistryItem } from '@/lib/registry';
 import { useFavorites } from '@/lib/use-favorites';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -97,11 +98,31 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <motion.div
+            className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              visible: {
+                transition: {
+                  staggerChildren: 0.05,
+                },
+              },
+            }}
+          >
             {favoriteItems.map(item => (
-              <UtilityCard key={item.slug} item={item} showCategory={true} />
+              <motion.div
+                key={item.slug}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.3 }}
+              >
+                <UtilityCard item={item} showCategory={true} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         )}
       </div>
 

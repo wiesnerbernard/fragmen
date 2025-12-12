@@ -18,34 +18,68 @@ export default function HomePage() {
           }}
         />
         <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32">
-          <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-4 sm:mb-6">
+          <motion.div
+            className="mx-auto max-w-4xl text-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <motion.h1
+              className="text-4xl sm:text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-4 sm:mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               Fragmen
-            </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 md:text-2xl px-4">
+            </motion.h1>
+            <motion.p
+              className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 md:text-2xl px-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
               Copy‑paste TypeScript utilities into your project.
-            </p>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto px-4">
+            </motion.p>
+            <motion.p
+              className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto px-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               Browse 50+ focused fragments across 9 categories. Own the code,
               adapt it freely, and ship without extra dependencies.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
-              <Link
-                href="/utilities"
-                className="inline-flex items-center justify-center rounded-full bg-primary px-6 sm:px-8 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
-              >
-                Browse Utilities
-              </Link>
-              <Link
-                href="/docs"
-                className="inline-flex items-center justify-center rounded-full border border-border/60 bg-background px-6 sm:px-8 py-3 text-sm font-medium transition-colors hover:bg-secondary"
-              >
-                Documentation
-              </Link>
-            </div>
+            <motion.div
+              className="flex flex-col sm:flex-row gap-3 justify-center px-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href="/utilities"
+                  className="inline-flex items-center justify-center rounded-full bg-primary px-6 sm:px-8 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+                >
+                  Browse Utilities
+                </Link>
+              </motion.div>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href="/docs"
+                  className="inline-flex items-center justify-center rounded-full border border-border/60 bg-background px-6 sm:px-8 py-3 text-sm font-medium transition-colors hover:bg-secondary"
+                >
+                  Documentation
+                </Link>
+              </motion.div>
+            </motion.div>
 
-            <div className="mt-8 sm:mt-10 flex justify-center px-4">
+            <motion.div
+              className="mt-8 sm:mt-10 flex justify-center px-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               <div className="rounded-lg border border-border/60 bg-background/60 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono text-foreground shadow-sm backdrop-blur overflow-x-auto max-w-full">
                 <code>npx fragmen add promise/delay</code>
               </div>
@@ -112,7 +146,7 @@ export default function HomePage() {
                 </div>
               </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -128,9 +162,19 @@ export default function HomePage() {
               an array into smaller pieces.
             </p>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <motion.div
+              className="grid md:grid-cols-2 gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               {/* Input */}
-              <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
+              <motion.div
+                className="rounded-xl bg-background p-6 ring-1 ring-border/60"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
+              >
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-2 w-2 rounded-full bg-blue-500"></div>
                   <h3 className="font-semibold text-sm">Input Array</h3>
@@ -152,10 +196,14 @@ export default function HomePage() {
                     <span className="text-foreground font-semibold">10</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Output */}
-              <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
+              <motion.div
+                className="rounded-xl bg-background p-6 ring-1 ring-border/60"
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.2 }}
+              >
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-2 w-2 rounded-full bg-green-500"></div>
                   <h3 className="font-semibold text-sm">chunk(items, 3)</h3>
@@ -176,11 +224,17 @@ export default function HomePage() {
                     <span className="text-foreground font-semibold">4</span>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Code Example */}
-            <div className="mt-8 rounded-xl bg-background p-6 ring-1 ring-border/60">
+            <motion.div
+              className="mt-8 rounded-xl bg-background p-6 ring-1 ring-border/60"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-sm">Implementation</h3>
                 <CopyButton
@@ -218,7 +272,7 @@ const paginatedData = chunk(allProducts, 20);
                   View full chunk utility →
                 </Link>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

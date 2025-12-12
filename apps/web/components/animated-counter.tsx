@@ -34,7 +34,8 @@ export function AnimatedCounter({
     () =>
       springValue.on('change', latest => {
         if (ref.current) {
-          ref.current.textContent = Math.floor(latest).toLocaleString() + suffix;
+          ref.current.textContent =
+            Math.floor(latest).toLocaleString() + suffix;
         }
       }),
     [springValue, suffix]

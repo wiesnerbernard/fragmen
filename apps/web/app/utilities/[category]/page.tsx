@@ -1,3 +1,5 @@
+'use client';
+
 import { BackToTop } from '@/components/back-to-top';
 import { UtilityCard } from '@/components/utility-card';
 import {
@@ -5,8 +7,9 @@ import {
   getItemsByCategory,
   getRegistryItem,
 } from '@/lib/registry';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 
 interface PageProps {
   params: {
@@ -46,8 +49,9 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function CategoryPage({ params }: PageProps) {
-  const { category } = params;
+export default function CategoryPage() {
+  const params = useParams();
+  const category = params.category as string;
 
   const categories = getCategories();
   if (!categories.includes(category)) {
@@ -132,11 +136,31 @@ export default function CategoryPage({ params }: PageProps) {
           {/* Main Content */}
           <div className="flex-1 min-w-0">
             {/* Utilities Grid */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+            <motion.div
+              className="grid gap-4 md:grid-cols-2 lg:grid-cols-2"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.05,
+                  },
+                },
+              }}
+            >
               {items.map(item => (
-                <UtilityCard key={item.slug} item={item} showCategory={true} />
+                <motion.div
+                  key={item.slug}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <UtilityCard item={item} showCategory={true} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
