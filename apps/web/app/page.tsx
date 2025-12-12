@@ -56,7 +56,10 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Link
                   href="/utilities"
                   className="inline-flex items-center justify-center rounded-full bg-primary px-6 sm:px-8 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
@@ -64,7 +67,10 @@ export default function HomePage() {
                   Browse Utilities
                 </Link>
               </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <Link
                   href="/docs"
                   className="inline-flex items-center justify-center rounded-full border border-border/60 bg-background px-6 sm:px-8 py-3 text-sm font-medium transition-colors hover:bg-secondary"
