@@ -136,6 +136,45 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
       </div>
 
       <div className="container mx-auto px-6 py-8">
+        <div className="flex gap-8">
+          {/* Sidebar */}
+          <aside className="hidden lg:block w-56 flex-shrink-0">
+            <div className="sticky top-8">
+              <h2 className="text-sm font-semibold text-foreground mb-3">
+                Categories
+              </h2>
+              <nav className="space-y-1">
+                <Link
+                  href="/utilities"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-secondary/60 text-foreground"
+                >
+                  All Utilities
+                  <span className="ml-auto text-muted-foreground text-xs">
+                    {' '}
+                    ({items.length})
+                  </span>
+                </Link>
+                {categories.map(category => {
+                  const count = items.filter(
+                    item => item.category === category
+                  ).length;
+                  return (
+                    <Link
+                      key={category}
+                      href={`/utilities/${category}`}
+                      className="block px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-secondary/60 text-muted-foreground hover:text-foreground capitalize"
+                    >
+                      {category}
+                      <span className="ml-1 text-xs">({count})</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
         {/* Search and Filters */}
         <div className="mb-8 space-y-4">
           <div className="flex gap-2">
@@ -225,17 +264,17 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 item => item.category === category
               ).length;
               return (
-                <Link
+                <button
                   key={category}
-                  href={`/utilities/${category}`}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 hover:bg-secondary ${
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                     selectedCategory === category
                       ? 'bg-primary text-primary-foreground shadow-sm'
-                      : 'bg-secondary/60 text-secondary-foreground'
+                      : 'bg-secondary/60 text-secondary-foreground hover:bg-secondary'
                   }`}
                 >
                   {category} ({count})
-                </Link>
+                </button>
               );
             })}
           </div>
@@ -336,6 +375,8 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
             </p>
           </div>
         )}
+          </div>
+        </div>
       </div>
     </main>
   );
