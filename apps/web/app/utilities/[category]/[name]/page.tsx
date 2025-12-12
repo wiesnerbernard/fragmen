@@ -66,15 +66,14 @@ export default async function UtilityPage({ params }: PageProps) {
   const allItems = getAllRegistryItems();
   const relatedUtilities = findRelatedUtilities(item, allItems, 6);
 
-  // Render code with syntax highlighting for both light and dark themes
-  const highlightedCodeLight = await codeToHtml(item.code, {
+  // Render code with syntax highlighting using dual theme for proper light/dark switching
+  const highlightedCode = await codeToHtml(item.code, {
     lang: 'typescript',
-    theme: 'min-light',
-  });
-
-  const highlightedCodeDark = await codeToHtml(item.code, {
-    lang: 'typescript',
-    theme: 'github-dark-dimmed',
+    themes: {
+      light: 'min-light',
+      dark: 'github-dark-dimmed',
+    },
+    defaultColor: false,
   });
 
   return (
@@ -131,14 +130,10 @@ export default async function UtilityPage({ params }: PageProps) {
                 <CopyButton text={item.code} />
               </div>
               <div className="relative rounded-xl overflow-hidden ring-1 ring-border/60 shadow-lg">
-                {/* Theme-aware syntax highlighted code */}
+                {/* Theme-aware syntax highlighted code with dual theme support */}
                 <div
-                  className="dark:hidden overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!p-6"
-                  dangerouslySetInnerHTML={{ __html: highlightedCodeLight }}
-                />
-                <div
-                  className="hidden dark:block overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!p-6"
-                  dangerouslySetInnerHTML={{ __html: highlightedCodeDark }}
+                  className="overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!p-6"
+                  dangerouslySetInnerHTML={{ __html: highlightedCode }}
                 />
               </div>
             </section>
