@@ -48,6 +48,26 @@ export default function HomePage() {
                 <code>npx fragmen add promise/delay</code>
               </div>
             </div>
+
+            {/* Stats */}
+            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-1">50+</div>
+                <div className="text-sm text-muted-foreground">Utilities</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-1">12</div>
+                <div className="text-sm text-muted-foreground">Categories</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-1">100%</div>
+                <div className="text-sm text-muted-foreground">Test Coverage</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold mb-1">0</div>
+                <div className="text-sm text-muted-foreground">Dependencies</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
