@@ -59,7 +59,7 @@ export default async function UtilityPage({ params }: PageProps) {
     <main className="min-h-screen">
       {/* Header */}
       <div className="border-b border-border bg-background">
-        <div className="container mx-auto px-6 py-10">
+        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
           <Link
             href="/utilities"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"
@@ -71,20 +71,20 @@ export default async function UtilityPage({ params }: PageProps) {
               {item.category}
             </span>
           </div>
-          <h1 className="text-4xl font-bold mb-4">{item.name}</h1>
-          <p className="text-lg text-muted-foreground">{item.description}</p>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-4">{item.name}</h1>
+          <p className="text-base sm:text-lg text-muted-foreground">{item.description}</p>
         </div>
       </div>
 
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid gap-8 lg:grid-cols-3">
+      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="grid gap-6 sm:gap-8 lg:grid-cols-3">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             {/* Installation */}
             <section>
-              <h2 className="text-2xl font-bold mb-4">Installation</h2>
-              <div className="rounded-lg bg-secondary/40 p-4 flex items-center justify-between ring-1 ring-border/60">
-                <code className="text-sm">npx fragmen add {item.slug}</code>
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">Installation</h2>
+              <div className="rounded-lg bg-secondary/40 p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 ring-1 ring-border/60">
+                <code className="text-xs sm:text-sm break-all">npx fragmen add {item.slug}</code>
                 <CopyButton text={`npx fragmen add ${item.slug}`} />
               </div>
             </section>
@@ -92,7 +92,7 @@ export default async function UtilityPage({ params }: PageProps) {
             {/* Code */}
             <section>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold">Source Code</h2>
+                <h2 className="text-xl sm:text-2xl font-bold">Source Code</h2>
                 <CopyButton text={item.code} />
               </div>
               <div className="relative rounded-xl overflow-hidden ring-1 ring-border/60 shadow-lg">
