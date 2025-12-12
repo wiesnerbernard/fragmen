@@ -72,8 +72,8 @@ export default async function ChangelogPage() {
               prose-headings:font-bold prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:border-b prose-h2:border-border prose-h2:pb-2
               prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
               prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-3 prose-h4:text-primary
-              prose-p:text-muted-foreground prose-p:leading-relaxed
-              prose-ul:my-4 prose-li:my-1
+              prose-p:text-foreground/80 dark:prose-p:text-foreground/90 prose-p:leading-relaxed
+              prose-ul:my-4 prose-li:my-1 prose-li:text-foreground/80 dark:prose-li:text-foreground/90
               prose-a:text-primary prose-a:no-underline hover:prose-a:underline
               prose-strong:text-foreground prose-strong:font-semibold
               prose-code:text-primary prose-code:bg-secondary/40 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-[''] prose-code:after:content-['']"
