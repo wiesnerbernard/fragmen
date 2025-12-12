@@ -102,10 +102,25 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
       <div className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-10">
           <h1 className="text-4xl font-bold mb-4">Utilities</h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground mb-4">
             Browse {items.length} high-quality TypeScript utilities across{' '}
             {categories.length} categories
           </p>
+          {/* Keyboard shortcuts hint */}
+          <div className="flex flex-wrap gap-3 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <kbd className="px-2 py-0.5 rounded bg-secondary border border-border font-mono">
+                ⌘K
+              </kbd>
+              <span>Focus search</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <kbd className="px-2 py-0.5 rounded bg-secondary border border-border font-mono">
+                Esc
+              </kbd>
+              <span>Clear filters</span>
+            </span>
+          </div>
         </div>
       </div>
 
@@ -114,24 +129,72 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
         <div className="mb-8 space-y-4">
           <div className="flex gap-2">
             <div className="relative flex-1">
+              <svg
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
               <input
                 ref={searchInputRef}
                 type="text"
-                placeholder="Search utilities... (⌘K)"
+                placeholder="Search utilities by name, description, or tags..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full px-4 py-3 rounded-full bg-secondary/60 text-sm text-foreground placeholder:text-muted-foreground shadow-sm ring-1 ring-border/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-background"
+                className="w-full pl-11 pr-4 py-3 rounded-xl bg-secondary/40 text-sm text-foreground placeholder:text-muted-foreground shadow-sm ring-1 ring-border/60 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-background transition-all"
               />
+              {search && (
+                <button
+                  onClick={() => setSearch('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-secondary rounded-md transition-colors"
+                  aria-label="Clear search"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              )}
             </div>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="px-4 py-3 rounded-full bg-secondary/60 text-sm text-foreground hover:bg-secondary transition-colors whitespace-nowrap ring-1 ring-border/60"
+                className="px-5 py-3 rounded-xl bg-secondary/60 text-sm font-medium text-foreground hover:bg-secondary transition-colors whitespace-nowrap ring-1 ring-border/60 shadow-sm"
                 title="Clear all filters (Esc)"
               >
-                Clear filters
+                Clear All
               </button>
             )}
+          </div>
+
+          {/* Results count */}
+          <div className="flex items-center justify-between">
+            <p className="text-sm text-muted-foreground">
+              {filteredItems.length === items.length ? (
+                <>Showing all {items.length} utilities</>
+              ) : (
+                <>
+                  Found {filteredItems.length} {filteredItems.length === 1 ? 'utility' : 'utilities'}
+                  {search && ` matching "${search}"`}
+                </>
+              )}
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-2">

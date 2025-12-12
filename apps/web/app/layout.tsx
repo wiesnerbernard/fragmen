@@ -63,6 +63,18 @@ export default function RootLayout({
                     >
                       Docs
                     </Link>
+                    <Link
+                      href="/changelog"
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Changelog
+                    </Link>
+                    <Link
+                      href="/requests"
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Requests
+                    </Link>
                     <a
                       href="https://github.com/wiesnerbernard/fragmen"
                       target="_blank"

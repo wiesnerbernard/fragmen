@@ -681,6 +681,95 @@ const paginatedData = chunk(allProducts, 20);
           </div>
         </div>
       </section>
+
+      {/* Quick Links Section */}
+      <section className="border-t border-border/60 bg-secondary/10">
+        <div className="container mx-auto px-6 py-16">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="text-2xl font-bold mb-8 text-center">
+              Explore More
+            </h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              <Link
+                href="/changelog"
+                className="group rounded-lg border border-border bg-background p-6 hover:shadow-md hover:border-primary/50 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <svg
+                    className="w-5 h-5 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <h3 className="font-semibold group-hover:text-primary transition-colors">
+                    Changelog
+                  </h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Track new utilities, updates, and improvements
+                </p>
+              </Link>
+
+              <Link
+                href="/requests"
+                className="group rounded-lg border border-border bg-background p-6 hover:shadow-md hover:border-primary/50 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <svg
+                    className="w-5 h-5 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                    />
+                  </svg>
+                  <h3 className="font-semibold group-hover:text-primary transition-colors">
+                    Request a Utility
+                  </h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Vote for or suggest new utilities you'd like to see
+                </p>
+              </Link>
+
+              <a
+                href="/rss.xml"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group rounded-lg border border-border bg-background p-6 hover:shadow-md hover:border-primary/50 transition-all"
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <svg
+                    className="w-5 h-5 text-primary"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z" />
+                  </svg>
+                  <h3 className="font-semibold group-hover:text-primary transition-colors">
+                    RSS Feed
+                  </h3>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Subscribe to updates on new utilities
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
