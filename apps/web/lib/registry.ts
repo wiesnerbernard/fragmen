@@ -13,7 +13,6 @@ export interface RegistryItem {
   params: Array<{ name: string; type: string; description: string }>;
   returns: { type: string; description: string };
   tags: string[];
-  since?: string;
 }
 
 /**

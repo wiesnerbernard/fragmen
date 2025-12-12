@@ -2,6 +2,7 @@
 
 import { BackToTop } from '@/components/back-to-top';
 import { FavoriteButton } from '@/components/favorite-button';
+import { UTILITY_STATUS, STATUS_STYLES } from '@/config/utility-status';
 import type { RegistryItem } from '@/lib/registry';
 import { useFavorites } from '@/lib/use-favorites';
 import Link from 'next/link';
@@ -113,6 +114,13 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
                     <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                       {item.category}
                     </span>
+                    {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS] && (
+                      <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${
+                        STATUS_STYLES[UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]] || 'bg-muted text-muted-foreground border-border'
+                      }`}>
+                        {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]}
+                      </span>
+                    )}
                   </div>
                   <FavoriteButton slug={item.slug} />
                 </div>

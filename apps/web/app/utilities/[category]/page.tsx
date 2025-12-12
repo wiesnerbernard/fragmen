@@ -1,5 +1,6 @@
 import { BackToTop } from '@/components/back-to-top';
 import { FavoriteButton } from '@/components/favorite-button';
+import { UTILITY_STATUS, STATUS_STYLES } from '@/config/utility-status';
 import {
   getCategories,
   getItemsByCategory,
@@ -179,6 +180,13 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
                   <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                     {item.category}
                   </span>
+                  {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS] && (
+                    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${
+                      STATUS_STYLES[UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]] || 'bg-muted text-muted-foreground border-border'
+                    }`}>
+                      {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]}
+                    </span>
+                  )}
                 </div>
                 <FavoriteButton slug={item.slug} />
               </div>
