@@ -27,12 +27,8 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
       <main className="min-h-screen">
         <div className="border-b border-border bg-background">
           <div className="container mx-auto px-6 py-10">
-            <h1 className="text-4xl font-bold mb-4">
-              Your Favorites
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Loading...
-            </p>
+            <h1 className="text-4xl font-bold mb-4">Your Favorites</h1>
+            <p className="text-lg text-muted-foreground">Loading...</p>
           </div>
         </div>
       </main>

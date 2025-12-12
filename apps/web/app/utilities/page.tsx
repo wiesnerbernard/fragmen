@@ -1,5 +1,4 @@
 import { getAllRegistryItems, getCategories } from '@/lib/registry';
-import Link from 'next/link';
 import { Suspense } from 'react';
 import { UtilitiesClient } from './utilities-client';
 

@@ -1,6 +1,6 @@
-import { Badge } from '@/components/ui/badge';
 import { FavoriteButton } from '@/components/favorite-button';
-import { UTILITY_STATUS, STATUS_VARIANTS } from '@/config/utility-status';
+import { Badge } from '@/components/ui/badge';
+import { STATUS_VARIANTS, UTILITY_STATUS } from '@/config/utility-status';
 import type { RegistryItem } from '@/lib/registry';
 import Link from 'next/link';
 

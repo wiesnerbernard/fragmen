@@ -17,8 +17,7 @@ export default function DocsPage() {
 
       <div className="container mx-auto px-6 py-12">
         <div className="mx-auto max-w-3xl">
-
-          <div className="prose dark:prose-invert prose-pre:bg-secondary/40 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/60 prose-pre:px-4 prose-pre:py-3 max-w-none prose-p:text-foreground/80 dark:prose-p:text-foreground/90">
+          <div className="prose dark:prose-invert prose-pre:bg-secondary/40 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/60 prose-pre:px-4 prose-pre:py-3 max-w-none prose-p:text-foreground/90 prose-headings:text-foreground prose-strong:text-foreground prose-code:text-foreground/90 prose-a:text-foreground dark:prose-p:text-foreground/95 dark:prose-headings:text-foreground dark:prose-strong:text-foreground dark:prose-code:text-foreground/95">
             <h2>Getting Started</h2>
             <p>
               Fragmen is a utility library that copies code fragments directly

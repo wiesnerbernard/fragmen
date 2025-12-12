@@ -73,9 +73,7 @@ export default function CategoryPage({ params }: PageProps) {
           >
             ← Back to all utilities
           </Link>
-          <h1 className="text-4xl font-bold mb-4">
-            {categoryName} Utilities
-          </h1>
+          <h1 className="text-4xl font-bold mb-4">{categoryName} Utilities</h1>
           <p className="text-lg text-muted-foreground">
             {items.length} {items.length === 1 ? 'utility' : 'utilities'} in
             this category
@@ -100,7 +98,12 @@ export default function CategoryPage({ params }: PageProps) {
                   All Utilities
                   <span className="ml-auto text-muted-foreground text-xs">
                     {' '}
-                    ({categories.reduce((acc, cat) => acc + getItemsByCategory(cat).length, 0)})
+                    (
+                    {categories.reduce(
+                      (acc, cat) => acc + getItemsByCategory(cat).length,
+                      0
+                    )}
+                    )
                   </span>
                 </Link>
                 {categories.map(cat => {
@@ -128,12 +131,12 @@ export default function CategoryPage({ params }: PageProps) {
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
-        {/* Utilities Grid */}
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-          {items.map(item => (
-            <UtilityCard key={item.slug} item={item} showCategory={true} />
-          ))}
-        </div>
+            {/* Utilities Grid */}
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+              {items.map(item => (
+                <UtilityCard key={item.slug} item={item} showCategory={true} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
