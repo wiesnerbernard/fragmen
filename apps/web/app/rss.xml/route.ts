@@ -5,6 +5,7 @@ export async function GET() {
   const baseUrl = 'https://fragmen.dev'; // Update with your actual domain
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Fragmen - New Utilities</title>
