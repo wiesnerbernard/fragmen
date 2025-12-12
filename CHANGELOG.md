@@ -11,13 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Web App: Related Utilities** - Smart algorithm shows 6 related utilities on detail pages based on category, tags, and name similarity
 - **Web App: Changelog Page** - Markdown-rendered changelog accessible at `/changelog` with full project history
-- **Web App: Utility Requests** - Community voting system for utility ideas at `/requests` with upvoting and status tracking
+- **Web App: Utility Request Form** - Submit utility ideas that open pre-filled GitHub issues at `/requests`
 - **Web App: RSS Feed** - Automated feed at `/rss.xml` with latest 20 utilities sorted by date added
 - **Web App: Enhanced Search** - Search icon, clear button, dynamic results count, and keyboard shortcuts (⌘K, Esc)
 - **Web App: Back-to-Top Button** - Smooth scroll button appears after 500px of scrolling
-- **Web App: Quick Actions Sidebar** - Copy code and install command with visual feedback
+- **Web App: Quick Actions Sidebar** - Copy code and install command with visual feedback on utility pages
 - **Web App: Clickable Tags** - Tags on utility pages link to filtered search results
-- **Web App: Meta Information Panel** - Shows dependencies, test coverage, and date added
 - **Documentation: Release Process** - Comprehensive guide for changelog maintenance and version releases
 
 ### Changed
@@ -25,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Web App: Code Blocks** - Improved with rounded corners, shadows, and better theme integration
 - **Web App: Navigation** - Added Changelog and Requests links to main navigation
 - **Web App: Homepage** - New "Explore More" section with cards for Changelog, Requests, and RSS
+- **Web App: Utility Pages** - Removed fake metadata (dependencies, coverage) - now only shows real data
 
 ### Dependencies
 
