@@ -14,9 +14,6 @@ interface PageProps {
   params: {
     category: string;
   };
-  searchParams: {
-    sort?: 'name' | 'date';
-  };
 }
 
 // Force static generation at build time
@@ -51,9 +48,8 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-export default function CategoryPage({ params, searchParams }: PageProps) {
+export default function CategoryPage({ params }: PageProps) {
   const { category } = params;
-  const sort = searchParams.sort || 'name';
 
   const categories = getCategories();
   if (!categories.includes(category)) {
@@ -63,15 +59,8 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
   const itemNames = getItemsByCategory(category);
   const items = itemNames
     .map(name => getRegistryItem(category, name))
-    .filter((item): item is NonNullable<typeof item> => item !== null);
-
-  // Sort utilities
-  const sortedItems = [...items].sort((a, b) => {
-    if (sort === 'date') {
-      return (b.since || '').localeCompare(a.since || '');
-    }
-    return a.name.localeCompare(b.name);
-  });
+    .filter((item): item is NonNullable<typeof item> => item !== null)
+    .sort((a, b) => a.name.localeCompare(b.name)); // Alphabetical sort
 
   const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
 
@@ -141,36 +130,9 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
 
           {/* Main Content */}
           <div className="flex-1 min-w-0">
-        {/* Sort Controls */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2 text-sm">
-            <span className="text-muted-foreground">Sort by:</span>
-            <Link
-              href={`/utilities/${category}?sort=name`}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
-                sort === 'name'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-secondary/60 hover:bg-secondary text-foreground'
-              }`}
-            >
-              Name
-            </Link>
-            <Link
-              href={`/utilities/${category}?sort=date`}
-              className={`px-3 py-1.5 rounded-lg transition-colors ${
-                sort === 'date'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-secondary/60 hover:bg-secondary text-foreground'
-              }`}
-            >
-              Date Added
-            </Link>
-          </div>
-        </div>
-
         {/* Utilities Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
-          {sortedItems.map(item => (
+          {items.map(item => (
             <Link
               key={item.slug}
               href={`/utilities/${item.slug}`}
