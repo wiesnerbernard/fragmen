@@ -1,8 +1,9 @@
 'use client';
 
 import { BackToTop } from '@/components/back-to-top';
+import { Badge } from '@/components/ui/badge';
 import { FavoriteButton } from '@/components/favorite-button';
-import { UTILITY_STATUS, STATUS_STYLES } from '@/config/utility-status';
+import { UTILITY_STATUS, STATUS_VARIANTS } from '@/config/utility-status';
 import type { RegistryItem } from '@/lib/registry';
 import { useFavorites } from '@/lib/use-favorites';
 import Link from 'next/link';
@@ -115,11 +116,9 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
                       {item.category}
                     </span>
                     {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS] && (
-                      <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-semibold ${
-                        STATUS_STYLES[UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]] || 'bg-muted text-muted-foreground border-border'
-                      }`}>
+                      <Badge variant={STATUS_VARIANTS[UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]]}>
                         {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]}
-                      </span>
+                      </Badge>
                     )}
                   </div>
                   <FavoriteButton slug={item.slug} />
