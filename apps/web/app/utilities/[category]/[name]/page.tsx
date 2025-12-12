@@ -74,7 +74,7 @@ export default async function UtilityPage({ params }: PageProps) {
 
   const highlightedCodeDark = await codeToHtml(item.code, {
     lang: 'typescript',
-    theme: 'min-dark',
+    theme: 'github-dark-dimmed',
   });
 
   return (
