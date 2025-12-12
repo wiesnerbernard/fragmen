@@ -10,6 +10,16 @@ interface UtilitiesClientProps {
   categories: string[];
 }
 
+const NEW_WINDOW_DAYS = 30;
+
+function isNewItem(item: RegistryItem): boolean {
+  if (!item.since) return false;
+  const sinceDate = new Date(item.since);
+  if (Number.isNaN(sinceDate.getTime())) return false;
+  const ageMs = Date.now() - sinceDate.getTime();
+  return ageMs >= 0 && ageMs < NEW_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+}
+
 export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -213,6 +223,11 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 <span className="inline-block rounded bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
                   {item.category}
                 </span>
+                {isNewItem(item) && (
+                  <span className="inline-block rounded bg-primary px-2 py-1 text-xs font-semibold text-primary-foreground">
+                    New
+                  </span>
+                )}
               </div>
               <h3 className="mb-2 text-lg font-semibold group-hover:text-primary transition-colors">
                 {item.name}

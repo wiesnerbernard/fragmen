@@ -13,6 +13,7 @@ export interface RegistryItem {
   params: Array<{ name: string; type: string; description: string }>;
   returns: { type: string; description: string };
   tags: string[];
+  since?: string;
 }
 
 /**
@@ -55,6 +56,7 @@ function extractJSDoc(code: string): {
   params: Array<{ name: string; type: string; description: string }>;
   returns: { type: string; description: string };
   tags: string[];
+  since?: string;
 } {
   const jsdocMatch = code.match(/\/\*\*([\s\S]*?)\*\//);
   if (!jsdocMatch) {
@@ -64,6 +66,7 @@ function extractJSDoc(code: string): {
       params: [],
       returns: { type: '', description: '' },
       tags: [],
+      since: undefined,
     };
   }
 
@@ -75,11 +78,20 @@ function extractJSDoc(code: string): {
   const params: Array<{ name: string; type: string; description: string }> = [];
   let returns = { type: '', description: '' };
   const tags: string[] = [];
+  let since: string | undefined;
 
   let inExample = false;
   let currentExample = '';
 
   for (const line of lines) {
+    if (line.startsWith('@since')) {
+      const sinceMatch = line.match(/@since\s+(.+)/);
+      if (sinceMatch) {
+        since = sinceMatch[1].trim();
+      }
+      continue;
+    }
+
     if (line.startsWith('@tags')) {
       const tagsMatch = line.match(/@tags\s+(.+)/);
       if (tagsMatch) {
@@ -144,7 +156,7 @@ function extractJSDoc(code: string): {
     examples.push(currentExample.trim());
   }
 
-  return { description: description.trim(), examples, params, returns, tags };
+  return { description: description.trim(), examples, params, returns, tags, since };
 }
 
 /**
@@ -161,7 +173,7 @@ export function getRegistryItem(
     }
 
     const code = fs.readFileSync(itemPath, 'utf-8');
-    const { description, examples, params, returns, tags } = extractJSDoc(code);
+    const { description, examples, params, returns, tags, since } = extractJSDoc(code);
 
     return {
       category,
@@ -173,6 +185,7 @@ export function getRegistryItem(
       params,
       returns,
       tags,
+      since,
     };
   } catch {
     return null;
