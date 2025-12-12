@@ -174,6 +174,107 @@ const debouncedSearch = debounce(handleSearch, 300);
         </div>
       </section>
 
+      {/* Comparison Section */}
+      <section className="border-t border-border/60 bg-secondary/20">
+        <div className="container mx-auto px-6 py-20">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-3xl font-bold mb-4 text-center">Why Fragmen?</h2>
+            <p className="text-center text-muted-foreground mb-12">
+              How Fragmen compares to other approaches
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* npm Packages */}
+              <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <div className="mb-4">
+                  <h3 className="font-semibold mb-2">npm Packages</h3>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Install full libraries for small utilities
+                  </p>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">Large bundle sizes</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">Security vulnerabilities</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">Breaking changes in updates</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span className="text-muted-foreground">Easy to install</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Stack Overflow */}
+              <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <div className="mb-4">
+                  <h3 className="font-semibold mb-2">Stack Overflow</h3>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Copy-paste random code snippets
+                  </p>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">No TypeScript types</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">Untested code</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-0.5">✕</span>
+                    <span className="text-muted-foreground">Inconsistent quality</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span className="text-muted-foreground">Free to use</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Fragmen */}
+              <div className="rounded-xl bg-primary/5 p-6 ring-2 ring-primary/50">
+                <div className="mb-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-semibold">Fragmen</h3>
+                    <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded-full">Best</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-3">
+                    Battle-tested, typed utilities you own
+                  </p>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span className="text-foreground">Full code ownership</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span className="text-foreground">TypeScript first</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span className="text-foreground">100% test coverage</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    <span className="text-foreground">Zero dependencies</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Popular Utilities Section */}
       <section className="border-t border-border/60 bg-secondary/20">
         <div className="container mx-auto px-6 py-20">
