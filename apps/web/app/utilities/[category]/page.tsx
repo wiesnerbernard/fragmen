@@ -1,4 +1,5 @@
 import { BackToTop } from '@/components/back-to-top';
+import { FavoriteButton } from '@/components/favorite-button';
 import {
   getCategories,
   getItemsByCategory,
@@ -72,24 +73,66 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
     <main className="min-h-screen">
       {/* Header */}
       <div className="border-b border-border bg-background">
-        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div className="container mx-auto px-6 py-10">
           <Link
             href="/utilities"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"
           >
             ← Back to all utilities
           </Link>
-          <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+          <h1 className="text-4xl font-bold mb-4">
             {categoryName} Utilities
           </h1>
-          <p className="text-base sm:text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             {items.length} {items.length === 1 ? 'utility' : 'utilities'} in
             this category
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="container mx-auto px-6 py-8">
+        <div className="flex gap-8">
+          {/* Sidebar */}
+          <aside className="hidden lg:block w-56 flex-shrink-0">
+            <div className="sticky top-8">
+              <h2 className="text-sm font-semibold text-foreground mb-3">
+                Categories
+              </h2>
+              <nav className="space-y-1">
+                <Link
+                  href="/utilities"
+                  className="block px-3 py-2 rounded-lg text-sm font-medium transition-colors hover:bg-secondary/60 text-foreground"
+                >
+                  All Utilities
+                  <span className="ml-auto text-muted-foreground text-xs">
+                    {' '}
+                    ({categories.reduce((acc, cat) => acc + getItemsByCategory(cat).length, 0)})
+                  </span>
+                </Link>
+                {categories.map(cat => {
+                  const count = getItemsByCategory(cat).length;
+                  const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
+                  return (
+                    <Link
+                      key={cat}
+                      href={`/utilities/${cat}`}
+                      className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
+                        cat === category
+                          ? 'bg-secondary text-foreground'
+                          : 'text-muted-foreground hover:bg-secondary/60 hover:text-foreground'
+                      }`}
+                    >
+                      {cat}
+                      <span className="ml-1 text-xs">({count})</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
         {/* Sort Controls */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2 text-sm">
@@ -118,72 +161,44 @@ export default function CategoryPage({ params, searchParams }: PageProps) {
         </div>
 
         {/* Utilities Grid */}
-        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
           {sortedItems.map(item => (
             <Link
               key={item.slug}
               href={`/utilities/${item.slug}`}
-              className="group block rounded-lg border border-border bg-background p-4 sm:p-6 shadow-sm hover:shadow-md hover:border-primary/50 transition-all"
+              className="group block rounded-lg border border-border/60 bg-background p-5 transition-colors hover:bg-secondary/40"
             >
-              <div className="flex items-start justify-between gap-2 mb-3">
-                <h2 className="text-lg sm:text-xl font-semibold group-hover:text-primary transition-colors">
-                  {item.name}
-                </h2>
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    {item.category}
+                  </span>
+                </div>
+                <FavoriteButton slug={item.slug} />
               </div>
-              <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                {item.description}
+              <h3 className="mb-2 text-lg font-semibold group-hover:text-foreground transition-colors">
+                {item.name}
+              </h3>
+              <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                {item.description || 'No description available'}
               </p>
-              {item.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  {item.tags.slice(0, 3).map(tag => (
+              {item.tags && item.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {item.tags.map(tag => (
                     <span
                       key={tag}
-                      className="text-xs text-muted-foreground bg-secondary/60 px-2 py-0.5 rounded"
+                      className="inline-block rounded-full bg-muted/60 px-2 py-0.5 text-[11px] text-muted-foreground"
                     >
-                      #{tag}
+                      {tag}
                     </span>
                   ))}
-                  {item.tags.length > 3 && (
-                    <span className="text-xs text-muted-foreground">
-                      +{item.tags.length - 3}
-                    </span>
-                  )}
-                </div>
-              )}
-              {item.since && (
-                <div className="text-xs text-muted-foreground">
-                  Added {item.since}
                 </div>
               )}
             </Link>
           ))}
         </div>
-
-        {/* Other Categories */}
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold mb-4">Other Categories</h2>
-          <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {categories
-              .filter(cat => cat !== category)
-              .map(cat => {
-                const catName = cat.charAt(0).toUpperCase() + cat.slice(1);
-                const catItems = getItemsByCategory(cat);
-                return (
-                  <Link
-                    key={cat}
-                    href={`/utilities/${cat}`}
-                    className="block rounded-lg border border-border bg-background p-4 hover:border-primary/50 hover:shadow-md transition-all"
-                  >
-                    <div className="font-semibold mb-1">{catName}</div>
-                    <div className="text-sm text-muted-foreground">
-                      {catItems.length}{' '}
-                      {catItems.length === 1 ? 'utility' : 'utilities'}
-                    </div>
-                  </Link>
-                );
-              })}
           </div>
-        </section>
+        </div>
       </div>
 
       <BackToTop />

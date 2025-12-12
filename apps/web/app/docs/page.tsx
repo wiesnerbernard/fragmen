@@ -5,9 +5,18 @@ import { CopyButton } from '@/components/copy-button';
 export default function DocsPage() {
   return (
     <main className="min-h-screen">
-      <div className="container mx-auto px-4 py-20">
+      {/* Header */}
+      <div className="border-b border-border bg-background">
+        <div className="container mx-auto px-6 py-10">
+          <h1 className="text-4xl font-bold mb-4">Documentation</h1>
+          <p className="text-lg text-muted-foreground">
+            Learn how to use Fragmen in your project
+          </p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 py-12">
         <div className="mx-auto max-w-3xl">
-          <h1 className="text-4xl font-bold mb-8">Documentation</h1>
 
           <div className="prose dark:prose-invert prose-pre:bg-secondary/40 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/60 prose-pre:px-4 prose-pre:py-3 max-w-none">
             <h2>Getting Started</h2>

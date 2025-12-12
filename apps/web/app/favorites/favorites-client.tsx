@@ -26,11 +26,11 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
     return (
       <main className="min-h-screen">
         <div className="border-b border-border bg-background">
-          <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+          <div className="container mx-auto px-6 py-10">
+            <h1 className="text-4xl font-bold mb-4">
               Your Favorites
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground">
+            <p className="text-lg text-muted-foreground">
               Loading...
             </p>
           </div>
@@ -42,7 +42,7 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
   return (
     <main className="min-h-screen">
       <div className="border-b border-border bg-background">
-        <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div className="container mx-auto px-6 py-10">
           <Link
             href="/utilities"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"
@@ -57,9 +57,9 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
             >
               <path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
             </svg>
-            <h1 className="text-3xl sm:text-4xl font-bold">Your Favorites</h1>
+            <h1 className="text-4xl font-bold">Your Favorites</h1>
           </div>
-          <p className="text-base sm:text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground">
             {favoriteItems.length === 0 ? (
               <>No favorites yet. Star utilities to save them here!</>
             ) : (
@@ -72,7 +72,7 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="container mx-auto px-6 py-8">
         {favoriteItems.length === 0 ? (
           <div className="text-center py-16">
             <svg
@@ -101,42 +101,37 @@ export function FavoritesClient({ allItems }: FavoritesClientProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {favoriteItems.map(item => (
               <Link
                 key={item.slug}
                 href={`/utilities/${item.slug}`}
-                className="group block rounded-lg border border-border bg-background p-4 sm:p-6 shadow-sm hover:shadow-md hover:border-primary/50 transition-all"
+                className="group block rounded-lg border border-border/60 bg-background p-5 transition-colors hover:bg-secondary/40"
               >
-                <div className="flex items-start justify-between gap-2 mb-3">
-                  <h2 className="text-lg sm:text-xl font-semibold group-hover:text-primary transition-colors flex-1">
-                    {item.name}
-                  </h2>
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                      {item.category}
+                    </span>
+                  </div>
                   <FavoriteButton slug={item.slug} />
                 </div>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xs text-muted-foreground bg-secondary/60 px-2 py-0.5 rounded">
-                    {item.category}
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                  {item.description}
+                <h3 className="mb-2 text-lg font-semibold group-hover:text-foreground transition-colors">
+                  {item.name}
+                </h3>
+                <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
+                  {item.description || 'No description available'}
                 </p>
-                {item.tags.length > 0 && (
+                {item.tags && item.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1.5">
-                    {item.tags.slice(0, 3).map(tag => (
+                    {item.tags.map(tag => (
                       <span
                         key={tag}
-                        className="text-xs text-muted-foreground bg-secondary/60 px-2 py-0.5 rounded"
+                        className="inline-block rounded-full bg-muted/60 px-2 py-0.5 text-[11px] text-muted-foreground"
                       >
-                        #{tag}
+                        {tag}
                       </span>
                     ))}
-                    {item.tags.length > 3 && (
-                      <span className="text-xs text-muted-foreground">
-                        +{item.tags.length - 3}
-                      </span>
-                    )}
                   </div>
                 )}
               </Link>
