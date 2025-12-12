@@ -15,42 +15,42 @@ export default function HomePage() {
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
-        <div className="container mx-auto px-6 py-24 md:py-32">
+        <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-24 md:py-32">
           <div className="mx-auto max-w-4xl text-center">
-            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl mb-6">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl mb-4 sm:mb-6">
               Fragmen
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 md:text-2xl">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 md:text-2xl px-4">
               Copy‑paste TypeScript utilities into your project.
             </p>
-            <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto px-4">
               Browse 50+ focused fragments across 9 categories. Own the code,
               adapt it freely, and ship without extra dependencies.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center px-4">
               <Link
                 href="/utilities"
-                className="inline-flex items-center justify-center rounded-full bg-primary px-8 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+                className="inline-flex items-center justify-center rounded-full bg-primary px-6 sm:px-8 py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
               >
                 Browse Utilities
               </Link>
               <Link
                 href="/docs"
-                className="inline-flex items-center justify-center rounded-full border border-border/60 bg-background px-8 py-3 text-sm font-medium transition-colors hover:bg-secondary"
+                className="inline-flex items-center justify-center rounded-full border border-border/60 bg-background px-6 sm:px-8 py-3 text-sm font-medium transition-colors hover:bg-secondary"
               >
                 Documentation
               </Link>
             </div>
 
-            <div className="mt-10 flex justify-center">
-              <div className="rounded-lg border border-border/60 bg-background/60 px-4 py-3 text-sm font-mono text-foreground shadow-sm backdrop-blur">
+            <div className="mt-8 sm:mt-10 flex justify-center px-4">
+              <div className="rounded-lg border border-border/60 bg-background/60 px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm font-mono text-foreground shadow-sm backdrop-blur overflow-x-auto max-w-full">
                 <code>npx fragmen add promise/delay</code>
               </div>
             </div>
 
             {/* Stats */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 px-4">
               <div className="text-center">
                 <div className="text-3xl font-bold mb-1">50+</div>
                 <div className="text-sm text-muted-foreground">Utilities</div>
