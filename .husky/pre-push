@@ -1,0 +1,15 @@
+#!/bin/sh
+
+current_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+if [ "$current_branch" = "main" ]; then
+  echo "🔍 Pushing to main - running tests and lint..."
+  
+  echo "🔧 Linting..."
+  pnpm run lint || exit 1
+  
+  echo "🧪 Testing..."
+  pnpm run test || exit 1
+  
+  echo "✅ All checks passed!"
+fi
