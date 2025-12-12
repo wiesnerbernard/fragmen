@@ -133,11 +133,11 @@ export default async function UtilityPage({ params }: PageProps) {
               <div className="relative rounded-xl overflow-hidden ring-1 ring-border/60 shadow-lg">
                 {/* Theme-aware syntax highlighted code */}
                 <div
-                  className="dark:hidden overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!bg-white [&>pre]:!p-6"
+                  className="dark:hidden overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!p-6"
                   dangerouslySetInnerHTML={{ __html: highlightedCodeLight }}
                 />
                 <div
-                  className="hidden dark:block overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!bg-[#0d1117] [&>pre]:!p-6"
+                  className="hidden dark:block overflow-x-auto [&>pre]:!m-0 [&>pre]:!rounded-none [&>pre]:!p-6"
                   dangerouslySetInnerHTML={{ __html: highlightedCodeDark }}
                 />
               </div>
