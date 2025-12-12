@@ -1,6 +1,7 @@
 import { CopyButton } from '@/components/copy-button';
 import { BackToTop } from '@/components/back-to-top';
 import { QuickActions } from '@/components/quick-actions';
+import { AnalyticsTracker } from '@/components/analytics-tracker';
 import {
   getCategories,
   getItemsByCategory,
@@ -57,6 +58,8 @@ export default async function UtilityPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen">
+      <AnalyticsTracker utility={item.slug} />
+      
       {/* Header */}
       <div className="border-b border-border bg-background">
         <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-10">

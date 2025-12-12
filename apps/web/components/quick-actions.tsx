@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trackCopy, trackInstall } from '@/lib/use-analytics';
 
 interface QuickActionsProps {
   code: string;
@@ -16,6 +17,7 @@ export function QuickActions({ code, slug }: QuickActionsProps) {
       await navigator.clipboard.writeText(code);
       setCopiedCode(true);
       setTimeout(() => setCopiedCode(false), 2000);
+      trackCopy(slug);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
@@ -26,6 +28,7 @@ export function QuickActions({ code, slug }: QuickActionsProps) {
       await navigator.clipboard.writeText(`npx fragmen add ${slug}`);
       setCopiedCommand(true);
       setTimeout(() => setCopiedCommand(false), 2000);
+      trackInstall(slug);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
