@@ -9,12 +9,19 @@ export default function RequestsPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const title = formData.get('title');
-    const description = formData.get('description');
-    const category = formData.get('category');
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    const category = formData.get('category') as string;
     
-    // In a real app, this would send to an API
-    console.log('Request submitted:', { title, description, category });
+    // Create a GitHub issue with the request details
+    const issueTitle = encodeURIComponent(`[Utility Request] ${title}`);
+    const issueBody = encodeURIComponent(
+      `**Category:** ${category}\n\n**Description:**\n${description}\n\n---\n*Submitted via fragmen.vercel.app*`
+    );
+    const githubUrl = `https://github.com/wiesnerbernard/fragmen/issues/new?title=${issueTitle}&body=${issueBody}&labels=utility-request`;
+    
+    // Open GitHub in new tab
+    window.open(githubUrl, '_blank');
     
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
@@ -58,7 +65,7 @@ export default function RequestsPage() {
                   />
                 </svg>
                 <p className="text-sm font-medium text-green-800 dark:text-green-200">
-                  Thanks for your request! We'll review it and consider adding it to Fragmen.
+                  Opening GitHub to create your utility request...
                 </p>
               </div>
             </div>
