@@ -244,21 +244,17 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
 
           {/* Tag Filters */}
           {allTags.length > 0 && (
-            <div>
-              <p className="text-sm font-medium text-muted-foreground mb-2">
-                Filter by tag:
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => setSelectedTag('all')}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
-                    selectedTag === 'all'
-                      ? 'bg-accent text-accent-foreground'
-                      : 'bg-muted/60 text-muted-foreground hover:bg-muted'
-                  }`}
-                >
-                  All
-                </button>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setSelectedTag('all')}
+                className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
+                  selectedTag === 'all'
+                    ? 'bg-accent text-accent-foreground'
+                    : 'bg-muted/60 text-muted-foreground hover:bg-muted'
+                }`}
+              >
+                All
+              </button>
                 {allTags.map(tag => {
                   const count = items.filter(item =>
                     item.tags?.includes(tag)
@@ -278,7 +274,6 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                   );
                 })}
               </div>
-            </div>
           )}
         </div>
 
