@@ -9,7 +9,7 @@ export default function DocsPage() {
         <div className="mx-auto max-w-3xl">
           <h1 className="text-4xl font-bold mb-8">Documentation</h1>
 
-          <div className="prose dark:prose-invert max-w-none">
+          <div className="prose dark:prose-invert prose-pre:bg-secondary/40 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/60 prose-pre:px-4 prose-pre:py-3 max-w-none">
             <h2>Getting Started</h2>
             <p>
               Fragmen is a utility library that copies code fragments directly

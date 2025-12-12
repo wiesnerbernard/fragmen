@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen flex flex-col antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {/* Navigation */}
           <nav className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -65,7 +65,7 @@ export default function RootLayout({
             </div>
           </nav>
 
-          {children}
+          <div className="flex-1">{children}</div>
 
           {/* Footer */}
           <footer className="border-t border-border mt-auto">

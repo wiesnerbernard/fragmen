@@ -90,7 +90,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
     <main className="min-h-screen">
       {/* Header */}
       <div className="border-b border-border bg-background">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-6 py-10">
           <h1 className="text-4xl font-bold mb-4">Utilities</h1>
           <p className="text-lg text-muted-foreground">
             Browse {items.length} high-quality TypeScript utilities across{' '}
@@ -99,7 +99,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-6 py-8">
         {/* Search and Filters */}
         <div className="mb-8 space-y-4">
           <div className="flex gap-2">
@@ -110,13 +110,13 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 placeholder="Search utilities... (⌘K)"
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full px-4 py-3 rounded-full bg-secondary/60 text-sm text-foreground placeholder:text-muted-foreground shadow-sm ring-1 ring-border/60 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:bg-background"
               />
             </div>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="px-4 py-3 rounded-lg border border-border bg-background text-foreground hover:bg-secondary transition-colors whitespace-nowrap"
+                className="px-4 py-3 rounded-full bg-secondary/60 text-sm text-foreground hover:bg-secondary transition-colors whitespace-nowrap ring-1 ring-border/60"
                 title="Clear all filters (Esc)"
               >
                 Clear filters
@@ -127,10 +127,10 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                 selectedCategory === 'all'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                  ? 'bg-primary text-primary-foreground shadow-sm'
+                  : 'bg-secondary/60 text-secondary-foreground hover:bg-secondary'
               }`}
             >
               All ({items.length})
@@ -143,10 +143,10 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                     selectedCategory === category
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                      ? 'bg-primary text-primary-foreground shadow-sm'
+                      : 'bg-secondary/60 text-secondary-foreground hover:bg-secondary'
                   }`}
                 >
                   {category} ({count})
@@ -164,10 +164,10 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
               <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSelectedTag('all')}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                     selectedTag === 'all'
                       ? 'bg-accent text-accent-foreground'
-                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      : 'bg-muted/60 text-muted-foreground hover:bg-muted'
                   }`}
                 >
                   All
@@ -180,10 +180,10 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                     <button
                       key={tag}
                       onClick={() => setSelectedTag(tag)}
-                      className={`px-3 py-1.5 rounded-md text-xs font-medium transition-colors ${
+                      className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ring-1 ring-border/60 ${
                         selectedTag === tag
                           ? 'bg-accent text-accent-foreground'
-                          : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                          : 'bg-muted/60 text-muted-foreground hover:bg-muted'
                       }`}
                     >
                       {tag} ({count})
@@ -207,14 +207,14 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
             <Link
               key={item.slug}
               href={`/utilities/${item.slug}`}
-              className="group block rounded-lg border border-border bg-background p-6 transition-all hover:border-primary hover:shadow-lg"
+              className="group block rounded-lg border border-border/60 bg-background p-5 transition-colors hover:bg-secondary/40"
             >
               <div className="mb-2 flex items-center gap-2">
-                <span className="inline-block rounded bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
+                <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
                   {item.category}
                 </span>
               </div>
-              <h3 className="mb-2 text-lg font-semibold group-hover:text-primary transition-colors">
+              <h3 className="mb-2 text-lg font-semibold group-hover:text-foreground transition-colors">
                 {item.name}
               </h3>
               <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
@@ -225,7 +225,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
                   {item.tags.map(tag => (
                     <span
                       key={tag}
-                      className="inline-block rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                      className="inline-block rounded-full bg-muted/60 px-2 py-0.5 text-[11px] text-muted-foreground"
                     >
                       {tag}
                     </span>
