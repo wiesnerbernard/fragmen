@@ -1,29 +1,40 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
-import { ThemeToggle } from '@/components/theme-toggle'
-import Link from 'next/link'
-import { Analytics } from '@vercel/analytics/react'
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ThemeToggle } from '@/components/theme-toggle';
+import Link from 'next/link';
+import { Analytics } from '@vercel/analytics/react';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Fragmen - Copy code fragments into your project',
-  description: 'A utility library to copy code fragments directly into your project. Browse 50+ TypeScript utilities across 9 categories.',
-  keywords: ['utility', 'library', 'code', 'fragments', 'typescript', 'javascript', 'utilities', 'helpers'],
+  description:
+    'A utility library to copy code fragments directly into your project. Browse 50+ TypeScript utilities across 9 categories.',
+  keywords: [
+    'utility',
+    'library',
+    'code',
+    'fragments',
+    'typescript',
+    'javascript',
+    'utilities',
+    'helpers',
+  ],
   authors: [{ name: 'Bernard Wiesner' }],
   openGraph: {
     title: 'Fragmen - Copy code fragments into your project',
-    description: 'Browse and add 50+ utility functions to your project with a single command.',
+    description:
+      'Browse and add 50+ utility functions to your project with a single command.',
     type: 'website',
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -107,5 +118,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }
