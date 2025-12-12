@@ -2,6 +2,7 @@
 
 import { UtilityCard } from '@/components/utility-card';
 import type { RegistryItem } from '@/lib/registry';
+import { motion } from 'framer-motion';
 import Fuse from 'fuse.js';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
