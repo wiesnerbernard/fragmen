@@ -78,46 +78,52 @@ export default function HomePage() {
           <div className="mx-auto max-w-5xl">
             <h2 className="text-3xl font-bold mb-4 text-center">See It In Action</h2>
             <p className="text-center text-muted-foreground mb-12">
-              Real utilities solving real problems. Here&apos;s how a search input works with and without debouncing.
+              Real utilities solving real problems. Here&apos;s how chunk splits an array into smaller pieces.
             </p>
             
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Without Debounce */}
+              {/* Input */}
               <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="h-2 w-2 rounded-full bg-red-500"></div>
-                  <h3 className="font-semibold text-sm">Without Debounce</h3>
+                  <div className="h-2 w-2 rounded-full bg-blue-500"></div>
+                  <h3 className="font-semibold text-sm">Input Array</h3>
                 </div>
                 <p className="text-xs text-muted-foreground mb-4">
-                  Every keystroke triggers an API call
+                  A list of 10 items to split
                 </p>
-                <div className="rounded-lg bg-secondary/40 p-4 font-mono text-xs space-y-2 h-32 overflow-y-auto">
-                  <div className="text-muted-foreground">// User types "react"</div>
-                  <div className="text-orange-500">API call: "r"</div>
-                  <div className="text-orange-500">API call: "re"</div>
-                  <div className="text-orange-500">API call: "rea"</div>
-                  <div className="text-orange-500">API call: "reac"</div>
-                  <div className="text-orange-500">API call: "react"</div>
-                  <div className="text-red-500 mt-2 font-semibold">5 API calls made</div>
+                <div className="rounded-lg bg-secondary/40 p-4 font-mono text-xs">
+                  <div className="text-muted-foreground mb-2">const items = [</div>
+                  <div className="pl-4 space-y-1">
+                    <div className="text-foreground">1, 2, 3, 4, 5,</div>
+                    <div className="text-foreground">6, 7, 8, 9, 10</div>
+                  </div>
+                  <div className="text-muted-foreground">]</div>
+                  <div className="mt-3 pt-3 border-t border-border/40 text-muted-foreground">
+                    Length: <span className="text-foreground font-semibold">10</span>
+                  </div>
                 </div>
               </div>
 
-              {/* With Debounce */}
+              {/* Output */}
               <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                  <h3 className="font-semibold text-sm">With Debounce</h3>
+                  <h3 className="font-semibold text-sm">chunk(items, 3)</h3>
                 </div>
                 <p className="text-xs text-muted-foreground mb-4">
-                  Waits 300ms after typing stops
+                  Split into groups of 3
                 </p>
-                <div className="rounded-lg bg-secondary/40 p-4 font-mono text-xs space-y-2 h-32 overflow-y-auto">
-                  <div className="text-muted-foreground">// User types "react"</div>
-                  <div className="text-muted-foreground/50">Waiting...</div>
-                  <div className="text-muted-foreground/50">Waiting...</div>
-                  <div className="text-muted-foreground/50">Waiting...</div>
-                  <div className="text-green-500">API call: "react"</div>
-                  <div className="text-green-500 mt-2 font-semibold">1 API call made</div>
+                <div className="rounded-lg bg-secondary/40 p-4 font-mono text-xs">
+                  <div className="text-muted-foreground mb-2">Result:</div>
+                  <div className="space-y-1">
+                    <div className="text-green-500">[1, 2, 3]</div>
+                    <div className="text-green-500">[4, 5, 6]</div>
+                    <div className="text-green-500">[7, 8, 9]</div>
+                    <div className="text-green-500">[10]</div>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-border/40 text-muted-foreground">
+                    Chunks: <span className="text-foreground font-semibold">4</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,35 +132,37 @@ export default function HomePage() {
             <div className="mt-8 rounded-xl bg-background p-6 ring-1 ring-border/60">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-sm">Implementation</h3>
-                <CopyButton text={`import { debounce } from '@/lib/debounce';
+                <CopyButton text={`import { chunk } from '@/lib/chunk';
 
-const handleSearch = (query: string) => {
-  fetch(\`/api/search?q=\${query}\`);
-};
+const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const chunks = chunk(items, 3);
 
-const debouncedSearch = debounce(handleSearch, 300);
+console.log(chunks);
+// [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
-// Use in your component
-<input onChange={(e) => debouncedSearch(e.target.value)} />`} />
+// Perfect for pagination
+const paginatedData = chunk(allProducts, 20);
+// Display page 1: paginatedData[0]`} />
               </div>
               <pre className="rounded-lg bg-secondary/40 p-4 overflow-x-auto text-xs">
-                <code>{`import { debounce } from '@/lib/debounce';
+                <code>{`import { chunk } from '@/lib/chunk';
 
-const handleSearch = (query: string) => {
-  fetch(\`/api/search?q=\${query}\`);
-};
+const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const chunks = chunk(items, 3);
 
-const debouncedSearch = debounce(handleSearch, 300);
+console.log(chunks);
+// [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
 
-// Use in your component
-<input onChange={(e) => debouncedSearch(e.target.value)} />`}</code>
+// Perfect for pagination
+const paginatedData = chunk(allProducts, 20);
+// Display page 1: paginatedData[0]`}</code>
               </pre>
               <div className="mt-4 pt-4 border-t border-border/60">
                 <Link
-                  href="/utilities/function/debounce"
+                  href="/utilities/array/chunk"
                   className="text-sm text-primary hover:underline"
                 >
-                  View full debounce utility →
+                  View full chunk utility →
                 </Link>
               </div>
             </div>
