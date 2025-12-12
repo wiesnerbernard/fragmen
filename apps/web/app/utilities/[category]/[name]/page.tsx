@@ -248,29 +248,19 @@ export default async function UtilityPage({ params }: PageProps) {
             )}
 
             {/* Meta Information */}
-            <section className="rounded-lg border border-border bg-background p-4 shadow-sm">
-              <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
-                Information
-              </h3>
-              <div className="space-y-2 text-xs">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Dependencies</span>
-                  <span className="font-semibold text-green-600 dark:text-green-400">
-                    0
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Test Coverage</span>
-                  <span className="font-semibold">99%+</span>
-                </div>
-                {item.since && (
+            {item.since && (
+              <section className="rounded-lg border border-border bg-background p-4 shadow-sm">
+                <h3 className="text-sm font-semibold mb-3 text-muted-foreground uppercase tracking-wide">
+                  Information
+                </h3>
+                <div className="space-y-2 text-xs">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Added</span>
                     <span className="font-medium">{item.since}</span>
                   </div>
-                )}
-              </div>
-            </section>
+                </div>
+              </section>
+            )}
           </div>
         </div>
       </div>
