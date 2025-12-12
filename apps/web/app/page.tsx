@@ -46,6 +46,96 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Live Example Section */}
+      <section className="border-t border-border/60 bg-secondary/20">
+        <div className="container mx-auto px-6 py-20">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-3xl font-bold mb-4 text-center">See It In Action</h2>
+            <p className="text-center text-muted-foreground mb-12">
+              Real utilities solving real problems. Here&apos;s how a search input works with and without debouncing.
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Without Debounce */}
+              <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-2 w-2 rounded-full bg-red-500"></div>
+                  <h3 className="font-semibold text-sm">Without Debounce</h3>
+                </div>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Every keystroke triggers an API call
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-4 font-mono text-xs space-y-2 h-32 overflow-y-auto">
+                  <div className="text-muted-foreground">// User types "react"</div>
+                  <div className="text-orange-500">API call: "r"</div>
+                  <div className="text-orange-500">API call: "re"</div>
+                  <div className="text-orange-500">API call: "rea"</div>
+                  <div className="text-orange-500">API call: "reac"</div>
+                  <div className="text-orange-500">API call: "react"</div>
+                  <div className="text-muted-foreground mt-2">💸 5 API calls made</div>
+                </div>
+              </div>
+
+              {/* With Debounce */}
+              <div className="rounded-xl bg-background p-6 ring-1 ring-border/60">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                  <h3 className="font-semibold text-sm">With Debounce</h3>
+                </div>
+                <p className="text-xs text-muted-foreground mb-4">
+                  Waits 300ms after typing stops
+                </p>
+                <div className="rounded-lg bg-secondary/40 p-4 font-mono text-xs space-y-2 h-32 overflow-y-auto">
+                  <div className="text-muted-foreground">// User types "react"</div>
+                  <div className="text-muted-foreground/50">Waiting...</div>
+                  <div className="text-muted-foreground/50">Waiting...</div>
+                  <div className="text-muted-foreground/50">Waiting...</div>
+                  <div className="text-green-500">API call: "react"</div>
+                  <div className="text-muted-foreground mt-2">✅ 1 API call made</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Code Example */}
+            <div className="mt-8 rounded-xl bg-background p-6 ring-1 ring-border/60">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-sm">Implementation</h3>
+                <CopyButton text={`import { debounce } from '@/lib/debounce';
+
+const handleSearch = (query: string) => {
+  fetch(\`/api/search?q=\${query}\`);
+};
+
+const debouncedSearch = debounce(handleSearch, 300);
+
+// Use in your component
+<input onChange={(e) => debouncedSearch(e.target.value)} />`} />
+              </div>
+              <pre className="rounded-lg bg-secondary/40 p-4 overflow-x-auto text-xs">
+                <code>{`import { debounce } from '@/lib/debounce';
+
+const handleSearch = (query: string) => {
+  fetch(\`/api/search?q=\${query}\`);
+};
+
+const debouncedSearch = debounce(handleSearch, 300);
+
+// Use in your component
+<input onChange={(e) => debouncedSearch(e.target.value)} />`}</code>
+              </pre>
+              <div className="mt-4 pt-4 border-t border-border/60">
+                <Link
+                  href="/utilities/function/debounce"
+                  className="text-sm text-primary hover:underline"
+                >
+                  View full debounce utility →
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="border-t border-border/60">
         <div className="container mx-auto px-6 py-20">
