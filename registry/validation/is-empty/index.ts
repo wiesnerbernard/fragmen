@@ -54,7 +54,12 @@ export function isEmpty(value: unknown): boolean {
     return value.size === 0;
   }
 
-  // Object
+  // Date, RegExp, and other non-plain objects are never empty
+  if (value instanceof Date || value instanceof RegExp) {
+    return false;
+  }
+
+  // Plain object
   if (typeof value === 'object') {
     return Object.keys(value).length === 0;
   }
