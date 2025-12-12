@@ -71,7 +71,7 @@ export default async function UtilityPage({ params }: PageProps) {
     lang: 'typescript',
     themes: {
       light: 'min-light',
-      dark: 'github-dark-dimmed',
+      dark: 'github-dark',
     },
     defaultColor: false,
   });
