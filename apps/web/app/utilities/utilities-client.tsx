@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui/badge';
 import { FavoriteButton } from '@/components/favorite-button';
+import { UtilityCard } from '@/components/utility-card';
 import { UTILITY_STATUS, STATUS_VARIANTS } from '@/config/utility-status';
 import type { RegistryItem } from '@/lib/registry';
 import Fuse from 'fuse.js';
@@ -286,43 +287,7 @@ export function UtilitiesClient({ items, categories }: UtilitiesClientProps) {
         {/* Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filteredItems.map(item => (
-            <Link
-              key={item.slug}
-              href={`/utilities/${item.slug}`}
-              className="group block rounded-lg border border-border/60 bg-background p-5 transition-colors hover:bg-secondary/40"
-            >
-              <div className="mb-2 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
-                    {item.category}
-                  </span>
-                  {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS] && (
-                    <Badge variant={STATUS_VARIANTS[UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]]}>
-                      {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]}
-                    </Badge>
-                  )}
-                </div>
-                <FavoriteButton slug={item.slug} />
-              </div>
-              <h3 className="mb-2 text-lg font-semibold group-hover:text-foreground transition-colors">
-                {item.name}
-              </h3>
-              <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
-                {item.description || 'No description available'}
-              </p>
-              {item.tags && item.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {item.tags.map(tag => (
-                    <span
-                      key={tag}
-                      className="inline-block rounded-full bg-muted/60 px-2 py-0.5 text-[11px] text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </Link>
+            <UtilityCard key={item.slug} item={item} showCategory={true} />
           ))}
         </div>
 
