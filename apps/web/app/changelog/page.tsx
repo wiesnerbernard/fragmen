@@ -13,7 +13,35 @@ async function getChangelog() {
   const changelogPath = path.join(process.cwd(), '../../CHANGELOG.md');
   const markdown = fs.readFileSync(changelogPath, 'utf-8');
   
-  const processed = await remark().use(html).process(markdown);
+  // Remove the [Unreleased] section - only show released versions
+  const lines = markdown.split('\n');
+  const filteredLines: string[] = [];
+  let inUnreleasedSection = false;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    // Start of Unreleased section
+    if (line.match(/^##\s+\[Unreleased\]/)) {
+      inUnreleasedSection = true;
+      continue;
+    }
+    
+    // Start of a new version section (end of Unreleased)
+    if (inUnreleasedSection && line.match(/^##\s+\[[\d.]+\]/)) {
+      inUnreleasedSection = false;
+    }
+    
+    // Skip lines in Unreleased section
+    if (inUnreleasedSection) {
+      continue;
+    }
+    
+    filteredLines.push(line);
+  }
+  
+  const filtered = filteredLines.join('\n');
+  const processed = await remark().use(html).process(filtered);
   return processed.toString();
 }
 
