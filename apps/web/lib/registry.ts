@@ -156,7 +156,14 @@ function extractJSDoc(code: string): {
     examples.push(currentExample.trim());
   }
 
-  return { description: description.trim(), examples, params, returns, tags, since };
+  return {
+    description: description.trim(),
+    examples,
+    params,
+    returns,
+    tags,
+    since,
+  };
 }
 
 /**
@@ -173,7 +180,8 @@ export function getRegistryItem(
     }
 
     const code = fs.readFileSync(itemPath, 'utf-8');
-    const { description, examples, params, returns, tags, since } = extractJSDoc(code);
+    const { description, examples, params, returns, tags, since } =
+      extractJSDoc(code);
 
     return {
       category,
