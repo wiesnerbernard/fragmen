@@ -140,6 +140,9 @@ export default function CategoryPage({ params }: PageProps) {
             >
               <div className="mb-2 flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center rounded-full bg-secondary/80 px-2 py-0.5 text-[11px] font-medium text-secondary-foreground">
+                    {item.category}
+                  </span>
                   {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS] && (
                     <Badge variant={STATUS_VARIANTS[UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]]}>
                       {UTILITY_STATUS[item.slug as keyof typeof UTILITY_STATUS]}
