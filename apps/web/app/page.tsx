@@ -1,6 +1,8 @@
 'use client';
 
+import { AnimatedCounter } from '@/components/animated-counter';
 import { CopyButton } from '@/components/copy-button';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -50,28 +52,66 @@ export default function HomePage() {
             </div>
 
             {/* Stats */}
-            <div className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 px-4">
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-1">50+</div>
+            <motion.div
+              className="mt-12 sm:mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 px-4"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.6, staggerChildren: 0.1 }}
+            >
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="text-3xl font-bold mb-1">
+                  <AnimatedCounter value={50} suffix="+" />
+                </div>
                 <div className="text-sm text-muted-foreground">Utilities</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-1">12</div>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="text-3xl font-bold mb-1">
+                  <AnimatedCounter value={12} />
+                </div>
                 <div className="text-sm text-muted-foreground">Categories</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-1">100%</div>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <div className="text-3xl font-bold mb-1">
+                  <AnimatedCounter value={100} suffix="%" />
+                </div>
                 <div className="text-sm text-muted-foreground">
                   Test Coverage
                 </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-1">0</div>
+              </motion.div>
+              <motion.div
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <div className="text-3xl font-bold mb-1">
+                  <AnimatedCounter value={0} />
+                </div>
                 <div className="text-sm text-muted-foreground">
                   Dependencies
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>

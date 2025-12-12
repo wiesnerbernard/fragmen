@@ -1,7 +1,10 @@
+'use client';
+
 import { FavoriteButton } from '@/components/favorite-button';
 import { Badge } from '@/components/ui/badge';
 import { STATUS_VARIANTS, UTILITY_STATUS } from '@/config/utility-status';
 import type { RegistryItem } from '@/lib/registry';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 interface UtilityCardProps {
@@ -11,10 +14,14 @@ interface UtilityCardProps {
 
 export function UtilityCard({ item, showCategory = true }: UtilityCardProps) {
   return (
-    <Link
-      href={`/utilities/${item.slug}`}
-      className="group block rounded-lg border border-border/60 bg-background p-5 transition-colors hover:bg-secondary/40"
+    <motion.div
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
     >
+      <Link
+        href={`/utilities/${item.slug}`}
+        className="group block rounded-lg border border-border/60 bg-background p-5 transition-all hover:bg-secondary/40 hover:shadow-lg"
+      >
       <div className="mb-2 flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           {showCategory && (
@@ -54,6 +61,7 @@ export function UtilityCard({ item, showCategory = true }: UtilityCardProps) {
           ))}
         </div>
       )}
-    </Link>
+      </Link>
+    </motion.div>
   );
 }
