@@ -24,20 +24,10 @@ export function CopyButton({ text, className = '' }: CopyButtonProps) {
   return (
     <button
       onClick={handleCopy}
-      className={`inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary ${className}`}
-      aria-label="Copy to clipboard"
+      className={`inline-flex items-center justify-center rounded-md p-2 text-sm transition-colors hover:bg-secondary ${className}`}
+      aria-label={copied ? 'Copied to clipboard' : 'Copy to clipboard'}
     >
-      {copied ? (
-        <>
-          <Check className="h-4 w-4" />
-          <span>Copied!</span>
-        </>
-      ) : (
-        <>
-          <Copy className="h-4 w-4" />
-          <span>Copy</span>
-        </>
-      )}
+      {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
     </button>
   );
 }

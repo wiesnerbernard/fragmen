@@ -52,7 +52,7 @@ export default async function UtilityPage({ params }: PageProps) {
     <main className="min-h-screen">
       {/* Header */}
       <div className="border-b border-border bg-background">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-6 py-10">
           <Link
             href="/utilities"
             className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground mb-4"
@@ -60,7 +60,7 @@ export default async function UtilityPage({ params }: PageProps) {
             ← Back to utilities
           </Link>
           <div className="mb-2">
-            <span className="inline-block rounded bg-secondary px-3 py-1 text-sm font-medium text-secondary-foreground">
+            <span className="inline-flex items-center rounded-full bg-secondary/80 px-3 py-1 text-sm font-medium text-secondary-foreground">
               {item.category}
             </span>
           </div>
@@ -69,14 +69,14 @@ export default async function UtilityPage({ params }: PageProps) {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-6 py-8">
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Installation */}
             <section>
               <h2 className="text-2xl font-bold mb-4">Installation</h2>
-              <div className="rounded-lg border border-border bg-secondary/50 p-4 flex items-center justify-between">
+              <div className="rounded-lg bg-secondary/40 p-4 flex items-center justify-between ring-1 ring-border/60">
                 <code className="text-sm">npx fragmen add {item.slug}</code>
                 <CopyButton text={`npx fragmen add ${item.slug}`} />
               </div>
@@ -88,7 +88,7 @@ export default async function UtilityPage({ params }: PageProps) {
                 <h2 className="text-2xl font-bold">Source Code</h2>
                 <CopyButton text={item.code} />
               </div>
-              <div className="relative rounded-lg border border-border overflow-hidden">
+              <div className="relative rounded-lg overflow-hidden ring-1 ring-border/60">
                 <div
                   className="dark:hidden overflow-x-auto"
                   dangerouslySetInnerHTML={{ __html: highlightedCodeLight }}
@@ -116,9 +116,9 @@ export default async function UtilityPage({ params }: PageProps) {
                     return (
                       <div
                         key={index}
-                        className="rounded-lg border border-border overflow-hidden"
+                        className="rounded-lg overflow-hidden ring-1 ring-border/60"
                       >
-                        <pre className="p-4 overflow-x-auto bg-secondary/50">
+                        <pre className="p-4 overflow-x-auto bg-secondary/40">
                           <code className="text-sm">{cleanCode}</code>
                         </pre>
                       </div>
@@ -139,7 +139,7 @@ export default async function UtilityPage({ params }: PageProps) {
                   {item.params.map((param, index) => (
                     <div
                       key={index}
-                      className="rounded-lg border border-border p-3 bg-background"
+                      className="rounded-lg p-3 bg-background ring-1 ring-border/60"
                     >
                       <div className="flex items-start justify-between gap-2 mb-1">
                         <code className="text-sm font-medium text-primary">
@@ -162,7 +162,7 @@ export default async function UtilityPage({ params }: PageProps) {
             {item.returns.type && (
               <section>
                 <h3 className="text-lg font-semibold mb-3">Returns</h3>
-                <div className="rounded-lg border border-border p-3 bg-background">
+                <div className="rounded-lg p-3 bg-background ring-1 ring-border/60">
                   <code className="text-xs text-muted-foreground mb-1 block">
                     {item.returns.type}
                   </code>
