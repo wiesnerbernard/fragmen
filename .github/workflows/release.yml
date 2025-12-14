@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
@@ -19,8 +19,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -71,6 +71,18 @@ jobs:
 
       - name: Build
         run: pnpm run build
+
+      - name: Update npm to latest
+        run: npm install -g npm@latest
+
+      - name: Verify npm version
+        run: npm --version
+
+      - name: Debug OIDC environment
+        run: |
+          echo "ACTIONS_ID_TOKEN_REQUEST_URL is set: ${{ env.ACTIONS_ID_TOKEN_REQUEST_URL != '' }}"
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
 
       - name: Publish to npm
         run: pnpm publish --provenance --no-git-checks --access public
