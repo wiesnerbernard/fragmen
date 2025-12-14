@@ -99,6 +99,13 @@ describe('sortBy', () => {
     expect(result[1].toLowerCase()).toBe('apricot');
   });
 
+  it('should handle primitive items when using property accessor', () => {
+    const primitives = [3, 1, 4, 1, 5];
+    const result = sortBy(primitives, 'length' as any);
+    // Primitives don't have properties, should return them as-is
+    expect(result).toEqual([1, 1, 3, 4, 5]);
+  });
+
   it('should handle non-array input', () => {
     expect(sortBy(null as any, 'prop')).toEqual([]);
     expect(sortBy(undefined as any, x => x)).toEqual([]);

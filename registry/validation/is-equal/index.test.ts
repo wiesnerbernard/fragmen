@@ -244,6 +244,12 @@ describe('isEqual', () => {
       expect(isEqual(obj1, obj2)).toBe(true);
     });
 
+    it('should handle objects with properties not in b', () => {
+      const obj1 = { a: 1, b: 2 };
+      const obj2 = { a: 1 };
+      expect(isEqual(obj1, obj2)).toBe(false);
+    });
+
     it('should handle mixed types', () => {
       const obj1 = {
         num: 42,

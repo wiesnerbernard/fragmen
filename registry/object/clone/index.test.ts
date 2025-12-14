@@ -100,6 +100,16 @@ describe('clone', () => {
   });
 
   it('should handle circular references', () => {
+    const obj: any = { a: 1 };
+    obj.self = obj;
+
+    const cloned = clone(obj);
+    expect(cloned.a).toBe(1);
+    expect(cloned.self).toBe(cloned);
+    expect(cloned).not.toBe(obj);
+  });
+
+  it('should handle circular references', () => {
     const obj: { name: string; self?: unknown } = { name: 'circular' };
     obj.self = obj;
 

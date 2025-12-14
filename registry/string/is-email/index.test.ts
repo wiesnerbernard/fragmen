@@ -45,4 +45,14 @@ describe('isEmail', () => {
     // Basic ASCII should work
     expect(isEmail('test@example.com')).toBe(true);
   });
+
+  it('should reject emails with long local part', () => {
+    const longLocal = 'a'.repeat(65);
+    expect(isEmail(`${longLocal}@example.com`)).toBe(false);
+  });
+
+  it('should reject emails with long domain', () => {
+    const longDomain = 'a'.repeat(256);
+    expect(isEmail(`user@${longDomain}.com`)).toBe(false);
+  });
 });

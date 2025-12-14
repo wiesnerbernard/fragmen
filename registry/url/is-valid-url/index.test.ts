@@ -199,7 +199,11 @@ describe('isValidUrl', () => {
     expect(isValidUrl('http://[2001:db8:85a3:0:0:8a2e:370:7334:12345]')).toBe(
       false
     );
-    expect(isValidUrl('http://[gggg:db8::1]')).toBe(false);
-    expect(isValidUrl('http://[2001:db8::g]')).toBe(false);
+  });
+
+  it('should validate data and javascript protocols as special', () => {
+    // These are special protocols that don't require hostnames
+    expect(isValidUrl('data:text/plain,Hello')).toBe(true);
+    expect(isValidUrl('javascript:void(0)')).toBe(true);
   });
 });

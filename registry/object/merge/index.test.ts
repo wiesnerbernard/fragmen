@@ -49,6 +49,14 @@ describe('merge', () => {
     expect(result).toEqual({ a: 1, b: 2 });
   });
 
+  it('should handle non-object inputs like arrays and primitives', () => {
+    const obj1 = { a: 1 };
+    const result = merge(obj1, [1, 2, 3] as any, 'string' as any, 42 as any, {
+      b: 2,
+    });
+    expect(result).toEqual({ a: 1, b: 2 });
+  });
+
   it('should replace arrays entirely', () => {
     const obj1 = { items: [1, 2] };
     const obj2 = { items: [3, 4] };

@@ -61,4 +61,10 @@ describe('randomString', () => {
     const result2 = randomString(20);
     expect(result1).not.toBe(result2);
   });
+
+  it('should handle very long strings', () => {
+    const result = randomString(1000);
+    expect(result).toHaveLength(1000);
+    expect(result).toMatch(/^[A-Za-z0-9]+$/);
+  });
 });

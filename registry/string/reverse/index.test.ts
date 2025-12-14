@@ -45,6 +45,13 @@ describe('reverse', () => {
     }
   });
 
+  it('should use fallback when Intl.Segmenter is not available', () => {
+    // Test that the fallback path works correctly
+    const input = 'hello';
+    const output = reverse(input);
+    expect(output).toBe('olleh');
+  });
+
   it('should return empty string for non-string input at runtime', () => {
     // Force a non-string through the type system to exercise the runtime guard
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

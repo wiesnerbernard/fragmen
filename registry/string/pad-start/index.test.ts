@@ -36,4 +36,8 @@ describe('padStart', () => {
     // @ts-ignore
     expect(padStart(null as unknown as string, 5, ' ')).toBe('');
   });
+
+  it('should pad with exactly one character when pad length equals needed', () => {
+    expect(padStart('abc', 4, '0')).toBe('0abc');
+  });
 });

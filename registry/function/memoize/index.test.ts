@@ -108,6 +108,15 @@ describe('memoize', () => {
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
+  it('should distinguish between null and undefined', () => {
+    const fn = vi.fn((x: any) => typeof x);
+    const memoized = memoize(fn);
+
+    expect(memoized(null)).toBe('object');
+    expect(memoized(undefined)).toBe('undefined');
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
   it('should work with array arguments', () => {
     const fn = vi.fn((arr: number[]) => arr.reduce((a, b) => a + b, 0));
     const memoized = memoize(fn);
