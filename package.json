@@ -1,7 +1,7 @@
 {
   "name": "fragmen",
   "description": "A utility library to copy code fragments into your project",
-  "version": "1.1.1",
+  "version": "1.1.0",
   "type": "module",
   "license": "MIT",
   "homepage": "https://fragmen.vercel.app",
