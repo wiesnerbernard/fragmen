@@ -19,7 +19,6 @@ export default defineConfig({
         'eslint.config.js',
       ],
       include: ['src/**', 'registry/**/index.ts'],
-      all: true,
       thresholds: {
         lines: 80,
         functions: 80,
