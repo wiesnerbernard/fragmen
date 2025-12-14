@@ -9,40 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.3] - 2024-12-13
 
-### Added
-
-- **Web App: Framer Motion Animations** - Smooth animations throughout the app
-  - Utility cards with hover lift and scale effects
-  - Favorite button with bounce and wiggle animations
-  - Copy button with tap feedback
-  - Animated counter for hero stats (dependencies count down from 100 to 0)
-  - Back-to-top button with slide-in/out animation
-  - Staggered grid animations for utility listings
-  - Tag pills with hover effects
-  - Hero section sequential fade-in
-  - Example cards with scroll-triggered animations
-- **Git Hooks: Pre-push Validation** - Automatically run tests and lint before pushing to main branch
-  - Prevents broken code from reaching the repository
-  - Ensures code quality with every push
-  - Configured via Husky
-
 ### Changed
 
-- **Web App: Dark Mode Code Blocks** - Fixed syntax highlighting to properly switch between light and dark themes using Shiki dual theme CSS variables
-- **Web App: Text Contrast** - Improved readability in dark mode (increased from 80% to 95% opacity)
-- **Web App: Component Architecture** - Split category pages into server and client components for better Next.js compatibility
 - **CI/CD: Package Manager Migration** - Migrated from npm to pnpm across all workflows for consistency with local development
 - **CI/CD: Node Version** - Updated minimum Node.js requirement to v20+ to match dependency requirements
 
 ### Fixed
 
-- **Web App: JSX Syntax Errors** - Fixed broken div tags and missing imports in multiple components
-- **Web App: Copy Button Animation** - Simplified to remove distracting icon rotation
-- **Web App: Build Errors** - Resolved server/client component conflicts and missing TypeScript properties
-
-### Dependencies
-
-- Added `framer-motion@12.23.26` for animations
+- **CI/CD: Release Pipeline** - Added provenance flag to npm publish for automated releases, fixing 2FA authentication issues
 
 ## [1.0.2] - 2024-12-11
 
