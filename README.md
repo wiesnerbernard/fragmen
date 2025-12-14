@@ -10,6 +10,9 @@
 
 <!-- COVERAGE-BADGES:END -->
 
+[![npm version](https://img.shields.io/npm/v/fragmen.svg)](https://www.npmjs.com/package/fragmen)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **"ShadCN but for helper functions."**
 
 Fragmen is a CLI tool that lets you add high-quality, standalone TypeScript utility functions directly into your project. Instead of adding another dependency to your `package.json`, you get the source code. You own it, you can change it, and you won't have to worry about bundle size or breaking changes from a third-party library.
