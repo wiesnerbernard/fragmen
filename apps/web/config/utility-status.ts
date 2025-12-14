@@ -6,7 +6,12 @@
 // 2. Add it below with a status: "New", "Updated", "Beta", or "Deprecated"
 // 3. To remove a badge, just delete the line
 export const UTILITY_STATUS = {
-  'function/throttle': 'New',
+  // v1.1.1 utilities
+  'url/resolve-url': 'New',
+  'storage/local-storage': 'New',
+  'crypto/uuid': 'New',
+  'crypto/random-string': 'New',
+  'validation/is-empty': 'New',
 } as const;
 
 export type UtilityStatus =
