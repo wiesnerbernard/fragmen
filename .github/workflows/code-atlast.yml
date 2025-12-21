@@ -1,0 +1,43 @@
+name: Code Analysis
+
+on:
+    push:
+        branches: [main, develop]
+    pull_request:
+
+jobs:
+    analyze:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: "20"
+
+            - name: Install code-atlas
+              run: npm install -g @bernardwiesner/code-atlas
+
+            - name: Scan codebase
+              run: code-atlas scan --include-git
+
+            - name: Check for circular dependencies
+              run: |
+                  code-atlas graph --format json --output deps.json
+                  # Fail if circular dependencies detected
+                  if grep -q '"circular":true' deps.json; then
+                    echo "❌ Circular dependencies detected!"
+                    exit 1
+                  fi
+
+            - name: Generate report
+              run: code-atlas report --output code-atlas-report.html
+
+            - name: Upload artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                  name: code-atlas-reports
+                  path: |
+                      code-atlas-report.html
+                      registry.json
+                      deps.json

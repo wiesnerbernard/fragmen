@@ -137,3 +137,11 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+
+# Code-Atlas outputs
+.code-atlas/
+registry.json
+code-atlas-report.html
+dependency-graph.*
+deps.json

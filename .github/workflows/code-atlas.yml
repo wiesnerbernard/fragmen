@@ -1,0 +1,116 @@
+name: Code Atlas Analysis
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git metadata
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install code-atlas
+        run: npm install -g @bernardwiesner/code-atlas
+      
+      - name: Scan codebase
+        run: code-atlas scan --include-git
+      
+      - name: Check complexity threshold
+        run: |
+          MAX_COMPLEXITY=10
+          ACTUAL=$(code-atlas stats --format json | jq -r '.averageComplexity // 0')
+          echo "Average complexity: $ACTUAL (threshold: $MAX_COMPLEXITY)"
+          if (( $(echo "$ACTUAL > $MAX_COMPLEXITY" | bc -l) )); then
+            echo "❌ Code complexity exceeds threshold!"
+            exit 1
+          fi
+      
+      - name: Generate dependency graphs
+        run: |
+          code-atlas graph --format mermaid --output dependency-graph.md
+      
+      - name: Generate HTML report
+        run: code-atlas report --output code-atlas-report.html
+      
+      - name: Collect statistics
+        id: stats
+        run: |
+          code-atlas stats > stats.txt
+          code-atlas stats --format json > stats.json
+          cat stats.txt
+          
+          # Extract key metrics
+          TOTAL_FUNCTIONS=$(jq -r '.totalFunctions // 0' stats.json)
+          AVG_COMPLEXITY=$(jq -r '.averageComplexity // 0' stats.json)
+          echo "total_functions=$TOTAL_FUNCTIONS" >> $GITHUB_OUTPUT
+          echo "avg_complexity=$AVG_COMPLEXITY" >> $GITHUB_OUTPUT
+      
+      - name: Add reports to summary
+        if: always()
+        run: |
+          echo "## 📊 Code Atlas Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          cat stats.txt >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f dependency-graph.md ]; then
+            echo "### Dependency Graph" >> $GITHUB_STEP_SUMMARY
+            cat dependency-graph.md >> $GITHUB_STEP_SUMMARY
+          fi
+      
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-atlas-reports
+          path: |
+            code-atlas-report.html
+            dependency-graph.md
+            registry.json
+            stats.txt
+            stats.json
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            
+            // Read stats
+            const stats = fs.readFileSync('stats.txt', 'utf8');
+            const statsJson = JSON.parse(fs.readFileSync('stats.json', 'utf8'));
+            
+            // Build comment
+            let comment = `## 📊 Code Atlas Analysis\n\n`;
+            comment += `\`\`\`\n${stats}\`\`\`\n\n`;
+            
+            // Add warnings if thresholds exceeded
+            if (statsJson.averageComplexity > 10) {
+              comment += `⚠️ **Warning**: Average complexity (${statsJson.averageComplexity.toFixed(2)}) exceeds threshold (10)\n\n`;
+            }
+            // Add mermaid diagram
+            if (fs.existsSync('dependency-graph.md')) {
+              const diagram = fs.readFileSync('dependency-graph.md', 'utf8');
+              comment += `### 🔗 Dependency Graph\n\n`;
+              comment += diagram + `\n\n`;
+            }
+            
+            // Add artifact link
+            comment += `📦 [View detailed reports in artifacts](${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID})\n`;
+            
+            // Post comment
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
