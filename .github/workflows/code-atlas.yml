@@ -8,22 +8,21 @@ on:
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for git metadata
-      
+          fetch-depth: 0 # Full history for git metadata
+
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Install code-atlas
         run: npm install -g @bernardwiesner/code-atlas
-      
+
       - name: Scan codebase
-        run: code-atlas scan --include-git --no-include-tests
-      
+        run: code-atlas scan --include-git
       - name: Check complexity threshold
         run: |
           MAX_COMPLEXITY=10
@@ -33,17 +32,17 @@ jobs:
             echo "❌ Code complexity exceeds threshold!"
             exit 1
           fi
-      
+
       - name: Generate dependency graphs
         run: |
           code-atlas graph --format mermaid --output dependency-graph.md
-      
+
       - name: Generate HTML report
         run: code-atlas report --output code-atlas-report.html
-      
+
       - name: Display statistics
         run: code-atlas stats
-      
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
